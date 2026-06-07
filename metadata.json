@@ -1,0 +1,6 @@
+{
+  "name": "Portal de Serviços de Limpeza",
+  "description": "Plataforma de conexão entre empresas, residências e profissionais de serviços de faxina e limpeza.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
