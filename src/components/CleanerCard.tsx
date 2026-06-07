@@ -2,6 +2,7 @@ import React from 'react';
 import { Professional } from '../types';
 import { Star, CheckCircle, MapPin, Sparkles, Phone, Mail } from 'lucide-react';
 import { getCleaningTypeColor, getCleaningTypeLabel, formatCurrency } from '../utils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface CleanerCardProps {
   key?: string;
@@ -10,6 +11,7 @@ interface CleanerCardProps {
 }
 
 export default function CleanerCard({ professional, onViewDetails }: CleanerCardProps) {
+  const { t, lang } = useLanguage();
   return (
     <div 
       id={`cleaner-card-${professional.id}`}
@@ -40,9 +42,9 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
             )}
           </div>
           <div className="text-right">
-            <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Valor por hora</p>
+            <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">{t('cleaner.card.rate')}</p>
             <p className="text-lg font-extrabold text-slate-800 font-sans">
-              {formatCurrency(professional.hourlyRate)}
+              {formatCurrency(professional.hourlyRate, lang)}
               <span className="text-xs font-normal text-slate-500">/h</span>
             </p>
           </div>
@@ -67,7 +69,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
         {/* Cleaning Specialties */}
         <div className="mb-4">
           <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-emerald-500" /> Especialidades
+            <Sparkles className="w-3 h-3 text-emerald-500" /> {t('cleaner.card.specialties')}
           </p>
           <div className="flex flex-wrap gap-1">
             {professional.cleaningTypes.map((type) => {
@@ -87,8 +89,8 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
         {/* Divider and Footer */}
         <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">Experiência</span>
-            <span className="text-xs font-bold text-slate-700">{professional.experienceYears} {professional.experienceYears === 1 ? 'ano' : 'anos'}</span>
+            <span className="text-[10px] text-slate-400 uppercase tracking-wider">{t('cleaner.card.experience')}</span>
+            <span className="text-xs font-bold text-slate-700">{professional.experienceYears} {professional.experienceYears === 1 ? t('cleaner.card.year') : t('cleaner.card.years')}</span>
           </div>
 
           <button
@@ -96,7 +98,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
             onClick={() => onViewDetails(professional.id)}
             className="bg-slate-900 text-white hover:bg-emerald-600 active:bg-emerald-700 text-xs font-medium px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer shadow-xs hover:shadow-sm"
           >
-            Ver Perfil completo
+            {t('cleaner.card.view.profile')}
           </button>
         </div>
       </div>

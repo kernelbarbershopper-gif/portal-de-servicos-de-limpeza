@@ -50,8 +50,9 @@ export function getCleaningTypeColor(type: CleaningType): { bg: string; text: st
   }
 }
 
-export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('pt-BR', {
+export function formatCurrency(value: number, lang?: string): string {
+  const locale = lang === 'en' ? 'en-US' : lang === 'es' ? 'es-ES' : 'pt-BR';
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: 'BRL'
   }).format(value);

@@ -7,9 +7,12 @@ import CleanerRegisterForm from './components/CleanerRegisterForm';
 import JobPostForm from './components/JobPostForm';
 import { CleanerDetailsModal, JobDetailsModal } from './components/DetailModals';
 import AndroidSimulator from './components/AndroidSimulator';
-import { Sparkles, Building, User, Info, Check, Bell, Shield, ArrowUpRight, Smartphone, CheckCircle } from 'lucide-react';
+import { useLanguage } from './i18n/LanguageContext';
+import { Sparkles, Building, User, Info, Check, Bell, Shield, ArrowUpRight, Smartphone, CheckCircle, Globe } from 'lucide-react';
 
 export default function App() {
+  const { t, lang, setLang } = useLanguage();
+  const [showLangMenu, setShowLangMenu] = useState(false);
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [clientReviews, setClientReviews] = useState<ClientReview[]>([]);
@@ -106,7 +109,7 @@ export default function App() {
     setActiveProfessionalId(newPro.id);
     setViewingForm('none');
     setActiveRole('cleaner');
-    showToast(`Parabéns! ${newPro.name} cadastrado(a) com sucesso como profissional!`, 'success');
+    showToast(t('toast.registered', { name: newPro.name }), 'success');
   };
 
   // Job Announcement Action
@@ -116,13 +119,13 @@ export default function App() {
     setViewingForm('none');
     setPrefilledJobData(null);
     setActiveRole('client');
-    showToast(`Sua faxina "${newJob.title}" foi publicada com sucesso!`, 'success');
+    showToast(t('toast.job.posted', { title: newJob.title }), 'success');
   };
 
   // Apply to a specific service Opportunity
   const handleApplyToJob = (jobId: string) => {
     if (!activeProfessionalId) {
-      showToast('Por favor, selecione ou cadastre um perfil de profissional primeiro.', 'info');
+      showToast(t('toast.select.profile'), 'info');
       setActiveRole('cleaner');
       return;
     }
@@ -134,7 +137,7 @@ export default function App() {
     if (!targetJob) return;
 
     if (targetJob.applicants.includes(activeProfessionalId)) {
-      showToast('Você já se candidatou para este serviço de faxina.', 'info');
+      showToast(t('toast.already.applied'), 'info');
       return;
     }
 
@@ -143,7 +146,9 @@ export default function App() {
       id: 'chat_msg_auto_' + Date.now(),
       sender: 'cleaner',
       senderName: applicantPro.name,
-      text: `Olá! Tenho interesse na diária proposta de ${targetJob.title}. Garanto pontualidade e dedicação total!`,
+      text: lang === 'pt' ? `Olá! Tenho interesse na diária proposta de ${targetJob.title}. Garanto pontualidade e dedicação total!` :
+           lang === 'es' ? `¡Hola! Estoy interesado en la tarifa de ${targetJob.title}. ¡Garantizo puntualidad y dedicación total!` :
+           `Hello! I'm interested in the proposed rate for ${targetJob.title}. I guarantee punctuality and total dedication!`,
       timestamp: new Date().toISOString()
     };
 
@@ -160,7 +165,7 @@ export default function App() {
     });
 
     updateJobsState(updatedJobs);
-    showToast(`Sucesso! Candidatura de ${applicantPro.name} enviada para a vaga.`, 'success');
+    showToast(t('toast.applied', { name: applicantPro.name }), 'success');
   };
 
   // Approve a cleaner candidate for a job
@@ -195,7 +200,7 @@ export default function App() {
     updateJobsState(updatedJobs);
     updateProfessionalsState(updatedPros);
     setSelectedJobId(null); // Close details modal
-    showToast(`Profissional ${targetPro.name} selecionado(a) e contratado(a) com sucesso!`, 'success');
+    showToast(t('toast.approved', { name: targetPro.name }), 'success');
   };
 
   // --- PRESTIGE GLOBAL CHAT NEGOTIATION WRITER ---
@@ -233,7 +238,7 @@ export default function App() {
     });
 
     updateJobsState(updatedJobs);
-    showToast('Mensagem enviada no chat!', 'success');
+    showToast(t('toast.msg.sent'), 'success');
   };
 
   const handleAddProfessionalReview = (professionalId: string, rating: number, comment: string, reviewerName: string) => {
@@ -261,7 +266,7 @@ export default function App() {
     });
 
     updateProfessionalsState(updatedPros);
-    showToast('Avaliação do profissional registrada com sucesso!', 'success');
+    showToast(t('toast.review.registered'), 'success');
   };
 
   const handleAddClientReview = (clientName: string, rating: number, comment: string, reviewerName: string) => {
@@ -277,7 +282,7 @@ export default function App() {
     const updatedReviews = [...clientReviews, newReview];
     setClientReviews(updatedReviews);
     localStorage.setItem('limpeza_client_reviews', JSON.stringify(updatedReviews));
-    showToast('Avaliação do cliente registrada com sucesso!', 'success');
+    showToast(t('toast.client.review.registered'), 'success');
   };
 
   return (
@@ -293,9 +298,34 @@ export default function App() {
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-lg font-black font-sans text-slate-900 tracking-tight block">LimpezaJá</span>
-              <span className="text-[10px] text-slate-400 font-medium tracking-wide">PORTAL DE SERVIÇOS DE LIMPEZA</span>
+              <span className="text-lg font-black font-sans text-slate-900 tracking-tight block">{t('app.title')}</span>
+              <span className="text-[10px] text-slate-400 font-medium tracking-wide">{t('app.subtitle')}</span>
             </div>
+          </div>
+
+          {/* Language Flags */}
+          <div className="flex items-center gap-1.5 self-center">
+            <button
+              onClick={() => setLang('pt')}
+              className={`text-lg leading-none px-1 py-1 rounded-md transition-all cursor-pointer ${lang === 'pt' ? 'ring-2 ring-emerald-500 scale-110' : 'opacity-50 hover:opacity-100'}`}
+              title="Português"
+            >
+              🇧🇷
+            </button>
+            <button
+              onClick={() => setLang('en')}
+              className={`text-lg leading-none px-1 py-1 rounded-md transition-all cursor-pointer ${lang === 'en' ? 'ring-2 ring-emerald-500 scale-110' : 'opacity-50 hover:opacity-100'}`}
+              title="English"
+            >
+              🇺🇸
+            </button>
+            <button
+              onClick={() => setLang('es')}
+              className={`text-lg leading-none px-1 py-1 rounded-md transition-all cursor-pointer ${lang === 'es' ? 'ring-2 ring-emerald-500 scale-110' : 'opacity-50 hover:opacity-100'}`}
+              title="Español"
+            >
+              🇪🇸
+            </button>
           </div>
 
           {/* Platform Mode Switching Selector (Desktop vs Android) */}
@@ -311,7 +341,7 @@ export default function App() {
                   : 'text-slate-500 hover:text-slate-800'
               }`}
             >
-              🌐 Versão Web Desktop
+              🌐 {t('header.btn.web')}
             </button>
             <button
               id="switch-mode-android"
@@ -325,7 +355,7 @@ export default function App() {
               }`}
             >
               <Smartphone className="w-3.5 h-3.5 animate-pulse" />
-              Simulador Android M3
+              {t('header.btn.android')}
             </button>
           </div>
 
@@ -340,7 +370,7 @@ export default function App() {
                       activeRole === 'client' ? 'bg-white text-slate-900 shadow-3xs' : 'text-slate-500'
                     }`}
                   >
-                    Empresas
+                    {t('header.role.client')}
                   </button>
                   <button
                     onClick={() => setActiveRole('cleaner')}
@@ -348,7 +378,7 @@ export default function App() {
                       activeRole === 'cleaner' ? 'bg-white text-slate-900 shadow-3xs' : 'text-slate-500'
                     }`}
                   >
-                    Diaristas
+                    {t('header.role.cleaner')}
                   </button>
                 </div>
 
@@ -361,7 +391,7 @@ export default function App() {
                     }}
                     className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
-                    Anunciar Faxina
+                    {t('header.btn.post.job')}
                   </button>
                 ) : (
                   <button
@@ -369,13 +399,13 @@ export default function App() {
                     onClick={() => setViewingForm('register-cleaner')}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
-                    Cadastrar Diarista
+                    {t('header.btn.register')}
                   </button>
                 )}
               </>
             ) : (
               <span className="hidden md:flex items-center gap-1 text-[11px] font-bold text-emerald-850 bg-emerald-50 border border-emerald-100 px-3 py-2 rounded-xl">
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-600" /> Android Ativo
+                <CheckCircle className="w-3.5 h-3.5 text-emerald-600" /> {t('header.android.active')}
               </span>
             )}
           </div>
@@ -449,12 +479,12 @@ export default function App() {
       <div className="bg-slate-900 w-full text-slate-100 py-3.5 px-4 border-t border-slate-850">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <span className="bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-md text-[10px]">SIMULADOR DE FLUXO</span>
-            <p className="text-slate-350">Você pode alternar entre <strong>"Procurar Profissionais"</strong> e <strong>"Procurar Faxinas"</strong> para simular todo o ecossistema.</p>
+            <span className="bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-md text-[10px]">{t('banner.simulator')}</span>
+            <p className="text-slate-350">{t('banner.text')}</p>
           </div>
           <div className="flex items-center gap-3.5 text-[11px] text-slate-400">
-            <span>Diaristas Cadastrados: <strong>{professionals.length}</strong></span>
-            <span>Faxinas Anunciadas: <strong>{jobs.length}</strong></span>
+            <span>{t('banner.cleaners')} <strong>{professionals.length}</strong></span>
+            <span>{t('banner.jobs')} <strong>{jobs.length}</strong></span>
           </div>
         </div>
       </div>
@@ -462,10 +492,10 @@ export default function App() {
       {/* Footer Copyright */}
       <footer className="bg-slate-950 text-slate-400 text-xs py-6 border-t border-slate-900">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} LimpezaJá. Feito pensando em conectar diaristas e empresas com segurança e transparência.</p>
+          <p>{t('app.footer', { year: new Date().getFullYear() })}</p>
           <div className="flex gap-4">
-            <span className="text-[10px] text-slate-550">Termos de uso</span>
-            <span className="text-[10px] text-slate-550">Privacidade</span>
+            <span className="text-[10px] text-slate-550">{t('app.terms')}</span>
+            <span className="text-[10px] text-slate-550">{t('app.privacy')}</span>
           </div>
         </div>
       </footer>
@@ -480,7 +510,7 @@ export default function App() {
             <Check className="w-4 h-4 text-slate-950" />
           </div>
           <div>
-            <p className="text-xs font-bold font-sans">Aviso do Sistema</p>
+            <p className="text-xs font-bold font-sans">{t('system.alert')}</p>
             <p className="text-[11px] text-slate-305 mt-0.5 leading-snug">{toastMessage}</p>
           </div>
         </div>
@@ -498,17 +528,21 @@ export default function App() {
             const chosenPro = professionals.find(p => p.id === proId);
             const hourly = chosenPro ? chosenPro.hourlyRate : 35;
             setPrefilledJobData({
-              title: `Limpeza Direta com ${chosenPro?.name || 'Profissional'}`,
+              title: lang === 'pt' ? `Limpeza Direta com ${chosenPro?.name || 'Profissional'}` :
+                     lang === 'es' ? `Limpieza Directa con ${chosenPro?.name || 'Profesional'}` :
+                     `Direct Cleaning with ${chosenPro?.name || 'Professional'}`,
               clientType: 'residencial',
               cleaningType: 'residencial',
               price: hourly * 4,
               durationHours: 4,
               sizeSqm: 80,
-              description: `Faxina solicitada por meio de contratação direta oferecida para o(a) profissional ${chosenPro?.name}. Favor confirmar data e detalhes.`,
+              description: lang === 'pt' ? `Faxina solicitada por meio de contratação direta para ${chosenPro?.name}. Favor confirmar data e detalhes.` :
+                           lang === 'es' ? `Limpieza solicitada mediante contratación directa para ${chosenPro?.name}. Favor confirmar fecha y detalles.` :
+                           `Cleaning requested via direct hire for ${chosenPro?.name}. Please confirm date and details.`,
               extras: []
             });
             setViewingForm('post-job');
-            showToast(`Encaminhando você para o envio de proposta personalizada para ${chosenPro?.name}!`, 'info');
+            showToast(t('toast.proposal.sent', { name: chosenPro?.name || '' }), 'info');
           }}
           onAddReview={handleAddProfessionalReview}
         />

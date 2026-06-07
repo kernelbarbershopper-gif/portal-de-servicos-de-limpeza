@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Professional, Job, ChatMessage, ClientReview } from '../types';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   Smartphone, Wifi, Battery, Signal, ArrowLeft, Home, Search, Calculator, User, Sparkles, 
   Bell, CheckCircle, Clock, MapPin, Award, Play, Download, Star, Share2, Clipboard, 
@@ -38,6 +39,7 @@ export default function AndroidSimulator({
   onAddClientReview,
   onAddProfessionalReview
 }: AndroidSimulatorProps) {
+  const { t, lang } = useLanguage();
   // Simulator State Machine
   const [isInstalled, setIsInstalled] = useState(false);
   const [isInstalling, setIsInstalling] = useState(false);
@@ -258,35 +260,35 @@ export default function AndroidSimulator({
           </div>
           
           <h2 className="text-xl font-black font-sans text-slate-800 flex items-center gap-2">
-            <Smartphone className="text-emerald-600 w-5 h-5 animate-bounce" /> APK Android Simulator
+            <Smartphone className="text-emerald-600 w-5 h-5 animate-bounce" />             {t('simulator.title')}
           </h2>
           <p className="text-slate-500 text-xs mt-1 leading-relaxed">
-            Criamos uma cópia de visualização e teste idêntica à nossa aplicação que roda de forma nativa em dispositivos Android (Material Design 3). Use o telefone ao lado para simular toda a jornada do aplicativo.
+            {t('simulator.desc')}
           </p>
 
           <div className="border-t border-slate-100 pt-5 mt-5 space-y-4">
             <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
-              🤖 Como Executar no seu Celular Real
+              {t('simulator.instructions.title')}
             </h3>
             <p className="text-slate-600 text-[11px] leading-relaxed">
-              O <strong>LimpezaJá</strong> foi codificado como um <strong>PWA (Progressive Web App)</strong> de alta performance altamente compatível com celulares Android. Para rodar no seu smartphone real sem precisar baixar nada da Play Store:
+              {t('simulator.instructions.desc')}
             </p>
 
             <ol className="text-slate-650 text-[11px] space-y-2.5 list-decimal list-inside pl-1 bg-slate-50 p-4 rounded-xl border border-slate-100">
-              <li>Abra o link do projeto pelo navegador <strong>Google Chrome</strong> adaptado no seu celular Android.</li>
-              <li>Toque no ícone de menu superior <strong>(três pontinhos)</strong> ao lado da barra de navegação do Chrome.</li>
-              <li>Selecione a opção <strong>"Adicionar à Tela de Inicial"</strong> ou <strong>"Instalar Aplicativo"</strong>.</li>
-              <li>Pronto! Um ícone nativo ficará salvo em sua tela de aplicativos e funcionará de forma veloz em tela cheia.</li>
+              <li>{t('simulator.step1')}</li>
+              <li>{t('simulator.step2')}</li>
+              <li>{t('simulator.step3')}</li>
+              <li>{t('simulator.step4')}</li>
             </ol>
 
             <button
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
-                alert('Link copiado! Envie para o seu WhatsApp ou Telegram para abrir direto no celular.');
+                alert(t('simulator.link.copied'));
               }}
               className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <Clipboard className="w-3.5 h-3.5" /> Copiar Link de Instalação Real
+                <Clipboard className="w-3.5 h-3.5" /> {t('simulator.copy.link')}
             </button>
           </div>
         </div>
@@ -294,25 +296,25 @@ export default function AndroidSimulator({
         {/* Live Simulator status board */}
         <div className="bg-slate-900 text-slate-100 rounded-3xl p-5 border border-slate-800 space-y-3.5 shadow-md">
           <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wide flex items-center gap-1.5">
-            🛰️ Status das APIs e Simulação
+              {t('simulator.status.title')}
           </h3>
 
           <div className="space-y-2.5 text-[11px] font-mono text-slate-400">
             <div className="flex justify-between border-b border-slate-800 pb-1.5">
-              <span>Android Versão:</span>
-              <span className="text-emerald-400 font-bold">14.0 (API 34)</span>
+              <span>{t('simulator.android.ver')}</span>
+              <span className="text-emerald-400 font-bold">{t('simulator.status.api')}</span>
             </div>
             <div className="flex justify-between border-b border-slate-800 pb-1.5">
-              <span>SDK Integrado:</span>
-              <span className="text-emerald-400 font-bold">Material You M3</span>
+              <span>{t('simulator.sdk')}</span>
+              <span className="text-emerald-400 font-bold">{t('simulator.status.sdk')}</span>
             </div>
             <div className="flex justify-between border-b border-slate-800 pb-1.5">
-              <span>Push Notifications:</span>
-              <span className="text-emerald-400 font-bold">Ativas & Funcionando</span>
+              <span>{t('simulator.push')}</span>
+              <span className="text-emerald-400 font-bold">{t('simulator.status.push')}</span>
             </div>
             <div className="flex justify-between pb-0.5">
-              <span>Layout Atual do Port:</span>
-              <span className="text-indigo-300 font-bold">Responsivo Touch-Up</span>
+              <span>{t('simulator.layout')}</span>
+              <span className="text-indigo-300 font-bold">{t('simulator.status.layout')}</span>
             </div>
           </div>
 
@@ -320,7 +322,7 @@ export default function AndroidSimulator({
             onClick={onCloseSimulator}
             className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs py-2.5 rounded-xl transition-all cursor-pointer block text-center"
           >
-            Voltar para Versão Desktop Web
+            {t('simulator.back')}
           </button>
         </div>
       </div>
@@ -370,12 +372,12 @@ export default function AndroidSimulator({
             {showNotifications && (
               <div className="absolute top-8 left-0 right-0 max-h-56 bg-slate-950/95 backdrop-blur-md text-white z-40 rounded-b-2xl border-b border-slate-800 p-3 shadow-xl flex flex-col justify-between animate-fade-in">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-1 px-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Notificações do Sistema</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{t('phone.notifications.title')}</span>
                   <button 
                     onClick={() => setShowNotifications(false)}
                     className="text-[9px] bg-slate-800 hover:bg-slate-700 px-1.5 py-0.5 rounded text-white cursor-pointer"
                   >
-                    Fechar
+                    {t('phone.notifications.close')}
                   </button>
                 </div>
                 
@@ -417,9 +419,9 @@ export default function AndroidSimulator({
                       <div className="bg-emerald-600 text-white rounded-lg p-1">
                         <Play className="w-3.5 h-3.5 fill-white" />
                       </div>
-                      <span className="text-xs font-bold text-slate-800">Google Play Store</span>
+                      <span className="text-xs font-bold text-slate-800">{t('store.title')}</span>
                     </div>
-                    <span className="text-[9px] text-slate-400 uppercase font-black bg-slate-150 p-1 rounded">Prestige</span>
+                    <span className="text-[9px] text-slate-400 uppercase font-black bg-slate-150 p-1 rounded">{t('store.badge')}</span>
                   </div>
 
                   {/* Play store app summary */}
@@ -432,33 +434,33 @@ export default function AndroidSimulator({
 
                       {/* App Title & dev team */}
                       <div className="space-y-1">
-                        <h3 className="font-bold text-slate-800 text-sm">LimpezaJá Mobile</h3>
-                        <p className="text-[10px] text-emerald-600 font-bold">LimpezaJá S.A. • Faxinas & Organização</p>
-                        <p className="text-[9px] text-slate-400">Contém anúncios • Compras no app</p>
+                        <h3 className="font-bold text-slate-800 text-sm">{t('store.app.name')}</h3>
+                        <p className="text-[10px] text-emerald-600 font-bold">{t('store.app.subtitle')}</p>
+                        <p className="text-[9px] text-slate-400">{t('store.app.ads')}</p>
                       </div>
                     </div>
 
                     {/* Stats badges */}
                     <div className="grid grid-cols-3 gap-1 text-center bg-slate-100/60 p-2 rounded-xl border border-slate-105">
                       <div className="border-r border-slate-200">
-                        <span className="text-xs font-black text-slate-800 block">4.9 ★</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">12K reviews</span>
+                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.rating')}</span>
+                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.rating')}</span>
                       </div>
                       <div className="border-r border-slate-200">
-                        <span className="text-xs font-black text-slate-800 block">12 MB</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">Super Leve</span>
+                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.size')}</span>
+                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.size')}</span>
                       </div>
                       <div>
-                        <span className="text-xs font-black text-slate-800 block">100K+</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">Downloads</span>
+                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.downloads')}</span>
+                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.downloads')}</span>
                       </div>
                     </div>
 
                     {/* App description text */}
                     <div className="space-y-1">
-                      <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wide">Sobre o Aplicativo</h4>
+                      <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wide">{t('store.about')}</h4>
                       <p className="text-[10px] text-slate-500 leading-relaxed font-sans">
-                        O melhor aplicativo móvel para contratar diaristas profissionais confiáveis para o seu escritório ou residência. Agende diárias em 1 minuto, use nossa calculadora inteligente integrada e converse pelo chat em tempo real sem intermediários.
+                        {t('store.about.desc')}
                       </p>
                     </div>
 
@@ -466,7 +468,7 @@ export default function AndroidSimulator({
                     {isInstalling ? (
                       <div className="bg-white p-3.5 border border-slate-150 rounded-2xl space-y-2">
                         <div className="flex justify-between items-center text-[10px] font-bold text-slate-700">
-                          <span className="animate-pulse">Fazendo download do aplicativo...</span>
+                          <span className="animate-pulse">{t('store.downloading')}</span>
                           <span>{installProgress}%</span>
                         </div>
                         <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
@@ -481,14 +483,14 @@ export default function AndroidSimulator({
                         onClick={handleInstallApp}
                         className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-[11px] py-3 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                       >
-                        <Download className="w-4 h-4 text-white" /> Instalar Aplicativo Oficial
+                        <Download className="w-4 h-4 text-white" /> {t('store.install')}
                       </button>
                     )}
                   </div>
 
                   {/* Play store safety badge */}
                   <div className="bg-white p-3 border-t border-slate-100 text-center flex items-center justify-center gap-1 text-[9px] text-slate-400">
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100" /> Verificado pelo Play Protect do Google
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100" /> {t('store.verified')}
                   </div>
                 </div>
               ) : null}
@@ -517,7 +519,7 @@ export default function AndroidSimulator({
                     </div>
                     <div>
                       <h4 className="text-[11px] font-bold text-white tracking-tight leading-none">LimpezaJá</h4>
-                      <span className="text-[8px] text-slate-400 font-bold tracking-wider leading-none">PORTAL MOBILE</span>
+                          <span className="text-[8px] text-slate-400 font-bold tracking-wider leading-none">{t('phone.header.title')}</span>
                     </div>
                   </div>
 
@@ -529,7 +531,7 @@ export default function AndroidSimulator({
                         roleMode === 'client' ? 'bg-white text-slate-900' : 'text-slate-400'
                       }`}
                     >
-                      Empresas
+                      {t('phone.role.client')}
                     </button>
                     <button 
                       onClick={() => setRoleMode('cleaner')}
@@ -537,7 +539,7 @@ export default function AndroidSimulator({
                         roleMode === 'cleaner' ? 'bg-emerald-600 text-white' : 'text-slate-400'
                       }`}
                     >
-                      Diaristas
+                      {t('phone.role.cleaner')}
                     </button>
                   </div>
                 </div>
@@ -552,13 +554,13 @@ export default function AndroidSimulator({
                       {/* Identity selected warning inside phone view */}
                       {roleMode === 'cleaner' && (
                         <div className="p-2 bg-emerald-50 border border-emerald-150 rounded-xl space-y-1">
-                          <label className="text-[8px] font-black uppercase text-emerald-800 tracking-wider">Perfil Autenticado:</label>
+                          <label className="text-[8px] font-black uppercase text-emerald-800 tracking-wider">{t('phone.profile.select')}</label>
                           <select
                             value={activeProfessionalId || ''}
                             onChange={(e) => onSelectActiveProfessional(e.target.value || null)}
                             className="bg-white text-[9.5px] p-1 border border-slate-200 rounded-md w-full font-bold text-slate-850"
                           >
-                            <option value="">-- Escolher Diarista --</option>
+                            <option value="">{t('phone.profile.choose')}</option>
                             {professionals.map(p => (
                               <option key={p.id} value={p.id}>{p.name}</option>
                             ))}
@@ -569,10 +571,10 @@ export default function AndroidSimulator({
                       {/* Header message */}
                       <div>
                         <span className="text-[8px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full uppercase">
-                          {roleMode === 'client' ? 'Diaristas Recomendadas' : 'Vagas para se candidatar'}
+                          {roleMode === 'client' ? t('phone.home.client.title') : t('phone.home.cleaner.title')}
                         </span>
                         <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
-                          {roleMode === 'client' ? 'Escolha e Faça Contato' : 'Selecione Vagas de Diárias'}
+                          {roleMode === 'client' ? t('phone.home.client.subtitle') : t('phone.home.cleaner.subtitle')}
                         </h4>
                       </div>
 
@@ -605,8 +607,8 @@ export default function AndroidSimulator({
                                 </div>
                               </div>
                               <div className="text-right">
-                                <span className="text-[10px] font-black font-sans text-emerald-700 block">R$ {pro.hourlyRate}/h</span>
-                                <span className="text-[7.5px] text-slate-400 uppercase tracking-wide">Contratar</span>
+                                <span className="text-[10px] font-black font-sans text-emerald-700 block">{formatCurrency(pro.hourlyRate, lang)}/h</span>
+                                <span className="text-[7.5px] text-slate-400 uppercase tracking-wide">{t('phone.home.hire')}</span>
                               </div>
                             </div>
                           ))}
@@ -637,7 +639,7 @@ export default function AndroidSimulator({
                                         ? 'bg-indigo-100 text-indigo-800' 
                                         : 'bg-amber-100 text-amber-800 animate-pulse'
                                   }`}>
-                                    {isAssigned ? 'Preenchido' : isApplied ? 'Candidatado' : 'Disponível'}
+                                    {isAssigned ? t('phone.home.filled') : isApplied ? t('phone.home.applied') : t('phone.home.available')}
                                   </span>
                                 </div>
 
@@ -648,8 +650,8 @@ export default function AndroidSimulator({
                                 </div>
 
                                 <div className="flex justify-between items-center bg-white p-1.5 border border-slate-100 rounded-lg mt-1 text-[9px]">
-                                  <span className="font-mono text-emerald-700 font-black">{formatCurrency(job.price)}</span>
-                                  <span className="text-slate-400">Duração: {job.durationHours}h</span>
+                                  <span className="font-mono text-emerald-700 font-black">{formatCurrency(job.price, lang)}</span>
+                                  <span className="text-slate-400">{t('phone.home.duration', { h: job.durationHours })}</span>
                                 </div>
                               </div>
                             );
@@ -664,10 +666,10 @@ export default function AndroidSimulator({
                     <div className="space-y-4 font-sans">
                       <div>
                         <span className="text-[8px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">
-                          Simulação de Diária
+                          {t('phone.calc.title')}
                         </span>
                         <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
-                          Orçamento Inteligente M3
+                          {t('phone.calc.subtitle')}
                         </h4>
                       </div>
 
@@ -675,7 +677,7 @@ export default function AndroidSimulator({
                       <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-100 space-y-3 text-[10px]">
                         
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">Quartos / Cômodos ({calcRooms})</label>
+                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.rooms', { n: calcRooms })}</label>
                           <div className="flex items-center gap-1 bg-white border border-slate-150 rounded-lg p-0.5 justify-between">
                             <button onClick={() => setCalcRooms(Math.max(1, calcRooms - 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">-</button>
                             <span className="font-mono">{calcRooms}</span>
@@ -684,7 +686,7 @@ export default function AndroidSimulator({
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">Banheiros / Lavabos ({calcBaths})</label>
+                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.baths', { n: calcBaths })}</label>
                           <div className="flex items-center gap-1 bg-white border border-slate-150 rounded-lg p-0.5 justify-between">
                             <button onClick={() => setCalcBaths(Math.max(1, calcBaths - 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">-</button>
                             <span className="font-mono">{calcBaths}</span>
@@ -693,22 +695,22 @@ export default function AndroidSimulator({
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">Estilo de Faxina</label>
+                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.type')}</label>
                           <select 
                             value={calcType}
                             onChange={(e: any) => setCalcType(e.target.value)}
                             className="w-full text-[10px] p-1.5 bg-white border border-slate-200 rounded-lg outline-none"
                           >
-                            <option value="residencial">Residencial Padrão</option>
-                            <option value="pesada">Faxina Pesada</option>
-                            <option value="comercial">Comercial</option>
-                            <option value="pos-obra">Pós-Obra Fina</option>
+                            <option value="residencial">{t('calc.type.residential')}</option>
+                            <option value="pesada">{t('calc.type.heavy')}</option>
+                            <option value="comercial">{t('calc.type.commercial')}</option>
+                            <option value="pos-obra">{t('calc.type.pos')}</option>
                           </select>
                         </div>
 
                         {/* Extra services selectors */}
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">Adicionais (+Preço)</label>
+                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.extras')}</label>
                           <div className="grid grid-cols-2 gap-1.5 pt-1">
                             {EXTRAS_AVAILABLE.slice(0, 4).map((extra) => {
                               const checked = calcExtras.includes(extra.id);
@@ -723,7 +725,7 @@ export default function AndroidSimulator({
                                   }`}
                                 >
                                   <div className="text-[8px] truncate leading-none">{extra.label.split(' ')[0]}</div>
-                                  <div className="text-[7.5px] text-slate-400 font-normal mt-0.5">+{formatCurrency(extra.price)}</div>
+                                  <div className="text-[7.5px] text-slate-400 font-normal mt-0.5">+{formatCurrency(extra.price, lang)}</div>
                                 </button>
                               );
                             })}
@@ -734,15 +736,15 @@ export default function AndroidSimulator({
 
                       {/* Display calculations box inside phone */}
                       <div className="bg-slate-900 text-white rounded-2xl p-3 space-y-1.5 text-center">
-                        <span className="text-[7.5px] text-slate-400 uppercase tracking-widest block font-bold">Valor Recomendado</span>
-                        <span className="text-lg font-black font-mono text-emerald-400 tracking-tight block mt-0.5">{formatCurrency(phoneEst.cost)}</span>
-                        <p className="text-[8.5px] text-slate-350 leading-tight">Sugestão de duração: {phoneEst.hours} Horas</p>
+                        <span className="text-[7.5px] text-slate-400 uppercase tracking-widest block font-bold">{t('phone.calc.result')}</span>
+                        <span className="text-lg font-black font-mono text-emerald-400 tracking-tight block mt-0.5">{formatCurrency(phoneEst.cost, lang)}</span>
+                        <p className="text-[8.5px] text-slate-350 leading-tight">{t('phone.calc.duration', { h: phoneEst.hours })}</p>
 
                         <button
                           onClick={applyCalcToForm}
                           className="w-full mt-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] py-1.5 rounded-lg shadow-sm cursor-pointer"
                         >
-                          Usar para Enviar Vaga
+                          {t('phone.calc.use')}
                         </button>
                       </div>
                     </div>
@@ -753,23 +755,23 @@ export default function AndroidSimulator({
                     <div className="space-y-3.5 font-sans">
                       <div>
                         <span className="text-[8px] bg-slate-955 text-slate-700 font-bold px-2 py-0.5 rounded-full uppercase mr-1">
-                          Área Cliente
+                          {t('phone.action.title')}
                         </span>
                         <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
-                          Anunciar Faxina Mobile
+                          {t('phone.action.subtitle')}
                         </h4>
                       </div>
 
                       {/* Quick fill shortcuts */}
                       <div className="flex bg-slate-100 p-1.5 rounded-xl border border-slate-200/40 gap-2 items-center justify-between">
-                        <span className="text-[7.5px] text-slate-400 uppercase font-black tracking-wider block">Auto:</span>
-                        <button onClick={() => handleApplyPreset('basic')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">Casa</button>
-                        <button onClick={() => handleApplyPreset('pro')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">Reforma</button>
+                        <span className="text-[7.5px] text-slate-400 uppercase font-black tracking-wider block">{t('phone.action.auto')}</span>
+                        <button onClick={() => handleApplyPreset('basic')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">{t('phone.action.preset.home')}</button>
+                        <button onClick={() => handleApplyPreset('pro')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">{t('phone.action.preset.reform')}</button>
                       </div>
 
                       <div className="space-y-2 text-[9.5px]">
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">Título da Faxina *</label>
+                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.title.label')}</label>
                           <input 
                             type="text" 
                             placeholder="Ex: Faxina quinzenal quarto"
@@ -781,7 +783,7 @@ export default function AndroidSimulator({
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">Seu Nome *</label>
+                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.name.label')}</label>
                             <input 
                               type="text" 
                               placeholder="Ex: Cláudia Silva"
@@ -791,7 +793,7 @@ export default function AndroidSimulator({
                             />
                           </div>
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">Telefone comercial *</label>
+                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.phone.label')}</label>
                             <input 
                               type="text" 
                               placeholder="(11) 97777-6666"
@@ -804,7 +806,7 @@ export default function AndroidSimulator({
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">E-mail *</label>
+                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.email.label')}</label>
                             <input 
                               type="email" 
                               placeholder="sua@vaga.com"
@@ -814,7 +816,7 @@ export default function AndroidSimulator({
                             />
                           </div>
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">R$ Oferecido *</label>
+                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.budget.label')}</label>
                             <input 
                               type="number" 
                               placeholder="250"
@@ -826,7 +828,7 @@ export default function AndroidSimulator({
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">Endereço de Limpeza *</label>
+                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.address.label')}</label>
                           <input 
                             type="text" 
                             placeholder="Rua, Número, Bairro - Cidade, SP"
@@ -837,7 +839,7 @@ export default function AndroidSimulator({
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">Instruções / Instruções especiais *</label>
+                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.desc.label')}</label>
                           <textarea 
                             placeholder="Deixe instruções ou foque em algum cômodo..."
                             rows={2}
@@ -851,7 +853,7 @@ export default function AndroidSimulator({
                           onClick={submitPostFromPhone}
                           className="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-[10.5px] py-2 px-3 rounded-xl transition duration-200 shadow-md cursor-pointer block text-center"
                         >
-                          Anunciar Vaga na Rede
+                          {t('phone.action.submit')}
                         </button>
                       </div>
                     </div>
@@ -862,17 +864,17 @@ export default function AndroidSimulator({
                     <div className="space-y-4">
                       <div>
                         <span className="text-[8px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase">
-                          Sessões Ativas
+                          {t('phone.chats.title')}
                         </span>
                         <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
-                          Seus Contratos Mobile
+                          {t('phone.chats.subtitle')}
                         </h4>
                       </div>
 
                       <div className="space-y-2">
                         {jobs.filter(j => j.applicants.length > 0 || j.assignedTo !== null).length === 0 ? (
                           <div className="bg-slate-50 border border-dashed border-slate-200 p-6 rounded-2xl text-center italic text-[10px] text-slate-400">
-                            Nenhum contato ativo no momento. Candidate-se ou envie uma proposta para abrir chats interativos.
+                            {t('phone.chats.empty')}
                           </div>
                         ) : (
                           jobs.filter(j => j.applicants.length > 0 || j.assignedTo !== null).map((job) => (
@@ -887,10 +889,10 @@ export default function AndroidSimulator({
                                 </div>
                                 <div>
                                   <h6 className="font-bold text-slate-800 text-[10px] leading-tight line-clamp-1">{job.title}</h6>
-                                  <p className="text-[8px] text-slate-400 font-medium">Cliente: {job.clientName}</p>
+                                  <p className="text-[8px] text-slate-400 font-medium">{t('phone.chats.client', { name: job.clientName })}</p>
                                   {job.chatMessages && job.chatMessages.length > 0 && (
                                     <p className="text-[8px] text-emerald-800 italic font-semibold line-clamp-1 mt-0.5">
-                                      Última: "{job.chatMessages[job.chatMessages.length - 1].text}"
+                                      {t('phone.chats.last', { msg: job.chatMessages[job.chatMessages.length - 1].text })}
                                     </p>
                                   )}
                                 </div>
@@ -915,7 +917,7 @@ export default function AndroidSimulator({
                     }`}
                   >
                     <Home className="w-4 h-4" />
-                    <span className="text-[7.5px] mt-0.5">Encontrar</span>
+                    <span className="text-[7.5px] mt-0.5">{t('phone.nav.home')}</span>
                   </button>
 
                   <button 
@@ -925,7 +927,7 @@ export default function AndroidSimulator({
                     }`}
                   >
                     <Calculator className="w-4 h-4" />
-                    <span className="text-[7.5px] mt-0.5">Calculadora</span>
+                    <span className="text-[7.5px] mt-0.5">{t('phone.nav.calc')}</span>
                   </button>
 
                   <button 
@@ -935,7 +937,7 @@ export default function AndroidSimulator({
                     }`}
                   >
                     <Plus className="w-4 h-4" />
-                    <span className="text-[7.5px] mt-0.5">Anunciar</span>
+                    <span className="text-[7.5px] mt-0.5">{t('phone.nav.post')}</span>
                   </button>
 
                   <button 
@@ -945,7 +947,7 @@ export default function AndroidSimulator({
                     }`}
                   >
                     <MessageSquare className="w-4 h-4" />
-                    <span className="text-[7.5px] mt-0.5">Chats</span>
+                    <span className="text-[7.5px] mt-0.5">{t('phone.nav.chats')}</span>
                     <span className="absolute top-0 right-4 w-1.5 h-1.5 bg-red-500 rounded-full" />
                   </button>
                 </div>
@@ -1011,11 +1013,11 @@ export default function AndroidSimulator({
 
                     <div className="space-y-1">
                       <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">Tarifa Recomendada</span>
-                      <p className="text-sm font-extrabold text-slate-850 font-sans">{formatCurrency(pro.hourlyRate)}/hora </p>
+                      <p className="text-sm font-extrabold text-slate-850 font-sans">{formatCurrency(pro.hourlyRate, lang)}/hora </p>
                     </div>
 
                     <div className="space-y-1">
-                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">Especialidades</span>
+                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">{t('cleaner.card.specialties')}</span>
                       <div className="flex flex-wrap gap-1">
                         {pro.cleaningTypes.map(type => (
                           <span key={type} className="text-[8.5px] font-bold bg-slate-100 rounded text-slate-700 px-1.5 py-0.5">
@@ -1118,7 +1120,7 @@ export default function AndroidSimulator({
                       onClick={() => setMobSelectedProId(null)}
                       className="flex-1 bg-white hover:bg-slate-100 text-slate-700 font-bold text-[10px] py-2 rounded-xl border border-slate-200 cursor-pointer"
                     >
-                      Voltar
+                      {t('register.back')}
                     </button>
                     <button 
                       onClick={() => {
@@ -1172,7 +1174,7 @@ export default function AndroidSimulator({
                     <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
                       <div>
                         <span className="text-[8px] text-slate-400 uppercase tracking-widest font-bold">Valor Oportuno</span>
-                        <p className="text-xs font-black text-emerald-700 font-mono mt-0.5">{formatCurrency(job.price)}</p>
+                                <p className="text-xs font-black text-emerald-700 font-mono mt-0.5">{formatCurrency(job.price, lang)}</p>
                       </div>
                       <div>
                         <span className="text-[8px] text-slate-400 uppercase tracking-widest font-bold font-sans">Área Local</span>
@@ -1341,7 +1343,7 @@ export default function AndroidSimulator({
                               }}
                               className="bg-emerald-600 text-white font-bold text-[8.5px] px-2 py-1 rounded cursor-pointer hover:bg-emerald-700"
                             >
-                              Contratar
+                              {t('phone.home.hire')}
                             </button>
                           </div>
                         ))}

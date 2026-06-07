@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Job, CleaningType } from '../types';
 import { FileText, Building, Home, MapPin, Calendar, Clock, DollarSign, Sparkles, Check, Phone, Mail, Plus } from 'lucide-react';
 import { EXTRAS_AVAILABLE, formatCurrency } from '../utils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface JobPostFormProps {
   onPostJob: (job: Job) => void;
@@ -19,6 +20,7 @@ interface JobPostFormProps {
 }
 
 export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostFormProps) {
+  const { t, lang } = useLanguage();
   const [title, setTitle] = useState(prefilled?.title || '');
   const [clientName, setClientName] = useState('');
   const [clientType, setClientType] = useState<'empresa' | 'residencial'>(prefilled?.clientType || 'empresa');
@@ -62,15 +64,15 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
     e.preventDefault();
     setError('');
 
-    if (!title.trim()) return setError('Por favor, informe um título descritivo para a faxina.');
-    if (!clientName.trim()) return setError('Por favor, informe seu nome ou o nome da empresa.');
-    if (!phone.trim()) return setError('Por favor, informe um telefone de contato.');
-    if (!email.trim() || !email.includes('@')) return setError('Por favor, informe um e-mail válido.');
-    if (!description.trim() || description.length < 15) return setError('Por favor, descreva sucintamente a necessidade (mínimo de 15 caracteres).');
-    if (!date) return setError('Por favor, selecione a data do serviço.');
-    if (!address.trim()) return setError('Por favor, informe o endereço completo.');
-    if (price <= 20) return setError('Por favor, defina um valor razoável para o serviço (mínimo R$ 20).');
-    if (sizeSqm <= 0) return setError('A metragem do local deve ser positiva.');
+    if (!title.trim()) return setError(t('form.job.error.title'));
+    if (!clientName.trim()) return setError(t('form.job.error.clientName'));
+    if (!phone.trim()) return setError(t('form.job.error.phone'));
+    if (!email.trim() || !email.includes('@')) return setError(t('form.job.error.email'));
+    if (!description.trim() || description.length < 15) return setError(t('form.job.error.description'));
+    if (!date) return setError(t('form.job.error.date'));
+    if (!address.trim()) return setError(t('form.job.error.address'));
+    if (price <= 20) return setError(t('form.job.error.price'));
+    if (sizeSqm <= 0) return setError(t('form.job.error.size'));
 
     const newJob: Job = {
       id: 'j_' + Date.now().toString(),
@@ -97,7 +99,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           id: 'chat_' + Date.now() + '_init',
           sender: 'client',
           senderName: clientName,
-          text: `Olá profissionais! Publiquei esta oferta para o dia ${date} às ${time}. Preciso de um trabalho focado e caprichado.`,
+          text: lang === 'pt' ? `Olá profissionais! Publiquei esta oferta para o dia ${date} às ${time}. Preciso de um trabalho focado e caprichado.` : lang === 'es' ? `¡Hola profesionales! Publiqué esta oferta para el día ${date} a las ${time}. Necesito un trabajo enfocado y esmerado.` : `Hello professionals! I posted this offer for ${date} at ${time}. I need focused and careful work.`,
           timestamp: new Date().toISOString()
         }
       ]
@@ -111,21 +113,21 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
       <div className="flex items-center justify-between border-b border-slate-100 pb-5 mb-6">
         <div>
           <h2 className="text-xl font-bold font-sans text-slate-800 flex items-center gap-2">
-            <Building className="text-emerald-600 w-5 h-5" /> Publicar Vaga de Faxina
+            <Building className="text-emerald-600 w-5 h-5" /> {t('form.job.title')}
           </h2>
           {prefilled ? (
             <p className="text-xs text-amber-600 font-bold mt-1 bg-amber-50 border border-amber-100 px-3 py-1 rounded-lg inline-block">
-              ✨ Copiando Orçamento Estimado da Calculadora Automática!
+              {t('form.job.copied')}
             </p>
           ) : (
-            <p className="text-xs text-slate-500 mt-1">Insira as informações do local e o profissional ideal se candidatará imediatamente!</p>
+            <p className="text-xs text-slate-500 mt-1">{t('form.job.desc')}</p>
           )}
         </div>
         <button
           onClick={onCancel}
           className="text-xs text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
         >
-          Voltar
+          {t('form.job.back')}
         </button>
       </div>
 
@@ -139,7 +141,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Type selector: corporate vs residential */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Quem está contratando? *</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">{t('form.job.who')}</label>
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
@@ -151,7 +153,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               }`}
             >
               <Building className="w-4 h-4" />
-              Uma Empresa / Escritório
+              {t('form.job.company')}
             </button>
             
             <button
@@ -164,7 +166,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               }`}
             >
               <Home className="w-4 h-4" />
-              Residência Particular
+              {t('form.job.residential')}
             </button>
           </div>
         </div>
@@ -173,7 +175,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              {clientType === 'empresa' ? 'Razão Social / Nome Fantasia *' : 'Nome Completo do Responsável *'}
+              {clientType === 'empresa' ? t('form.job.companyName') : t('form.job.responsibleName')}
             </label>
             <input
               type="text"
@@ -185,7 +187,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Título da Oferta de Faxina *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.title.label')}</label>
             <input
               type="text"
               placeholder="Ex: Faxina quinzenal escritório recepção / Faxina de natal"
@@ -199,7 +201,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         {/* Contacts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Telefone Comercial / WhatsApp *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.phone.label')}</label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -213,7 +215,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">E-mail *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.email.label')}</label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -230,21 +232,21 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         {/* Cleaning style select */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Tipo de Faxina Requerida</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.type.label')}</label>
             <select
               value={cleaningType}
               onChange={(e) => setCleaningType(e.target.value as CleaningType)}
               className="w-full py-2.5 px-3 text-xs text-slate-800 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
             >
-              <option value="residencial">Faxina Residencial Comum</option>
-              <option value="comercial">Faxina Comercial / Escritórios</option>
-              <option value="pesada">Faxina Pesada / Detalhada</option>
-              <option value="pos-obra">Limpeza Pós-Obra Fina</option>
+              <option value="residencial">{t('form.job.type.residential')}</option>
+              <option value="comercial">{t('form.job.type.commercial')}</option>
+              <option value="pesada">{t('form.job.type.heavy')}</option>
+              <option value="pos-obra">{t('form.job.type.posObra')}</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Tamanho do Local (m²) *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.size.label')}</label>
             <input
               type="number"
               min="10"
@@ -258,7 +260,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
 
         {/* Dynamic Extras Selectors - GLOBAL PLATFORM PRESTIGE */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Serviços Adicionais Inclusos (Extras)</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">{t('form.job.extras.label')}</label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {EXTRAS_AVAILABLE.map((extra) => {
               const checked = selectedExtras.includes(extra.id);
@@ -274,7 +276,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
                   }`}
                 >
                   <span className="text-[11px] line-clamp-1">{extra.label}</span>
-                  <span className="text-[10px] text-slate-400 font-normal">+{formatCurrency(extra.price)}</span>
+                  <span className="text-[10px] text-slate-400 font-normal">+{formatCurrency(extra.price, lang)}</span>
                 </button>
               );
             })}
@@ -284,7 +286,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         {/* Scheduling Details */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Data do Serviço *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.date.label')}</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
@@ -297,7 +299,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Horário de Início *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.time.label')}</label>
             <div className="relative">
               <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
@@ -310,24 +312,24 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Duração Estimada (Horas)</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.duration.label')}</label>
             <select
               value={durationHours}
               onChange={(e) => setDurationHours(parseInt(e.target.value) || 4)}
               className="w-full py-2 px-3 text-xs text-slate-800 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
             >
-              <option value="2">2 Horas (Limpeza Rápida)</option>
-              <option value="4">4 Horas (Meio Período)</option>
-              <option value="6">6 Horas (Período Padrão)</option>
-              <option value="8">8 Horas (Período Integral)</option>
-              <option value="12">12 Horas (Faxina Estendida)</option>
+              <option value="2">{t('form.job.duration.2h')}</option>
+              <option value="4">{t('form.job.duration.4h')}</option>
+              <option value="6">{t('form.job.duration.6h')}</option>
+              <option value="8">{t('form.job.duration.8h')}</option>
+              <option value="12">{t('form.job.duration.12h')}</option>
             </select>
           </div>
         </div>
 
         {/* Address */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Endereço Completo do Serviço *</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.address.label')}</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
@@ -342,9 +344,9 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
 
         {/* Details & description */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Instruções de Faxina / Descrição Detalhada *</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.desc.label')}</label>
           <textarea
-            placeholder="Descreva o que o profissional deve focar. Exemplos: focar na cozinha, necessidade de limpar janelas internas, remover pó fino das frestas do rodapé, se você fornece produtos e ferramentas ou se o profissional deve trazê-los..."
+            placeholder={t('form.job.desc.placeholder')}
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -354,7 +356,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
 
         {/* Proposed reward budget */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Valor Proposto para o Serviço Completo *</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.price.label')}</label>
           <div className="relative">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold font-mono text-sm">R$</div>
             <input
@@ -366,7 +368,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               className="w-full pl-10 pr-4 py-2.5 text-slate-900 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-base font-extrabold font-mono"
             />
           </div>
-          <span className="text-[10px] text-slate-400 mt-1 block">O valor deve compensar a quantidade de horas e tamanho estimulado do local.</span>
+          <span className="text-[10px] text-slate-400 mt-1 block">{t('form.job.price.hint')}</span>
         </div>
 
         {/* Actions Buttons */}
@@ -376,7 +378,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             onClick={onCancel}
             className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
           >
-            Voltar
+            {t('form.job.back')}
           </button>
           
           <button
@@ -384,7 +386,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             type="submit"
             className="px-6 py-2.5 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 active:bg-slate-950 transition-all cursor-pointer shadow-md"
           >
-            Anunciar Vaga
+            {t('form.job.submit')}
           </button>
         </div>
       </form>

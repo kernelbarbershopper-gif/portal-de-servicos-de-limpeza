@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Professional, Job, ChatMessage, ClientReview } from '../types';
 import { X, Star, CheckCircle, MapPin, Calendar, Clock, DollarSign, Sparkles, Phone, Mail, Award, Building, Home, ShieldCheck, Send, MessageSquare } from 'lucide-react';
 import { getCleaningTypeColor, getCleaningTypeLabel, formatCurrency, formatDate } from '../utils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface CleanerDetailsModalProps {
   professional: Professional;
@@ -12,6 +13,7 @@ interface CleanerDetailsModalProps {
 }
 
 export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAddReview }: CleanerDetailsModalProps) {
+  const { t, lang } = useLanguage();
   const colors = getCleaningTypeColor(professional.cleaningTypes[0] || 'residencial');
 
   // Review states
@@ -23,7 +25,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newComment.trim() || !newReviewerName.trim()) {
-      alert('Por favor, preencha o seu nome e faça um breve comentário sobre o atendimento.');
+      alert(t('modal.cleaner.reviews.alert'));
       return;
     }
     if (onAddReview) {
@@ -83,7 +85,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                 <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                 {professional.rating.toFixed(1)}
               </div>
-              <p className="text-[9px] text-slate-400 mt-1 uppercase font-semibold">Tarifa: {formatCurrency(professional.hourlyRate)}/h</p>
+              <p className="text-[9px] text-slate-400 mt-1 uppercase font-semibold">{t('modal.cleaner.tariff', { rate: formatCurrency(professional.hourlyRate, lang) })}</p>
             </div>
           </div>
 
@@ -91,7 +93,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
             {/* Bio */}
             <div className="bg-slate-50 p-3.5 rounded-2xl">
               <p className="font-semibold text-slate-800 mb-1 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> Histórico e Apresentação
+                <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> {t('modal.cleaner.bio')}
               </p>
               <p className="text-slate-655 font-sans leading-relaxed text-xs">{professional.bio}</p>
             </div>
@@ -99,24 +101,24 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
             {/* Quick specifications stats */}
             <div className="grid grid-cols-2 gap-3 border-y border-slate-100 py-3">
               <div>
-                <p className="text-[10px] text-slate-400 uppercase font-semibold">Experiência de Trabalho</p>
+                <p className="text-[10px] text-slate-400 uppercase font-semibold">{t('modal.cleaner.experience')}</p>
                 <p className="text-xs font-bold text-slate-800 flex items-center gap-1 mt-0.5">
                   <Award className="w-3.5 h-3.5 text-slate-500" />
-                  {professional.experienceYears} {professional.experienceYears === 1 ? 'ano' : 'anos'} de mercado
+                  {t('modal.cleaner.experience.val', { n: professional.experienceYears })}
                 </p>
               </div>
               <div>
-                <p className="text-[10px] text-slate-400 uppercase font-semibold">Serviços Completados</p>
+                <p className="text-[10px] text-slate-400 uppercase font-semibold">{t('modal.cleaner.completed')}</p>
                 <p className="text-xs font-bold text-slate-800 flex items-center gap-1 mt-0.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  {professional.completedJobs} diárias recomendadas
+                  {t('modal.cleaner.completed.val', { n: professional.completedJobs })}
                 </p>
               </div>
             </div>
 
             {/* Specialties */}
             <div>
-              <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1.5">Especialidades Recomendadas</p>
+              <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1.5">{t('modal.cleaner.specialties')}</p>
               <div className="flex flex-wrap gap-1">
                 {professional.cleaningTypes.map((type) => {
                   const colors = getCleaningTypeColor(type);
@@ -134,7 +136,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
 
             {/* Availability */}
             <div>
-              <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1.5">Agenda Semanal Disponível</p>
+              <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1.5">{t('modal.cleaner.schedule')}</p>
               <div className="flex flex-wrap gap-1">
                 {['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'].map((day) => {
                   const isAvailable = professional.availability.includes(day);
@@ -157,11 +159,11 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
             {/* --- PRESTIGE GLOBAL FEATURE: CLEANER REVIEWS SYSTEM --- */}
             <div className="pt-2">
               <p className="text-[10px] text-slate-405 uppercase tracking-widest font-bold mb-2 flex items-center gap-1">
-                <Star className="w-3 h-3 text-amber-500 fill-amber-500" /> Avaliações Verified de Clientes ({professional.reviews?.length || 0})
+                <Star className="w-3 h-3 text-amber-500 fill-amber-500" /> {t('modal.cleaner.reviews', { n: professional.reviews?.length || 0 })}
               </p>
               
               {!professional.reviews || professional.reviews.length === 0 ? (
-                <p className="text-slate-400 italic bg-slate-50 p-2.5 rounded-xl text-center">Ainda sem avaliações nesta temporada.</p>
+                <p className="text-slate-400 italic bg-slate-50 p-2.5 rounded-xl text-center">{t('modal.cleaner.reviews.empty')}</p>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                   {professional.reviews.map((rev) => (
@@ -190,13 +192,13 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
               {onAddReview && (
                 <div className="mt-3.5 border-t border-slate-100 pt-3">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-[10px] font-bold text-slate-800 uppercase">Fazer Nova Avaliação</span>
+                    <span className="text-[10px] font-bold text-slate-800 uppercase">{t('modal.cleaner.reviews.new')}</span>
                     <button
                       type="button"
                       onClick={() => setShowReviewForm(!showReviewForm)}
                       className="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 underline cursor-pointer"
                     >
-                      {showReviewForm ? 'Fechar Form' : 'Avaliar Profissional'}
+                      {showReviewForm ? t('modal.cleaner.reviews.close') : t('modal.cleaner.reviews.rate')}
                     </button>
                   </div>
 
@@ -204,7 +206,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                     <form onSubmit={handleSubmitReview} className="bg-slate-50 p-3 rounded-2xl border border-slate-150/75 space-y-2.5 text-xs">
                       {/* Star selection */}
                       <div className="flex items-center gap-1.5">
-                        <span className="text-slate-600 font-semibold font-sans">Sua Nota:</span>
+                        <span className="text-slate-600 font-semibold font-sans">{t('modal.cleaner.reviews.your.rating')}:</span>
                         <div className="flex gap-1 bg-white p-1 rounded-lg border border-slate-200 w-fit">
                           {[1, 2, 3, 4, 5].map((starValue) => (
                             <button
@@ -222,19 +224,19 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
 
                       {/* Text feedback */}
                       <div className="space-y-1">
-                        <label className="block text-[10px] font-semibold text-slate-600 uppercase">Comentários e Detalhes</label>
+                        <label className="block text-[10px] font-semibold text-slate-600 uppercase">{t('modal.cleaner.reviews.comment')}</label>
                         <textarea
                           rows={2}
                           value={newComment}
                           onChange={(e) => setNewComment(e.target.value)}
-                          placeholder="Fale um pouco sobre a pontualidade, rapidez, qualidade da faxina..."
+                          placeholder={t('modal.cleaner.reviews.comment.placeholder')}
                           className="w-full border border-slate-200 rounded-xl p-2.5 text-xs bg-white text-slate-800 focus:outline-emerald-500"
                         />
                       </div>
 
                       {/* Reviewer name */}
                       <div className="space-y-1">
-                        <label className="block text-[10px] font-semibold text-slate-600 uppercase">Seu Nome / Empresa</label>
+                        <label className="block text-[10px] font-semibold text-slate-600 uppercase">{t('modal.cleaner.reviews.name')}</label>
                         <input
                           type="text"
                           value={newReviewerName}
@@ -248,7 +250,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                         type="submit"
                         className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs transition cursor-pointer"
                       >
-                        Enviar Avaliação Oficial
+                        {t('modal.cleaner.reviews.submit')}
                       </button>
                     </form>
                   )}
@@ -259,7 +261,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
             {/* Contacts details */}
             <div className="bg-emerald-50/40 p-4 rounded-2xl border border-emerald-100 space-y-1.5 mt-2">
               <p className="font-bold text-emerald-800 text-xs flex items-center gap-1 mb-0.5">
-                🎯 Informações de Contato Direto
+                {t('modal.cleaner.contact')}
               </p>
               <div className="flex items-center gap-2 text-slate-700">
                 <Phone className="w-3.5 h-3.5 text-emerald-600" />
@@ -279,7 +281,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
             onClick={onClose}
             className="bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-200 cursor-pointer"
           >
-            Fechar Janela
+            {t('modal.cleaner.close')}
           </button>
           
           {onDirectHire && (
@@ -287,7 +289,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
               onClick={() => onDirectHire(professional.id)}
               className="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-all shadow-md cursor-pointer"
             >
-              Convidar para um Serviço
+              {t('modal.cleaner.invite')}
             </button>
           )}
         </div>
@@ -319,6 +321,7 @@ export function JobDetailsModal({
   clientReviews = [],
   onAddClientReview
 }: JobDetailsModalProps) {
+  const { t, lang } = useLanguage();
   const isAppliedByMe = currentProfessionalId ? job.applicants.includes(currentProfessionalId) : false;
   const isAssigned = job.assignedTo !== null;
   const assignedProfessional = isAssigned ? allProfessionals.find(p => p.id === job.assignedTo) : null;
@@ -341,7 +344,7 @@ export function JobDetailsModal({
 
   const handleSubmitClientReview = () => {
     if (!newClientComment.trim()) {
-      alert('Por favor, escreva um comentário sobre o contratante.');
+      alert(t('modal.job.reputation.alert'));
       return;
     }
     const reviewer = newClientReviewerName.trim() || (activeProProfile?.name) || 'Diarista Parceiro';
@@ -379,7 +382,7 @@ export function JobDetailsModal({
 
           <div className="flex gap-2 mb-2">
             <span className="bg-emerald-500 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded">
-              {job.clientType === 'empresa' ? 'Corporativo' : 'Residencial'}
+              {job.clientType === 'empresa' ? t('modal.job.corporate') : t('modal.job.residential')}
             </span>
             <span className="bg-slate-800 text-slate-300 text-[9px] font-bold px-2 py-0.5 rounded">
               {getCleaningTypeLabel(job.cleaningType)}
@@ -389,7 +392,7 @@ export function JobDetailsModal({
           <h3 className="text-base font-bold font-sans text-white pr-6 leading-snug">
             {job.title}
           </h3>
-          <p className="text-[10px] text-slate-405 mt-1 font-mono">Dono do Anúncio: {job.clientName}</p>
+          <p className="text-[10px] text-slate-405 mt-1 font-mono">{t('modal.job.owner', { name: job.clientName })}</p>
         </div>
 
         {/* Content */}
@@ -398,32 +401,32 @@ export function JobDetailsModal({
           {/* Main indicators */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 bg-slate-50 p-3.5 rounded-2xl">
             <div>
-              <p className="text-[9px] text-slate-400 uppercase font-semibold">Orçamento total</p>
+              <p className="text-[9px] text-slate-400 uppercase font-semibold">{t('modal.job.budget')}</p>
               <p className="text-sm font-extrabold text-emerald-700 mt-0.5 font-sans">
-                {formatCurrency(job.price)}
+                {formatCurrency(job.price, lang)}
               </p>
             </div>
             <div>
-              <p className="text-[9px] text-slate-400 uppercase font-semibold">Tamanho aprox.</p>
+              <p className="text-[9px] text-slate-400 uppercase font-semibold">{t('modal.job.size')}</p>
               <p className="text-xs font-bold text-slate-800 mt-1 font-sans">
                 {job.sizeSqm} m²
               </p>
             </div>
             <div>
-              <p className="text-[9px] text-slate-400 uppercase font-semibold">Agendado para</p>
+              <p className="text-[9px] text-slate-400 uppercase font-semibold">{t('modal.job.scheduled')}</p>
               <p className="text-xs font-bold text-slate-800 mt-1 font-sans">
                 {formatDate(job.date)}
               </p>
             </div>
             <div>
-              <p className="text-[9px] text-slate-400 uppercase font-semibold text-slate-430">Início sugerido</p>
+              <p className="text-[9px] text-slate-400 uppercase font-semibold text-slate-430">{t('modal.job.start')}</p>
               <p className="text-xs font-bold text-slate-800 mt-1 font-mono">{job.time}</p>
             </div>
           </div>
 
           {/* Description */}
           <div className="space-y-1">
-            <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">Instruções e Tarefas Requeridas</p>
+            <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">{t('modal.job.instructions')}</p>
             <p className="text-slate-650 bg-slate-50 border border-slate-100 p-3.5 rounded-2xl leading-relaxed text-xs">
               {job.description}
             </p>
@@ -432,7 +435,7 @@ export function JobDetailsModal({
           {/* Extras Included badges */}
           {job.extras && job.extras.length > 0 && (
             <div>
-              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px] mb-1.5">Serviços Extras Desejados</p>
+              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px] mb-1.5">{t('modal.job.extras')}</p>
               <div className="flex flex-wrap gap-1">
                 {job.extras.map(item => (
                   <span key={item} className="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-100 font-medium px-2 py-0.5 rounded-md">
@@ -446,17 +449,17 @@ export function JobDetailsModal({
           {/* Local / duration specifications */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 pt-3">
             <div className="space-y-1">
-              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">Endereço Completo</p>
+              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">{t('modal.job.address')}</p>
               <p className="text-xs flex items-center gap-1.5 text-slate-600">
                 <MapPin className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                 {job.address}
               </p>
             </div>
             <div className="space-y-1">
-              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">Duração Prevista</p>
+              <p className="font-bold text-slate-800 uppercase tracking-widest text-[9px]">{t('modal.job.duration')}</p>
               <p className="text-xs flex items-center gap-1.5 text-slate-600">
                 <Clock className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                {job.durationHours} horas de atividade recomendadas
+                {t('modal.job.duration.val', { n: job.durationHours })}
               </p>
             </div>
           </div>
@@ -465,7 +468,7 @@ export function JobDetailsModal({
           {isAssigned && assignedProfessional && (
             <div className="border-t border-slate-100 pt-3 bg-emerald-50/20 p-3 rounded-xl border border-emerald-150">
               <p className="font-bold text-emerald-800 uppercase tracking-wider text-[9px] mb-1.5 flex items-center gap-1">
-                ✔️ Profissional Contratado para a Diária
+                {t('modal.job.hired')}
               </p>
               <div className="flex items-center gap-2">
                 <img 
@@ -479,7 +482,7 @@ export function JobDetailsModal({
                   <p className="text-[10px] text-slate-500">{assignedProfessional.location}</p>
                 </div>
                 <span className="ml-auto text-[9px] text-emerald-800 font-bold bg-emerald-100 px-2.5 py-0.5 rounded">
-                  Confirmado
+                  {t('modal.job.confirmed')}
                 </span>
               </div>
             </div>
@@ -490,7 +493,7 @@ export function JobDetailsModal({
             <div className="bg-amber-50/20 border border-amber-100/70 p-3.5 rounded-2xl space-y-3">
               <div className="flex justify-between items-center">
                 <p className="font-bold text-amber-900 uppercase tracking-wider text-[9px] flex items-center gap-1 font-sans">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> Reputação do Contratante ({clientReviews.filter(r => r.clientName === job.clientName).length} avaliações)
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {t('modal.job.reputation', { n: clientReviews.filter(r => r.clientName === job.clientName).length })}
                 </p>
                 <span className="font-black text-[11px] text-amber-800 bg-amber-100 px-2 py-0.5 rounded-lg flex items-center gap-1">
                   ★ {(clientReviews.filter(r => r.clientName === job.clientName).length > 0
@@ -500,7 +503,7 @@ export function JobDetailsModal({
               </div>
 
               {clientReviews.filter(r => r.clientName === job.clientName).length === 0 ? (
-                <p className="text-slate-400 italic text-[11px] py-1 text-center bg-white/50 rounded-lg">Este contratante ainda não recebeu nenhuma avaliação de diarista.</p>
+                <p className="text-slate-400 italic text-[11px] py-1 text-center bg-white/50 rounded-lg">{t('modal.job.reputation.empty')}</p>
               ) : (
                 <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
                   {clientReviews.filter(r => r.clientName === job.clientName).map((r) => (
@@ -522,13 +525,13 @@ export function JobDetailsModal({
               {currentProfessionalId && onAddClientReview && (
                 <div className="border-t border-amber-200/50 pt-2 bg-amber-50/10 rounded-b-xl space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] font-bold text-slate-700 uppercase">Avaliar {job.clientName}</span>
+                    <span className="text-[9px] font-bold text-slate-700 uppercase">{t('modal.job.reputation.rate', { name: job.clientName })}</span>
                     <button 
                       type="button" 
                       onClick={() => setShowClientForm(!showClientForm)}
                       className="text-xs text-amber-800 underline hover:text-amber-900 font-bold cursor-pointer"
                     >
-                      {showClientForm ? 'Ocultar Formulário' : 'Avaliar Contratante'}
+                      {showClientForm ? t('modal.job.reputation.hide') : t('modal.job.reputation.rate.client')}
                     </button>
                   </div>
 
@@ -536,7 +539,7 @@ export function JobDetailsModal({
                      <div className="bg-white p-3 rounded-xl border border-amber-200/40 space-y-2.5">
                       {/* Star select buttons */}
                       <div className="flex items-center gap-1.5">
-                        <span className="text-slate-600 font-semibold font-sans text-[11px]">Sua Nota:</span>
+                        <span className="text-slate-600 font-semibold font-sans text-[11px]">{t('modal.job.reputation.your.rating')}:</span>
                         <div className="flex gap-1 bg-amber-50/50 p-1 rounded border border-amber-100">
                           {[1, 2, 3, 4, 5].map((starValue) => (
                             <button
@@ -554,19 +557,19 @@ export function JobDetailsModal({
 
                       {/* Comment body */}
                       <div className="space-y-1">
-                        <label className="block text-[9px] font-bold text-slate-500 uppercase">Seu comentário sobre o contratante</label>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase">{t('modal.job.reputation.comment')}</label>
                         <textarea
                           rows={2}
                           value={newClientComment}
                           onChange={(e) => setNewClientComment(e.target.value)}
-                          placeholder="Ex: Forneceu todos os produtos, pagou imediatamente, conversou muito bem..."
+                          placeholder={t('modal.job.reputation.comment.placeholder')}
                           className="w-full border border-slate-200 rounded-lg p-2 text-xs bg-slate-50 text-slate-800 focus:outline-emerald-500"
                         />
                       </div>
 
                       {/* Reviewer name input */}
                       <div className="space-y-1">
-                        <label className="block text-[9px] font-bold text-slate-500 uppercase">Seu Nome Revisor</label>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase">{t('modal.job.reputation.name')}</label>
                         <input
                           type="text"
                           value={newClientReviewerName}
@@ -581,7 +584,7 @@ export function JobDetailsModal({
                         onClick={handleSubmitClientReview}
                         className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded-lg text-xs transition cursor-pointer"
                       >
-                        Publicar Minha Avaliação
+                        {t('modal.job.reputation.submit')}
                       </button>
                     </div>
                   )}
@@ -595,7 +598,7 @@ export function JobDetailsModal({
             <div className="flex items-center gap-1.5 mb-2.5">
               <MessageSquare className="w-4 h-4 text-emerald-600" />
               <p className="font-bold text-slate-850 uppercase tracking-widest text-[9px]">
-                Chat de Alinhamento das Partes (Diarista ⇆ Cliente)
+                {t('modal.job.chat.title')}
               </p>
             </div>
 
@@ -603,7 +606,7 @@ export function JobDetailsModal({
             <div className="border border-slate-100 rounded-2xl bg-slate-50/50 p-3 space-y-3">
               <div className="max-h-36 overflow-y-auto space-y-2 pr-1 font-sans">
                 {(!job.chatMessages || job.chatMessages.length === 0) ? (
-                  <p className="text-slate-400 italic text-center py-2 text-[11px]">Nenhuma mensagem enviada ainda. Use o campo de texto para iniciar a conversa.</p>
+                  <p className="text-slate-400 italic text-center py-2 text-[11px]">{t('modal.job.chat.empty')}</p>
                 ) : (
                   job.chatMessages.map((msg) => {
                     const isMe = currentProfessionalId
@@ -637,8 +640,8 @@ export function JobDetailsModal({
                     type="text"
                     placeholder={
                       currentProfessionalId
-                        ? `Conversar como ${activeProProfile?.name || 'Profissional'}...`
-                        : "Conversar como Contratante..."
+                        ? t('modal.job.chat.placeholder.pro')
+                        : t('modal.job.chat.placeholder.client')
                     }
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
@@ -659,10 +662,10 @@ export function JobDetailsModal({
           {!isAssigned && (
             <div className="border-t border-slate-100 pt-3 space-y-3">
               <p className="font-bold text-slate-850 uppercase tracking-widest text-[9px]">
-                Profissionais Interessados na Diária ({applicantsList.length})
+                {t('modal.job.candidates', { n: applicantsList.length })}
               </p>
               {applicantsList.length === 0 ? (
-                <p className="text-slate-400 italic bg-slate-50 p-2 text-center text-[11px] rounded-lg">Ainda sem candidaturas neste mural.</p>
+                <p className="text-slate-400 italic bg-slate-50 p-2 text-center text-[11px] rounded-lg">{t('modal.job.candidates.empty')}</p>
               ) : (
                 <div className="space-y-1.5">
                   {applicantsList.map((cand) => (
@@ -683,7 +686,7 @@ export function JobDetailsModal({
                             <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
                             {cand.rating.toFixed(1)}
                             <span className="text-slate-400 font-normal ml-1">({cand.completedJobs} fx.)</span>
-                            <span className="text-slate-400 font-normal ml-1">| {formatCurrency(cand.hourlyRate)}/h</span>
+                            <span className="text-slate-400 font-normal ml-1">| {formatCurrency(cand.hourlyRate, lang)}/h</span>
                           </div>
                         </div>
                       </div>
@@ -693,7 +696,7 @@ export function JobDetailsModal({
                           onClick={() => onApproveCandidate(job.id, cand.id)}
                           className="text-[10px] font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg px-3 py-1 cursor-pointer transition-colors"
                         >
-                          Aprovar
+                          {t('modal.job.candidates.approve')}
                         </button>
                       )}
                     </div>
@@ -710,7 +713,7 @@ export function JobDetailsModal({
             onClick={onClose}
             className="bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-200 cursor-pointer"
           >
-            Fechar Janela
+            {t('modal.job.close')}
           </button>
 
           {/* Professional Context apply button */}
@@ -721,13 +724,13 @@ export function JobDetailsModal({
               }}
               className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 px-5 rounded-xl transition-all shadow-md cursor-pointer animate-pulsate"
             >
-              Candidatar-se à Vaga
+              {t('modal.job.apply')}
             </button>
           )}
 
           {isAppliedByMe && !isAssigned && (
             <span className="bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5">
-              <Clock className="w-4 h-4 animate-spin-slow" /> Diarista Candidatado(a)
+              <Clock className="w-4 h-4 animate-spin-slow" /> {t('modal.job.applied')}
             </span>
           )}
         </div>

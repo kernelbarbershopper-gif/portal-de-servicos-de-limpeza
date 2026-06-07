@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Professional, CleaningType } from '../types';
 import { Plus, Check, Star, ShieldAlert, Sparkles, Clock, MapPin, User, Phone, Mail, Award, CheckSquare, Square } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface CleanerRegisterFormProps {
   onRegister: (professional: Professional) => void;
@@ -17,6 +18,7 @@ const PRESET_AVATARS = [
 const DAYS_OF_WEEK = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
 
 export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerRegisterFormProps) {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(PRESET_AVATARS[0]);
   const [customAvatar, setCustomAvatar] = useState('');
@@ -53,12 +55,12 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
     e.preventDefault();
     setError('');
 
-    if (!name.trim()) return setError('Por favor, informe seu nome completo.');
-    if (!bio.trim() || bio.length < 20) return setError('Escreva uma breve apresentação (mínimo de 20 caracteres).');
-    if (!phone.trim()) return setError('Por favor, informe um telefone para contato.');
-    if (!email.trim() || !email.includes('@')) return setError('Por favor, informe um email válido.');
-    if (!location.trim()) return setError('Por favor, informe o seu bairro ou cidade.');
-    if (hourlyRate <= 10) return setError('O valor por hora deve ser maior que R$ 10.');
+    if (!name.trim()) return setError(t('register.error.name'));
+    if (!bio.trim() || bio.length < 20) return setError(t('register.error.bio'));
+    if (!phone.trim()) return setError(t('register.error.phone'));
+    if (!email.trim() || !email.includes('@')) return setError(t('register.error.email'));
+    if (!location.trim()) return setError(t('register.error.location'));
+    if (hourlyRate <= 10) return setError(t('register.error.rate'));
 
     const finalAvatar = customAvatar.trim() ? customAvatar : avatar;
 
@@ -89,15 +91,15 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
       <div className="flex items-center justify-between border-b border-slate-100 pb-5 mb-6">
         <div>
           <h2 className="text-xl font-bold font-sans text-slate-805 flex items-center gap-2">
-            <Sparkles className="text-emerald-500 w-5 h-5 animate-pulse" /> Seletor de Cadastro de Faxina
+            <Sparkles className="text-emerald-500 w-5 h-5 animate-pulse" /> {t('register.title')}
           </h2>
-          <p className="text-xs text-slate-500 mt-1">Inscreva-se como profissional e comece a receber propostas de trabalho hoje mesmo!</p>
+          <p className="text-xs text-slate-500 mt-1">{t('register.desc')}</p>
         </div>
         <button
           onClick={onCancel}
           className="text-xs text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
         >
-          Voltar
+          {t('register.back')}
         </button>
       </div>
 
@@ -111,7 +113,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Avatar select */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Sua Foto de Perfil</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">{t('register.avatar.label')}</label>
           <div className="flex flex-wrap items-center gap-4">
             <div className="relative">
               <img 
@@ -124,7 +126,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
             </div>
             
             <div className="flex flex-col gap-2">
-              <span className="text-xs text-slate-400">Escolha uma imagem de teste rápida abaixo:</span>
+              <span className="text-xs text-slate-400">{t('register.avatar.choose')}</span>
               <div className="flex gap-2">
                 {PRESET_AVATARS.map((pic, idx) => (
                   <button
@@ -144,7 +146,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
               </div>
               
               <div className="mt-1">
-                <span className="text-xs text-slate-400">Ou utilize um link personalizado:</span>
+                <span className="text-xs text-slate-400">{t('register.avatar.custom')}</span>
                 <input
                   type="url"
                   placeholder="https://exemplo.com/sua-foto.jpg"
@@ -160,7 +162,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
         {/* Name and Gender */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Nome Completo *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.name.label')}</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -174,15 +176,15 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Gênero</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.gender.label')}</label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value as any)}
               className="w-full py-2.5 px-3 text-xs text-slate-800 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
             >
-              <option value="F">Feminino</option>
-              <option value="M">Masculino</option>
-              <option value="Outro">Outro</option>
+              <option value="F">{t('register.gender.female')}</option>
+              <option value="M">{t('register.gender.male')}</option>
+              <option value="Outro">{t('register.gender.other')}</option>
             </select>
           </div>
         </div>
@@ -190,7 +192,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
         {/* Contacts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Telefone Comercial / WhatsApp *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.phone.label')}</label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -204,7 +206,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">E-mail *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.email.label')}</label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -221,7 +223,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
         {/* Rate, Location, Experience */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Preço por Hora (R$)*</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.rate.label')}</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400">R$</span>
               <input
@@ -236,7 +238,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Anos de Experiência</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.experience.label')}</label>
             <div className="relative">
               <Award className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -251,7 +253,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Bairro / Localização *</label>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.location.label')}</label>
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -267,9 +269,9 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
 
         {/* Bio / Description */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Apresentação Profissional * (Mínimo de 20 letras)</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('register.bio.label')}</label>
           <textarea
-            placeholder="Conte aos contratantes sobre você, quais técnicas utiliza, quais produtos prefere e garanta um primeiro contato de confiança..."
+            placeholder={t('register.bio.placeholder')}
             rows={3}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
@@ -279,13 +281,13 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
 
         {/* Specialties / Cleaning categories */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Especialidades de Atendimento (Selecione ao menos 1)</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">{t('register.specialties.label')}</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
-              { type: 'residencial', label: 'Residencial' },
-              { type: 'comercial', label: 'Comercial' },
-              { type: 'pos-obra', label: 'Pós-Obra' },
-              { type: 'pesada', label: 'Faxina Pesada' }
+              { type: 'residencial', label: t('register.specialties.residential') },
+              { type: 'comercial', label: t('register.specialties.commercial') },
+              { type: 'pos-obra', label: t('register.specialties.posObra') },
+              { type: 'pesada', label: t('register.specialties.heavy') }
             ].map((item) => {
               const isSelected = cleaningTypes.includes(item.type as CleaningType);
               return (
@@ -313,7 +315,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
 
         {/* Availability days */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Dias Disponíveis na Semana</label>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">{t('register.availability.label')}</label>
           <div className="flex flex-wrap gap-1.5">
             {DAYS_OF_WEEK.map((day) => {
               const isSelected = availability.includes(day);
@@ -342,7 +344,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
             onClick={onCancel}
             className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
           >
-            Voltar
+            {t('register.back')}
           </button>
           
           <button
@@ -350,7 +352,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
             type="submit"
             className="px-6 py-2.5 text-xs font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 active:bg-emerald-800 transition-all cursor-pointer shadow-md"
           >
-            Concluir Cadastro & Ficar Disponível
+            {t('register.submit')}
           </button>
         </div>
       </form>

@@ -20,4 +20,44 @@ body {
   background-color: #f8fafc;
   font-family: var(--font-sans);
   color: #1e293b;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* Touch-friendly minimum tap targets on mobile */
+@media (max-width: 768px) {
+  button, a, select, input, textarea {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Safe area padding for notched phones */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .sticky {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
 }

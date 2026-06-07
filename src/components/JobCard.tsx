@@ -2,6 +2,7 @@ import React from 'react';
 import { Job } from '../types';
 import { Briefcase, Building, Home, MapPin, Calendar, Clock, Sparkles, Shield, User } from 'lucide-react';
 import { getCleaningTypeColor, getCleaningTypeLabel, formatCurrency, formatDate } from '../utils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface JobCardProps {
   key?: string;
@@ -13,6 +14,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({ job, currentProfessionalId, onViewDetails, onApply, clientRating }: JobCardProps) {
+  const { t, lang } = useLanguage();
   const isAppliedByMe = currentProfessionalId ? job.applicants.includes(currentProfessionalId) : false;
   const isAssignedToMe = currentProfessionalId ? job.assignedTo === currentProfessionalId : false;
 
@@ -39,21 +41,21 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
           {job.clientType === 'empresa' ? (
             <>
               <Building className="w-3.5 h-3.5 text-slate-600" />
-              Empresa
+              {t('job.card.company')}
             </>
           ) : (
             <>
               <Home className="w-3.5 h-3.5 text-emerald-600" />
-              Residencial
+              {t('job.card.residential')}
             </>
           )}
         </span>
 
         {/* Price display tags */}
         <div className="text-right">
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Valor Oferecido</p>
+          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">{t('job.card.price')}</p>
           <span className="text-base font-extrabold text-emerald-700 font-sans">
-            {formatCurrency(job.price)}
+            {formatCurrency(job.price, lang)}
           </span>
         </div>
       </div>
@@ -65,7 +67,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
             {job.title}
           </h3>
           <p className="text-xs text-slate-400 mt-1.5 font-sans flex items-center gap-1.5 flex-wrap">
-            <span>Contratante:</span>
+            <span>{t('job.card.client')}</span>
             <span className="font-semibold text-slate-700">{job.clientName}</span>
             {clientRating !== undefined && clientRating > 0 && (
               <span className="inline-flex items-center gap-0.5 bg-amber-50 border border-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded-md">
@@ -83,7 +85,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
           </div>
           <div className="flex items-center gap-2">
             <Clock className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-            <span className="truncate">{job.time} ({job.durationHours}h de dura.)</span>
+            <span className="truncate">{job.time} ({t('job.card.duration', { n: job.durationHours })}h)</span>
           </div>
           <div className="flex items-center gap-2 col-span-2">
             <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
@@ -110,10 +112,10 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
           <div className="text-[10px] text-slate-500 font-medium">
             {job.applicants.length > 0 ? (
               <span className="text-slate-600 font-semibold bg-slate-100 px-2 py-0.5 rounded-sm">
-                {job.applicants.length} {job.applicants.length === 1 ? 'candidato' : 'candidatos'}
+                {t('job.card.candidates.n', { n: job.applicants.length })}
               </span>
             ) : (
-              <span className="text-slate-400 italic">Nenhum candidato</span>
+              <span className="text-slate-400 italic">{t('job.card.candidates.none')}</span>
             )}
           </div>
         </div>
@@ -124,17 +126,17 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
           <div>
             {isAssignedToMe && (
               <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1">
-                <Shield className="w-3.5 h-3.5 fill-emerald-100" /> Aprovado
+                <Shield className="w-3.5 h-3.5 fill-emerald-100" /> {t('job.card.approved')}
               </span>
             )}
             {!isAssignedToMe && isAppliedByMe && (
               <span className="text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" /> Candidatado
+                <Clock className="w-3.5 h-3.5" /> {t('job.card.applied')}
               </span>
             )}
             {!isAssignedToMe && !isAppliedByMe && job.status === 'em_andamento' && (
               <span className="text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs">
-                Já preenchido
+                {t('job.card.filled')}
               </span>
             )}
           </div>
@@ -145,7 +147,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
               onClick={() => onViewDetails(job.id)}
               className="bg-slate-100 hover:bg-slate-200 active:bg-slate-350 text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
-              Ver Detalhes
+              {t('job.card.details')}
             </button>
 
             {/* Quick apply button if user is registered/logged as Cleaner and has not applied */}
@@ -155,7 +157,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
                 onClick={() => onApply(job.id)}
                 className="bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 text-xs font-bold px-3.5 py-2 rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
               >
-                Candidatar-se
+                {t('job.card.apply')}
               </button>
             )}
           </div>
