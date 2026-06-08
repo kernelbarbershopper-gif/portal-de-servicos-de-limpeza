@@ -8,17 +8,20 @@ import JobPostForm from './components/JobPostForm';
 import { CleanerDetailsModal, JobDetailsModal } from './components/DetailModals';
 import AndroidSimulator from './components/AndroidSimulator';
 import { useLanguage } from './i18n/LanguageContext';
-import { Sparkles, Building, User, Info, Check, Bell, Shield, ArrowUpRight, Smartphone, CheckCircle, Globe } from 'lucide-react';
+import { Sparkles, Smartphone, CheckCircle, Check } from 'lucide-react';
 
 export default function App() {
   const { t, lang, setLang } = useLanguage();
-  const [showLangMenu, setShowLangMenu] = useState(false);
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [clientReviews, setClientReviews] = useState<ClientReview[]>([]);
   
-  // App routing and views
-  const [isAndroidMode, setIsAndroidMode] = useState<boolean>(true);
+  // App routing and views - default to web mode, auto-detect mobile later
+  const [isAndroidMode, setIsAndroidMode] = useState<boolean>(false);
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
+    if (isMobile) setIsAndroidMode(true);
+  }, []);
   const [activeRole, setActiveRole] = useState<'client' | 'cleaner'>('client');
   const [viewingForm, setViewingForm] = useState<'post-job' | 'register-cleaner' | 'none'>('none');
   const [selectedCleanerId, setSelectedCleanerId] = useState<string | null>(null);
