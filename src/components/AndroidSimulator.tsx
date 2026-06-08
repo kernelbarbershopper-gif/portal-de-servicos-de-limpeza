@@ -254,27 +254,27 @@ export default function AndroidSimulator({
       
       {/* LEFT COLUMN: PWA Guide & Technical Details */}
       <div className="lg:col-span-5 space-y-6">
-        <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-xs relative overflow-hidden">
+        <div className="bg-slate-900 rounded-3xl border border-slate-700 p-6 shadow-xs relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 bg-indigo-50 text-indigo-700 text-[10px] font-bold uppercase rounded-bl-2xl">
             Android Native Shell
           </div>
           
-          <h2 className="text-xl font-black font-sans text-slate-800 flex items-center gap-2">
+          <h2 className="text-xl font-black font-sans text-slate-200 flex items-center gap-2">
             <Smartphone className="text-emerald-600 w-5 h-5 animate-bounce" />             {t('simulator.title')}
           </h2>
           <p className="text-slate-500 text-xs mt-1 leading-relaxed">
             {t('simulator.desc')}
           </p>
 
-          <div className="border-t border-slate-100 pt-5 mt-5 space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+          <div className="border-t border-slate-700 pt-5 mt-5 space-y-4">
+            <h3 className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2">
               {t('simulator.instructions.title')}
             </h3>
-            <p className="text-slate-600 text-[11px] leading-relaxed">
+            <p className="text-slate-500 text-[11px] leading-relaxed">
               {t('simulator.instructions.desc')}
             </p>
 
-            <ol className="text-slate-650 text-[11px] space-y-2.5 list-decimal list-inside pl-1 bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <ol className="text-slate-500 text-[11px] space-y-2.5 list-decimal list-inside pl-1 bg-slate-800 p-4 rounded-xl border border-slate-700">
               <li>{t('simulator.step1')}</li>
               <li>{t('simulator.step2')}</li>
               <li>{t('simulator.step3')}</li>
@@ -286,7 +286,7 @@ export default function AndroidSimulator({
                 navigator.clipboard.writeText(window.location.href);
                 alert(t('simulator.link.copied'));
               }}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full bg-slate-800 hover:bg-slate-600 text-slate-200 font-bold text-[11px] py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
                 <Clipboard className="w-3.5 h-3.5" /> {t('simulator.copy.link')}
             </button>
@@ -299,7 +299,7 @@ export default function AndroidSimulator({
               {t('simulator.status.title')}
           </h3>
 
-          <div className="space-y-2.5 text-[11px] font-mono text-slate-400">
+          <div className="space-y-2.5 text-[11px] font-mono text-slate-500">
             <div className="flex justify-between border-b border-slate-800 pb-1.5">
               <span>{t('simulator.android.ver')}</span>
               <span className="text-emerald-400 font-bold">{t('simulator.status.api')}</span>
@@ -345,7 +345,7 @@ export default function AndroidSimulator({
           </div>
 
           {/* Core Simulator Screen Frame */}
-          <div className="relative w-full h-[620px] bg-slate-100 rounded-[38px] overflow-hidden flex flex-col justify-between select-none">
+          <div className="relative w-full h-[620px] bg-slate-800 rounded-[38px] overflow-hidden flex flex-col justify-between select-none">
             
             {/* 1. Android top status bar */}
             <div className="bg-slate-900/90 text-white text-[10px] py-1.5 px-6 flex justify-between items-center z-40 select-none">
@@ -372,7 +372,7 @@ export default function AndroidSimulator({
             {showNotifications && (
               <div className="absolute top-8 left-0 right-0 max-h-56 bg-slate-950/95 backdrop-blur-md text-white z-40 rounded-b-2xl border-b border-slate-800 p-3 shadow-xl flex flex-col justify-between animate-fade-in">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-1 px-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{t('phone.notifications.title')}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{t('phone.notifications.title')}</span>
                   <button 
                     onClick={() => setShowNotifications(false)}
                     className="text-[9px] bg-slate-800 hover:bg-slate-700 px-1.5 py-0.5 rounded text-white cursor-pointer"
@@ -407,21 +407,21 @@ export default function AndroidSimulator({
             )}
 
             {/* MAIN APP SHELL OR PLAY STORE VIEWER */}
-            <div className="flex-1 bg-white relative overflow-hidden flex flex-col justify-between">
+            <div className="flex-1 bg-slate-900 relative overflow-hidden flex flex-col justify-between">
               
               {/* IF NOT INSTALLED: PLAY STORE VIEW */}
               {!isInstalled ? (
-                <div className="absolute inset-0 bg-slate-50 flex flex-col justify-between z-30 font-sans">
+                <div className="absolute inset-0 bg-slate-800 flex flex-col justify-between z-30 font-sans">
                   
                   {/* Play store header */}
-                  <div className="bg-white p-3 border-b border-slate-100 flex items-center justify-between">
+                  <div className="bg-slate-900 p-3 border-b border-slate-700 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="bg-emerald-600 text-white rounded-lg p-1">
                         <Play className="w-3.5 h-3.5 fill-white" />
                       </div>
-                      <span className="text-xs font-bold text-slate-800">{t('store.title')}</span>
+                      <span className="text-xs font-bold text-slate-200">{t('store.title')}</span>
                     </div>
-                    <span className="text-[9px] text-slate-400 uppercase font-black bg-slate-150 p-1 rounded">{t('store.badge')}</span>
+                    <span className="text-[9px] text-slate-500 uppercase font-black bg-slate-150 p-1 rounded">{t('store.badge')}</span>
                   </div>
 
                   {/* Play store app summary */}
@@ -434,31 +434,31 @@ export default function AndroidSimulator({
 
                       {/* App Title & dev team */}
                       <div className="space-y-1">
-                        <h3 className="font-bold text-slate-800 text-sm">{t('store.app.name')}</h3>
+                        <h3 className="font-bold text-slate-200 text-sm">{t('store.app.name')}</h3>
                         <p className="text-[10px] text-emerald-600 font-bold">{t('store.app.subtitle')}</p>
-                        <p className="text-[9px] text-slate-400">{t('store.app.ads')}</p>
+                        <p className="text-[9px] text-slate-500">{t('store.app.ads')}</p>
                       </div>
                     </div>
 
                     {/* Stats badges */}
-                    <div className="grid grid-cols-3 gap-1 text-center bg-slate-100/60 p-2 rounded-xl border border-slate-105">
-                      <div className="border-r border-slate-200">
-                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.rating')}</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.rating')}</span>
+                    <div className="grid grid-cols-3 gap-1 text-center bg-slate-800/60 p-2 rounded-xl border border-slate-105">
+                      <div className="border-r border-slate-600">
+                        <span className="text-xs font-black text-slate-200 block">{t('store.stats.rating')}</span>
+                        <span className="text-[8px] text-slate-500 block uppercase">{t('store.rating')}</span>
                       </div>
-                      <div className="border-r border-slate-200">
-                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.size')}</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.size')}</span>
+                      <div className="border-r border-slate-600">
+                        <span className="text-xs font-black text-slate-200 block">{t('store.stats.size')}</span>
+                        <span className="text-[8px] text-slate-500 block uppercase">{t('store.size')}</span>
                       </div>
                       <div>
-                        <span className="text-xs font-black text-slate-800 block">{t('store.stats.downloads')}</span>
-                        <span className="text-[8px] text-slate-400 block uppercase">{t('store.downloads')}</span>
+                        <span className="text-xs font-black text-slate-200 block">{t('store.stats.downloads')}</span>
+                        <span className="text-[8px] text-slate-500 block uppercase">{t('store.downloads')}</span>
                       </div>
                     </div>
 
                     {/* App description text */}
                     <div className="space-y-1">
-                      <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wide">{t('store.about')}</h4>
+                      <h4 className="text-[11px] font-bold text-slate-200 uppercase tracking-wide">{t('store.about')}</h4>
                       <p className="text-[10px] text-slate-500 leading-relaxed font-sans">
                         {t('store.about.desc')}
                       </p>
@@ -466,12 +466,12 @@ export default function AndroidSimulator({
 
                     {/* Dynamic Status / Progress Bars */}
                     {isInstalling ? (
-                      <div className="bg-white p-3.5 border border-slate-150 rounded-2xl space-y-2">
-                        <div className="flex justify-between items-center text-[10px] font-bold text-slate-700">
+                      <div className="bg-slate-900 p-3.5 border border-slate-600 rounded-2xl space-y-2">
+                        <div className="flex justify-between items-center text-[10px] font-bold text-slate-300">
                           <span className="animate-pulse">{t('store.downloading')}</span>
                           <span>{installProgress}%</span>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                           <div 
                             className="bg-emerald-600 h-full rounded-full transition-all duration-200"
                             style={{ width: `${installProgress}%` }}
@@ -489,7 +489,7 @@ export default function AndroidSimulator({
                   </div>
 
                   {/* Play store safety badge */}
-                  <div className="bg-white p-3 border-t border-slate-100 text-center flex items-center justify-center gap-1 text-[9px] text-slate-400">
+                  <div className="bg-slate-900 p-3 border-t border-slate-700 text-center flex items-center justify-center gap-1 text-[9px] text-slate-500">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100" /> {t('store.verified')}
                   </div>
                 </div>
@@ -498,7 +498,7 @@ export default function AndroidSimulator({
               {/* SPLASH SCREEN ON INSTALLED RUN CARD */}
               {showSplash && (
                 <div className="absolute inset-0 bg-emerald-600 flex flex-col items-center justify-center z-50 text-white font-sans transition-all">
-                  <div className="bg-white/10 rounded-3xl p-6 shadow-2xl animate-spin-slow">
+                  <div className="bg-black/10 rounded-3xl p-6 shadow-2xl animate-spin-slow">
                     <Sparkles className="w-12 h-12 text-white" />
                   </div>
                   <h1 className="text-xl font-black mt-4 tracking-tight">LimpezaJá</h1>
@@ -509,7 +509,7 @@ export default function AndroidSimulator({
               {/* ------------------------------------------- */}
               {/* REAL INTERNAL NATIVE APP CONTAINER INTERFACE */}
               {/* ------------------------------------------- */}
-              <div className="flex-1 flex flex-col justify-between overflow-hidden bg-white">
+              <div className="flex-1 flex flex-col justify-between overflow-hidden bg-slate-900">
                 
                 {/* 1. App Header inside Smartphone */}
                 <div className="bg-slate-900 text-white p-3 flex items-center justify-between">
@@ -519,7 +519,7 @@ export default function AndroidSimulator({
                     </div>
                     <div>
                       <h4 className="text-[11px] font-bold text-white tracking-tight leading-none">LimpezaJá</h4>
-                          <span className="text-[8px] text-slate-400 font-bold tracking-wider leading-none">{t('phone.header.title')}</span>
+                          <span className="text-[8px] text-slate-500 font-bold tracking-wider leading-none">{t('phone.header.title')}</span>
                     </div>
                   </div>
 
@@ -528,7 +528,7 @@ export default function AndroidSimulator({
                     <button 
                       onClick={() => setRoleMode('client')}
                       className={`text-[8px] font-bold px-2 py-1 rounded transition-colors cursor-pointer ${
-                        roleMode === 'client' ? 'bg-white text-slate-900' : 'text-slate-400'
+                        roleMode === 'client' ? 'bg-slate-900 text-slate-100' : 'text-slate-500'
                       }`}
                     >
                       {t('phone.role.client')}
@@ -536,7 +536,7 @@ export default function AndroidSimulator({
                     <button 
                       onClick={() => setRoleMode('cleaner')}
                       className={`text-[8px] font-bold px-2 py-1 rounded transition-colors cursor-pointer ${
-                        roleMode === 'cleaner' ? 'bg-emerald-600 text-white' : 'text-slate-400'
+                        roleMode === 'cleaner' ? 'bg-emerald-600 text-white' : 'text-slate-500'
                       }`}
                     >
                       {t('phone.role.cleaner')}
@@ -558,7 +558,7 @@ export default function AndroidSimulator({
                           <select
                             value={activeProfessionalId || ''}
                             onChange={(e) => onSelectActiveProfessional(e.target.value || null)}
-                            className="bg-white text-[9.5px] p-1 border border-slate-200 rounded-md w-full font-bold text-slate-850"
+                            className="bg-slate-900 text-[9.5px] p-1 border border-slate-600 rounded-md w-full font-bold text-slate-200"
                           >
                             <option value="">{t('phone.profile.choose')}</option>
                             {professionals.map(p => (
@@ -570,10 +570,10 @@ export default function AndroidSimulator({
 
                       {/* Header message */}
                       <div>
-                        <span className="text-[8px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full uppercase">
+                        <span className="text-[8px] bg-slate-800 text-slate-300 font-bold px-2 py-0.5 rounded-full uppercase">
                           {roleMode === 'client' ? t('phone.home.client.title') : t('phone.home.cleaner.title')}
                         </span>
-                        <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
+                        <h4 className="text-xs font-black text-slate-200 mt-1 leading-none">
                           {roleMode === 'client' ? t('phone.home.client.subtitle') : t('phone.home.cleaner.subtitle')}
                         </h4>
                       </div>
@@ -586,29 +586,29 @@ export default function AndroidSimulator({
                             <div 
                               key={pro.id} 
                               onClick={() => setMobSelectedProId(pro.id)}
-                              className="p-3 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-350 transition-colors"
+                              className="p-3 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-between cursor-pointer hover:border-slate-350 transition-colors"
                             >
                               <div className="flex items-center gap-2">
                                 <img 
                                   src={pro.avatar} 
                                   alt={pro.name} 
                                   referrerPolicy="no-referrer"
-                                  className="w-10 h-10 object-cover rounded-full border border-emerald-500 bg-white flex-shrink-0"
+                                  className="w-10 h-10 object-cover rounded-full border border-emerald-500 bg-slate-900 flex-shrink-0"
                                 />
                                 <div>
-                                  <h5 className="font-bold text-slate-800 text-[10.5px] line-clamp-1 flex items-center gap-1">
+                                  <h5 className="font-bold text-slate-200 text-[10.5px] line-clamp-1 flex items-center gap-1">
                                     {pro.name.split(' ')[0]} {pro.isVerified && '✔️'}
                                   </h5>
-                                  <p className="text-[8.5px] text-slate-400 line-clamp-1">{pro.location.split(',')[0]}</p>
+                                  <p className="text-[8.5px] text-slate-500 line-clamp-1">{pro.location.split(',')[0]}</p>
                                   <div className="flex items-center gap-1.5 text-[8.5px] font-bold text-amber-600 mt-0.5">
                                     <span>⭐ {pro.rating.toFixed(1)}</span>
-                                    <span className="text-slate-400 font-normal">({pro.completedJobs} fx.)</span>
+                                    <span className="text-slate-500 font-normal">({pro.completedJobs} fx.)</span>
                                   </div>
                                 </div>
                               </div>
                               <div className="text-right">
                                 <span className="text-[10px] font-black font-sans text-emerald-700 block">{formatCurrency(pro.hourlyRate, lang)}/h</span>
-                                <span className="text-[7.5px] text-slate-400 uppercase tracking-wide">{t('phone.home.hire')}</span>
+                                <span className="text-[7.5px] text-slate-500 uppercase tracking-wide">{t('phone.home.hire')}</span>
                               </div>
                             </div>
                           ))}
@@ -628,10 +628,10 @@ export default function AndroidSimulator({
                               <div 
                                 key={job.id}
                                 onClick={() => setMobSelectedJobId(job.id)}
-                                className="p-3 bg-slate-50 border border-slate-100 rounded-2xl space-y-1.5 cursor-pointer hover:border-slate-350 transition-all flex flex-col justify-between"
+                                className="p-3 bg-slate-800 border border-slate-700 rounded-2xl space-y-1.5 cursor-pointer hover:border-slate-350 transition-all flex flex-col justify-between"
                               >
                                 <div className="flex justify-between items-center text-[8px]">
-                                  <span className="font-bold text-slate-400 uppercase tracking-wide">{getCleaningTypeLabel(job.cleaningType)}</span>
+                                  <span className="font-bold text-slate-500 uppercase tracking-wide">{getCleaningTypeLabel(job.cleaningType)}</span>
                                   <span className={`px-1.5 py-0.5 rounded font-black ${
                                     isAssigned 
                                       ? 'bg-emerald-100 text-emerald-800' 
@@ -643,15 +643,15 @@ export default function AndroidSimulator({
                                   </span>
                                 </div>
 
-                                <h5 className="font-bold text-slate-800 text-[10.5px] line-clamp-1 leading-tight">{job.title}</h5>
+                                <h5 className="font-bold text-slate-200 text-[10.5px] line-clamp-1 leading-tight">{job.title}</h5>
                                 <div className="flex items-center gap-1.5">
                                   <p className="text-[8.5px] text-slate-500 line-clamp-1">{job.address.split('-')[0]}</p>
                                   <span className="text-[8.5px] text-amber-700 bg-amber-50 px-1 font-bold rounded flex items-center">⭐{avgClientRating.toFixed(1)}</span>
                                 </div>
 
-                                <div className="flex justify-between items-center bg-white p-1.5 border border-slate-100 rounded-lg mt-1 text-[9px]">
+                                <div className="flex justify-between items-center bg-slate-900 p-1.5 border border-slate-700 rounded-lg mt-1 text-[9px]">
                                   <span className="font-mono text-emerald-700 font-black">{formatCurrency(job.price, lang)}</span>
-                                  <span className="text-slate-400">{t('phone.home.duration', { h: job.durationHours })}</span>
+                                  <span className="text-slate-500">{t('phone.home.duration', { h: job.durationHours })}</span>
                                 </div>
                               </div>
                             );
@@ -668,38 +668,38 @@ export default function AndroidSimulator({
                         <span className="text-[8px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">
                           {t('phone.calc.title')}
                         </span>
-                        <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
+                        <h4 className="text-xs font-black text-slate-200 mt-1 leading-none">
                           {t('phone.calc.subtitle')}
                         </h4>
                       </div>
 
                       {/* Calculator controls */}
-                      <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-100 space-y-3 text-[10px]">
+                      <div className="bg-slate-800 p-2.5 rounded-2xl border border-slate-700 space-y-3 text-[10px]">
                         
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.rooms', { n: calcRooms })}</label>
-                          <div className="flex items-center gap-1 bg-white border border-slate-150 rounded-lg p-0.5 justify-between">
-                            <button onClick={() => setCalcRooms(Math.max(1, calcRooms - 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">-</button>
+                          <label className="text-[8px] font-bold text-slate-500 uppercase">{t('phone.calc.rooms', { n: calcRooms })}</label>
+                          <div className="flex items-center gap-1 bg-slate-900 border border-slate-600 rounded-lg p-0.5 justify-between">
+                            <button onClick={() => setCalcRooms(Math.max(1, calcRooms - 1))} className="px-2 py-0.5 bg-slate-800 rounded cursor-pointer">-</button>
                             <span className="font-mono">{calcRooms}</span>
-                            <button onClick={() => setCalcRooms(Math.min(10, calcRooms + 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">+</button>
+                            <button onClick={() => setCalcRooms(Math.min(10, calcRooms + 1))} className="px-2 py-0.5 bg-slate-800 rounded cursor-pointer">+</button>
                           </div>
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.baths', { n: calcBaths })}</label>
-                          <div className="flex items-center gap-1 bg-white border border-slate-150 rounded-lg p-0.5 justify-between">
-                            <button onClick={() => setCalcBaths(Math.max(1, calcBaths - 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">-</button>
+                          <label className="text-[8px] font-bold text-slate-500 uppercase">{t('phone.calc.baths', { n: calcBaths })}</label>
+                          <div className="flex items-center gap-1 bg-slate-900 border border-slate-600 rounded-lg p-0.5 justify-between">
+                            <button onClick={() => setCalcBaths(Math.max(1, calcBaths - 1))} className="px-2 py-0.5 bg-slate-800 rounded cursor-pointer">-</button>
                             <span className="font-mono">{calcBaths}</span>
-                            <button onClick={() => setCalcBaths(Math.min(5, calcBaths + 1))} className="px-2 py-0.5 bg-slate-100 rounded cursor-pointer">+</button>
+                            <button onClick={() => setCalcBaths(Math.min(5, calcBaths + 1))} className="px-2 py-0.5 bg-slate-800 rounded cursor-pointer">+</button>
                           </div>
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.type')}</label>
+                          <label className="text-[8px] font-bold text-slate-500 uppercase">{t('phone.calc.type')}</label>
                           <select 
                             value={calcType}
                             onChange={(e: any) => setCalcType(e.target.value)}
-                            className="w-full text-[10px] p-1.5 bg-white border border-slate-200 rounded-lg outline-none"
+                            className="w-full text-[10px] p-1.5 bg-slate-900 border border-slate-600 rounded-lg outline-none"
                           >
                             <option value="residencial">{t('calc.type.residential')}</option>
                             <option value="pesada">{t('calc.type.heavy')}</option>
@@ -710,7 +710,7 @@ export default function AndroidSimulator({
 
                         {/* Extra services selectors */}
                         <div className="space-y-1">
-                          <label className="text-[8px] font-bold text-slate-400 uppercase">{t('phone.calc.extras')}</label>
+                          <label className="text-[8px] font-bold text-slate-500 uppercase">{t('phone.calc.extras')}</label>
                           <div className="grid grid-cols-2 gap-1.5 pt-1">
                             {EXTRAS_AVAILABLE.slice(0, 4).map((extra) => {
                               const checked = calcExtras.includes(extra.id);
@@ -721,11 +721,11 @@ export default function AndroidSimulator({
                                   className={`p-1.5 rounded-lg border text-left transition-all ${
                                     checked 
                                       ? 'bg-emerald-50 border-emerald-400 text-emerald-950 font-bold' 
-                                      : 'bg-white border-slate-150 text-slate-650'
+                                      : 'bg-slate-900 border-slate-600 text-slate-500'
                                   }`}
                                 >
                                   <div className="text-[8px] truncate leading-none">{extra.label.split(' ')[0]}</div>
-                                  <div className="text-[7.5px] text-slate-400 font-normal mt-0.5">+{formatCurrency(extra.price, lang)}</div>
+                                  <div className="text-[7.5px] text-slate-500 font-normal mt-0.5">+{formatCurrency(extra.price, lang)}</div>
                                 </button>
                               );
                             })}
@@ -736,7 +736,7 @@ export default function AndroidSimulator({
 
                       {/* Display calculations box inside phone */}
                       <div className="bg-slate-900 text-white rounded-2xl p-3 space-y-1.5 text-center">
-                        <span className="text-[7.5px] text-slate-400 uppercase tracking-widest block font-bold">{t('phone.calc.result')}</span>
+                        <span className="text-[7.5px] text-slate-500 uppercase tracking-widest block font-bold">{t('phone.calc.result')}</span>
                         <span className="text-lg font-black font-mono text-emerald-400 tracking-tight block mt-0.5">{formatCurrency(phoneEst.cost, lang)}</span>
                         <p className="text-[8.5px] text-slate-350 leading-tight">{t('phone.calc.duration', { h: phoneEst.hours })}</p>
 
@@ -754,98 +754,98 @@ export default function AndroidSimulator({
                   {activeTab === 'action' && (
                     <div className="space-y-3.5 font-sans">
                       <div>
-                        <span className="text-[8px] bg-slate-955 text-slate-700 font-bold px-2 py-0.5 rounded-full uppercase mr-1">
+                        <span className="text-[8px] bg-slate-955 text-slate-300 font-bold px-2 py-0.5 rounded-full uppercase mr-1">
                           {t('phone.action.title')}
                         </span>
-                        <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
+                        <h4 className="text-xs font-black text-slate-200 mt-1 leading-none">
                           {t('phone.action.subtitle')}
                         </h4>
                       </div>
 
                       {/* Quick fill shortcuts */}
-                      <div className="flex bg-slate-100 p-1.5 rounded-xl border border-slate-200/40 gap-2 items-center justify-between">
-                        <span className="text-[7.5px] text-slate-400 uppercase font-black tracking-wider block">{t('phone.action.auto')}</span>
-                        <button onClick={() => handleApplyPreset('basic')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">{t('phone.action.preset.home')}</button>
-                        <button onClick={() => handleApplyPreset('pro')} className="text-[8.5px] font-bold text-slate-800 bg-white hover:bg-slate-100 px-2.5 py-1 rounded border border-slate-200 shadow-3xs cursor-pointer">{t('phone.action.preset.reform')}</button>
+                      <div className="flex bg-slate-800 p-1.5 rounded-xl border border-slate-600/40 gap-2 items-center justify-between">
+                        <span className="text-[7.5px] text-slate-500 uppercase font-black tracking-wider block">{t('phone.action.auto')}</span>
+                        <button onClick={() => handleApplyPreset('basic')} className="text-[8.5px] font-bold text-slate-200 bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded border border-slate-600 shadow-3xs cursor-pointer">{t('phone.action.preset.home')}</button>
+                        <button onClick={() => handleApplyPreset('pro')} className="text-[8.5px] font-bold text-slate-200 bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded border border-slate-600 shadow-3xs cursor-pointer">{t('phone.action.preset.reform')}</button>
                       </div>
 
                       <div className="space-y-2 text-[9.5px]">
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.title.label')}</label>
+                          <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.title.label')}</label>
                           <input 
                             type="text" 
                             placeholder="Ex: Faxina quinzenal quarto"
                             value={newPostTitle}
                             onChange={(e) => setNewPostTitle(e.target.value)}
-                            className="w-full text-xs p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none inline-block text-slate-800"
+                            className="w-full text-xs p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none inline-block text-slate-200"
                           />
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.name.label')}</label>
+                            <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.name.label')}</label>
                             <input 
                               type="text" 
                               placeholder="Ex: Cláudia Silva"
                               value={newPostClient}
                               onChange={(e) => setNewPostClient(e.target.value)}
-                              className="w-full text-[10px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800"
+                              className="w-full text-[10px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none text-slate-200"
                             />
                           </div>
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.phone.label')}</label>
+                            <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.phone.label')}</label>
                             <input 
                               type="text" 
                               placeholder="(11) 97777-6666"
                               value={newPostPhone}
                               onChange={(e) => setNewPostPhone(e.target.value)}
-                              className="w-full text-[10px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800"
+                              className="w-full text-[10px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none text-slate-200"
                             />
                           </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.email.label')}</label>
+                            <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.email.label')}</label>
                             <input 
                               type="email" 
                               placeholder="sua@vaga.com"
                               value={newPostEmail}
                               onChange={(e) => setNewPostEmail(e.target.value)}
-                              className="w-full text-[10px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800"
+                              className="w-full text-[10px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none text-slate-200"
                             />
                           </div>
                           <div>
-                            <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.budget.label')}</label>
+                            <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.budget.label')}</label>
                             <input 
                               type="number" 
                               placeholder="250"
                               value={newPostBudget}
                               onChange={(e) => setNewPostBudget(parseInt(e.target.value) || 0)}
-                              className="w-full text-[10px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none font-bold text-emerald-800"
+                              className="w-full text-[10px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none font-bold text-emerald-800"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.address.label')}</label>
+                          <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.address.label')}</label>
                           <input 
                             type="text" 
                             placeholder="Rua, Número, Bairro - Cidade, SP"
                             value={newPostAddress}
                             onChange={(e) => setNewPostAddress(e.target.value)}
-                            className="w-full text-[10.5px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800"
+                            className="w-full text-[10.5px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none text-slate-200"
                           />
                         </div>
 
                         <div>
-                          <label className="block font-bold text-slate-400 uppercase text-[7.5px] mb-0.5">{t('phone.action.desc.label')}</label>
+                          <label className="block font-bold text-slate-500 uppercase text-[7.5px] mb-0.5">{t('phone.action.desc.label')}</label>
                           <textarea 
                             placeholder="Deixe instruções ou foque em algum cômodo..."
                             rows={2}
                             value={newPostDesc}
                             onChange={(e) => setNewPostDesc(e.target.value)}
-                            className="w-full text-[9.5px] p-1.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-800"
+                            className="w-full text-[9.5px] p-1.5 bg-slate-800 border border-slate-600 rounded-lg outline-none text-slate-200"
                           />
                         </div>
 
@@ -866,14 +866,14 @@ export default function AndroidSimulator({
                         <span className="text-[8px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase">
                           {t('phone.chats.title')}
                         </span>
-                        <h4 className="text-xs font-black text-slate-800 mt-1 leading-none">
+                        <h4 className="text-xs font-black text-slate-200 mt-1 leading-none">
                           {t('phone.chats.subtitle')}
                         </h4>
                       </div>
 
                       <div className="space-y-2">
                         {jobs.filter(j => j.applicants.length > 0 || j.assignedTo !== null).length === 0 ? (
-                          <div className="bg-slate-50 border border-dashed border-slate-200 p-6 rounded-2xl text-center italic text-[10px] text-slate-400">
+                          <div className="bg-slate-800 border border-dashed border-slate-600 p-6 rounded-2xl text-center italic text-[10px] text-slate-500">
                             {t('phone.chats.empty')}
                           </div>
                         ) : (
@@ -881,15 +881,15 @@ export default function AndroidSimulator({
                             <div 
                               key={job.id}
                               onClick={() => setMobSelectedJobId(job.id)}
-                              className="p-3 bg-slate-50 border border-slate-100 hover:border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer transition-all"
+                              className="p-3 bg-slate-800 border border-slate-700 hover:border-slate-300 rounded-2xl flex items-center justify-between cursor-pointer transition-all"
                             >
                               <div className="flex items-center gap-2">
                                 <div className="p-2 bg-emerald-100 text-emerald-800 rounded-xl flex-shrink-0">
                                   <MessageSquare className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <h6 className="font-bold text-slate-800 text-[10px] leading-tight line-clamp-1">{job.title}</h6>
-                                  <p className="text-[8px] text-slate-400 font-medium">{t('phone.chats.client', { name: job.clientName })}</p>
+                                  <h6 className="font-bold text-slate-200 text-[10px] leading-tight line-clamp-1">{job.title}</h6>
+                                  <p className="text-[8px] text-slate-500 font-medium">{t('phone.chats.client', { name: job.clientName })}</p>
                                   {job.chatMessages && job.chatMessages.length > 0 && (
                                     <p className="text-[8px] text-emerald-800 italic font-semibold line-clamp-1 mt-0.5">
                                       {t('phone.chats.last', { msg: job.chatMessages[job.chatMessages.length - 1].text })}
@@ -897,7 +897,7 @@ export default function AndroidSimulator({
                                   )}
                                 </div>
                               </div>
-                              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                              <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
                             </div>
                           ))
                         )}
@@ -913,7 +913,7 @@ export default function AndroidSimulator({
                   <button 
                     onClick={() => setActiveTab('home')}
                     className={`flex flex-col items-center flex-1 cursor-pointer pt-1 ${
-                      activeTab === 'home' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-400 hover:text-white'
+                      activeTab === 'home' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-500 hover:text-white'
                     }`}
                   >
                     <Home className="w-4 h-4" />
@@ -923,7 +923,7 @@ export default function AndroidSimulator({
                   <button 
                     onClick={() => setActiveTab('calc')}
                     className={`flex flex-col items-center flex-1 cursor-pointer pt-1 ${
-                      activeTab === 'calc' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-400 hover:text-white'
+                      activeTab === 'calc' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-500 hover:text-white'
                     }`}
                   >
                     <Calculator className="w-4 h-4" />
@@ -933,7 +933,7 @@ export default function AndroidSimulator({
                   <button 
                     onClick={() => setActiveTab('action')}
                     className={`flex flex-col items-center flex-1 cursor-pointer pt-1 ${
-                      activeTab === 'action' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-400 hover:text-white'
+                      activeTab === 'action' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-500 hover:text-white'
                     }`}
                   >
                     <Plus className="w-4 h-4" />
@@ -943,7 +943,7 @@ export default function AndroidSimulator({
                   <button 
                     onClick={() => setActiveTab('chats')}
                     className={`flex flex-col items-center flex-1 cursor-pointer pt-1 relative ${
-                      activeTab === 'chats' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-400 hover:text-white'
+                      activeTab === 'chats' ? 'text-emerald-450 font-extrabold scale-105' : 'text-slate-500 hover:text-white'
                     }`}
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -976,11 +976,11 @@ export default function AndroidSimulator({
               const pro = professionals.find(p => p.id === mobSelectedProId);
               if (!pro) return null;
               return (
-                <div className="absolute inset-x-3 bottom-12 top-8 bg-white z-40 flex flex-col justify-between rounded-t-3xl border border-slate-100 shadow-2xl animate-fade-in font-sans">
+                <div className="absolute inset-x-3 bottom-12 top-8 bg-slate-900 z-40 flex flex-col justify-between rounded-t-3xl border border-slate-700 shadow-2xl animate-fade-in font-sans">
                   
                   {/* Top Header */}
-                  <div className="bg-slate-905 text-slate-800 p-3.5 border-b border-slate-100 flex items-center justify-between">
-                    <button onClick={() => setMobSelectedProId(null)} className="p-1 hover:bg-slate-100 rounded-full cursor-pointer text-slate-700">
+                  <div className="bg-slate-905 text-slate-200 p-3.5 border-b border-slate-700 flex items-center justify-between">
+                    <button onClick={() => setMobSelectedProId(null)} className="p-1 hover:bg-slate-800 rounded-full cursor-pointer text-slate-300">
                       <ArrowLeft className="w-4 h-4" />
                     </button>
                     <span className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Perfil Diarista</span>
@@ -994,33 +994,33 @@ export default function AndroidSimulator({
                         src={pro.avatar} 
                         alt={pro.name} 
                         referrerPolicy="no-referrer"
-                        className="w-16 h-16 object-cover rounded-full mx-auto border-2 border-emerald-500 bg-slate-50 shadow-sm"
+                        className="w-16 h-16 object-cover rounded-full mx-auto border-2 border-emerald-500 bg-slate-800 shadow-sm"
                       />
-                      <h4 className="font-black text-slate-800 text-xs">{pro.name}</h4>
+                      <h4 className="font-black text-slate-200 text-xs">{pro.name}</h4>
                       <div className="inline-flex items-center gap-1 text-[9px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">
-                        ⭐ {pro.rating.toFixed(1)} <span className="text-slate-400">({pro.completedJobs} fx.)</span>
+                        ⭐ {pro.rating.toFixed(1)} <span className="text-slate-500">({pro.completedJobs} fx.)</span>
                       </div>
                     </div>
 
-                    <div className="bg-slate-50 p-3 border border-slate-100 rounded-xl space-y-1">
-                      <h5 className="font-bold text-slate-800 flex items-center gap-1 font-sans">
+                    <div className="bg-slate-800 p-3 border border-slate-700 rounded-xl space-y-1">
+                      <h5 className="font-bold text-slate-200 flex items-center gap-1 font-sans">
                         🎯 Apresentação
                       </h5>
-                      <p className="text-slate-600 leading-relaxed font-sans text-[9.5px]">
+                      <p className="text-slate-500 leading-relaxed font-sans text-[9.5px]">
                         {pro.bio}
                       </p>
                     </div>
 
                     <div className="space-y-1">
-                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">Tarifa Recomendada</span>
-                      <p className="text-sm font-extrabold text-slate-850 font-sans">{formatCurrency(pro.hourlyRate, lang)}/hora </p>
+                      <span className="text-[8px] uppercase tracking-widest text-slate-500 font-bold block">Tarifa Recomendada</span>
+                      <p className="text-sm font-extrabold text-slate-200 font-sans">{formatCurrency(pro.hourlyRate, lang)}/hora </p>
                     </div>
 
                     <div className="space-y-1">
-                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">{t('cleaner.card.specialties')}</span>
+                      <span className="text-[8px] uppercase tracking-widest text-slate-500 font-bold block">{t('cleaner.card.specialties')}</span>
                       <div className="flex flex-wrap gap-1">
                         {pro.cleaningTypes.map(type => (
-                          <span key={type} className="text-[8.5px] font-bold bg-slate-100 rounded text-slate-700 px-1.5 py-0.5">
+                          <span key={type} className="text-[8.5px] font-bold bg-slate-800 rounded text-slate-300 px-1.5 py-0.5">
                             {getCleaningTypeLabel(type)}
                           </span>
                         ))}
@@ -1028,14 +1028,14 @@ export default function AndroidSimulator({
                     </div>
 
                     {/* Prestadores ratings block */}
-                    <div className="space-y-1.5 border-t border-slate-100 pt-3">
-                      <span className="text-[8px] uppercase tracking-widest text-slate-400 font-bold block">Avaliações da Rede ({pro.reviews?.length || 0})</span>
+                    <div className="space-y-1.5 border-t border-slate-700 pt-3">
+                      <span className="text-[8px] uppercase tracking-widest text-slate-500 font-bold block">Avaliações da Rede ({pro.reviews?.length || 0})</span>
                       <div className="space-y-1.5 max-h-24 overflow-y-auto">
                         {!pro.reviews || pro.reviews.length === 0 ? (
-                          <p className="text-slate-400 italic text-[9px]">Ainda sem feedbacks nesta temporada.</p>
+                          <p className="text-slate-500 italic text-[9px]">Ainda sem feedbacks nesta temporada.</p>
                         ) : (
                           pro.reviews.map(rev => (
-                            <div key={rev.id} className="p-1.5 bg-slate-50 border border-slate-105 rounded-lg text-[9px] space-y-0.5">
+                            <div key={rev.id} className="p-1.5 bg-slate-800 border border-slate-105 rounded-lg text-[9px] space-y-0.5">
                               <div className="flex justify-between items-center text-slate-500 font-bold">
                                 <span>{rev.reviewerName}</span>
                                 <span className="text-amber-500">★ {rev.rating}</span>
@@ -1052,16 +1052,16 @@ export default function AndroidSimulator({
                           <button
                             type="button"
                             onClick={() => setMobShowForm(!mobShowForm)}
-                            className="bg-slate-100 text-[8.5px] font-bold text-slate-700 py-1 px-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-200"
+                            className="bg-slate-800 text-[8.5px] font-bold text-slate-300 py-1 px-2.5 rounded-lg border border-slate-600 cursor-pointer hover:bg-slate-600"
                           >
                             {mobShowForm ? '❌ Ocultar Nova Avaliação' : '⭐ Fazer Nova Avaliação'}
                           </button>
 
                           {mobShowForm && (
-                            <div className="mt-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 space-y-2 text-[9.5px]">
+                            <div className="mt-2 bg-slate-800 p-2.5 rounded-xl border border-slate-600/60 space-y-2 text-[9.5px]">
                               <div className="flex items-center gap-1">
-                                <span className="font-bold text-slate-600 font-sans">Nota:</span>
-                                <div className="flex gap-1 bg-white p-0.5 border border-slate-200 rounded">
+                                <span className="font-bold text-slate-500 font-sans">Nota:</span>
+                                <div className="flex gap-1 bg-slate-900 p-0.5 border border-slate-600 rounded">
                                   {[1,2,3,4,5].map(v => (
                                     <button key={v} type="button" onClick={() => setMobNewRating(v)}>
                                       <Star className={`w-3.5 h-3.5 ${v <= mobNewRating ? 'fill-amber-450 text-amber-500' : 'text-slate-200'}`} />
@@ -1074,14 +1074,14 @@ export default function AndroidSimulator({
                                 placeholder="Seu nome"
                                 value={mobNewReviewer}
                                 onChange={(e) => setMobNewReviewer(e.target.value)}
-                                className="w-full p-1 bg-white border border-slate-200 rounded text-[9px] outline-none"
+                                className="w-full p-1 bg-slate-900 border border-slate-600 rounded text-[9px] outline-none"
                               />
                               <textarea
                                 placeholder="Comentários sobre a diarista..."
                                 value={mobNewComment}
                                 rows={1}
                                 onChange={(e) => setMobNewComment(e.target.value)}
-                                className="w-full p-1 bg-white border border-slate-200 rounded text-[9px] outline-none"
+                                className="w-full p-1 bg-slate-900 border border-slate-600 rounded text-[9px] outline-none"
                               />
                               <button
                                 type="button"
@@ -1109,16 +1109,16 @@ export default function AndroidSimulator({
                     {/* Simulation Contact directly */}
                     <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl text-[9px] space-y-1">
                       <p className="font-bold text-emerald-800">Canais de Contato Direto (Verified)</p>
-                      <p className="font-mono text-slate-700">📞 {pro.phone}</p>
-                      <p className="text-slate-700">✉️ {pro.email}</p>
+                      <p className="font-mono text-slate-300">📞 {pro.phone}</p>
+                      <p className="text-slate-300">✉️ {pro.email}</p>
                     </div>
                   </div>
 
                   {/* Footers buttons */}
-                  <div className="p-3 bg-slate-50 border-t border-slate-150 flex gap-2">
+                  <div className="p-3 bg-slate-800 border-t border-slate-600 flex gap-2">
                     <button 
                       onClick={() => setMobSelectedProId(null)}
-                      className="flex-1 bg-white hover:bg-slate-100 text-slate-700 font-bold text-[10px] py-2 rounded-xl border border-slate-200 cursor-pointer"
+                      className="flex-1 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-[10px] py-2 rounded-xl border border-slate-600 cursor-pointer"
                     >
                       {t('register.back')}
                     </button>
@@ -1156,38 +1156,38 @@ export default function AndroidSimulator({
               const curMsgInput = chatInputs[job.id] || '';
 
               return (
-                <div className="absolute inset-x-3 bottom-0 top-8 bg-white z-45 flex flex-col justify-between rounded-t-3xl border border-slate-100 shadow-2xl animate-fade-in font-sans">
+                <div className="absolute inset-x-3 bottom-0 top-8 bg-slate-900 z-45 flex flex-col justify-between rounded-t-3xl border border-slate-700 shadow-2xl animate-fade-in font-sans">
                   
                   {/* Bezel handle */}
                   <div className="bg-slate-900 text-white p-3.5 flex items-center justify-between">
                     <button onClick={() => setMobSelectedJobId(null)} className="p-1 hover:bg-slate-800 rounded-full cursor-pointer text-slate-305">
                       <ArrowLeft className="w-4 h-4 text-white" />
                     </button>
-                    <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">Detalhamento Vaga</span>
+                    <span className="text-[10px] font-extrabold uppercase text-slate-500 tracking-wider">Detalhamento Vaga</span>
                     <span className="w-4" />
                   </div>
 
                   {/* Body Scroll */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 text-[10px] text-slate-650 leading-relaxed">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4 text-[10px] text-slate-500 leading-relaxed">
                     
                     {/* Basic specs stats */}
-                    <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
+                    <div className="grid grid-cols-2 gap-2 bg-slate-800 p-2.5 rounded-xl text-center">
                       <div>
-                        <span className="text-[8px] text-slate-400 uppercase tracking-widest font-bold">Valor Oportuno</span>
+                        <span className="text-[8px] text-slate-500 uppercase tracking-widest font-bold">Valor Oportuno</span>
                                 <p className="text-xs font-black text-emerald-700 font-mono mt-0.5">{formatCurrency(job.price, lang)}</p>
                       </div>
                       <div>
-                        <span className="text-[8px] text-slate-400 uppercase tracking-widest font-bold font-sans">Área Local</span>
+                        <span className="text-[8px] text-slate-500 uppercase tracking-widest font-bold font-sans">Área Local</span>
                         <p className="text-xs font-extrabold text-slate-805 mt-0.5">{job.sizeSqm} m²</p>
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <h4 className="font-extrabold text-slate-800 text-[11px] leading-tight">{job.title}</h4>
-                      <p className="text-[8.5px] text-slate-400">Contratado por: <strong>{job.clientName}</strong></p>
+                      <h4 className="font-extrabold text-slate-200 text-[11px] leading-tight">{job.title}</h4>
+                      <p className="text-[8.5px] text-slate-500">Contratado por: <strong>{job.clientName}</strong></p>
                     </div>
 
-                    <p className="text-slate-600 text-[9.5px] leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100 font-sans">
+                    <p className="text-slate-500 text-[9.5px] leading-relaxed bg-slate-800 p-3 rounded-xl border border-slate-700 font-sans">
                       {job.description}
                     </p>
 
@@ -1208,11 +1208,11 @@ export default function AndroidSimulator({
                       </div>
 
                       {clientReviews.filter(r => r.clientName === job.clientName).length === 0 ? (
-                        <p className="text-slate-400 italic text-[8.5px]">Este contratante ainda não recebeu avaliações no smartphone.</p>
+                        <p className="text-slate-500 italic text-[8.5px]">Este contratante ainda não recebeu avaliações no smartphone.</p>
                       ) : (
                         <div className="space-y-1 max-h-20 overflow-y-auto">
                           {clientReviews.filter(r => r.clientName === job.clientName).map(rev => (
-                            <div key={rev.id} className="p-1.5 bg-white border border-amber-50 rounded text-[8.5px] space-y-0.5">
+                            <div key={rev.id} className="p-1.5 bg-slate-900 border border-amber-50 rounded text-[8.5px] space-y-0.5">
                               <div className="flex justify-between items-center text-[7.5px] font-bold text-slate-500">
                                 <span>{rev.reviewerName} (Diarista)</span>
                                 <span>★ {rev.rating}</span>
@@ -1235,7 +1235,7 @@ export default function AndroidSimulator({
                           </button>
 
                           {mobShowForm && (
-                            <div className="mt-1.5 bg-white p-2 rounded border border-amber-100 space-y-2 text-[9px]">
+                            <div className="mt-1.5 bg-slate-900 p-2 rounded border border-amber-100 space-y-2 text-[9px]">
                               <div className="flex items-center gap-1 text-[8.5px]">
                                 <span className="font-bold">Avaliação de {job.clientName}:</span>
                                 <div className="flex gap-1.5 bg-amber-50 p-0.5 rounded">
@@ -1251,7 +1251,7 @@ export default function AndroidSimulator({
                                 value={mobNewComment}
                                 rows={1}
                                 onChange={(e) => setMobNewComment(e.target.value)}
-                                className="w-full p-1 bg-slate-50 border border-slate-200 rounded text-[8.5px] outline-none"
+                                className="w-full p-1 bg-slate-800 border border-slate-600 rounded text-[8.5px] outline-none"
                               />
                               <button
                                 type="button"
@@ -1282,17 +1282,17 @@ export default function AndroidSimulator({
                         <MessageSquare className="w-3 h-3 text-emerald-500" /> Chat com o Contratante
                       </p>
 
-                      <div className="bg-slate-50 rounded-xl p-2 border border-slate-100 space-y-2 max-h-32 overflow-y-auto">
+                      <div className="bg-slate-800 rounded-xl p-2 border border-slate-700 space-y-2 max-h-32 overflow-y-auto">
                         {(!job.chatMessages || job.chatMessages.length === 0) ? (
-                          <p className="text-slate-400 italic text-center py-2 text-[8px]">Inicie as tratativas de contratação no campo abaixo.</p>
+                          <p className="text-slate-500 italic text-center py-2 text-[8px]">Inicie as tratativas de contratação no campo abaixo.</p>
                         ) : (
                           job.chatMessages.map(msg => (
                             <div key={msg.id} className={`max-w-[85%] p-1.5 rounded-lg text-[9px] ${
                               (roleMode === 'cleaner' && msg.sender === 'cleaner') || (roleMode === 'client' && msg.sender === 'client')
                                 ? 'bg-slate-900 text-white ml-auto'
-                                : 'bg-white text-slate-800 border border-slate-100'
+                                : 'bg-slate-900 text-slate-200 border border-slate-700'
                             }`}>
-                              <span className="text-[7.5px] font-bold block text-slate-400 uppercase mb-0.5">{msg.senderName.split(' ')[0]}</span>
+                              <span className="text-[7.5px] font-bold block text-slate-500 uppercase mb-0.5">{msg.senderName.split(' ')[0]}</span>
                               <p className="font-sans leading-tight mt-0.5">{msg.text}</p>
                             </div>
                           ))
@@ -1300,7 +1300,7 @@ export default function AndroidSimulator({
                       </div>
 
                       {/* Msg Input */}
-                      <div className="flex bg-white border border-slate-200 rounded-lg p-1 gap-1 items-center shadow-3xs">
+                      <div className="flex bg-slate-900 border border-slate-600 rounded-lg p-1 gap-1 items-center shadow-3xs">
                         <input 
                           type="text" 
                           placeholder="Digite seu recado..."
@@ -1311,7 +1311,7 @@ export default function AndroidSimulator({
                               [job.id]: e.target.value
                             });
                           }}
-                          className="flex-1 bg-none border-none outline-none text-[9.5px] px-1.5 py-1 text-slate-800 focus:ring-0"
+                          className="flex-1 bg-none border-none outline-none text-[9.5px] px-1.5 py-1 text-slate-200 focus:ring-0"
                         />
                         <button 
                           onClick={() => {
@@ -1331,11 +1331,11 @@ export default function AndroidSimulator({
 
                     {/* Pending candidates list inside smartphone */}
                     {roleMode === 'client' && !isAssigned && job.applicants.length > 0 && (
-                      <div className="border-t border-slate-100 pt-3 space-y-2">
-                        <p className="text-[8px] font-black uppercase tracking-wider text-slate-400">Selecionar Profissional Candidatado({job.applicants.length})</p>
+                      <div className="border-t border-slate-700 pt-3 space-y-2">
+                        <p className="text-[8px] font-black uppercase tracking-wider text-slate-500">Selecionar Profissional Candidatado({job.applicants.length})</p>
                         {professionals.filter(p => job.applicants.includes(p.id)).map(cand => (
-                          <div key={cand.id} className="p-2 bg-slate-50 border border-slate-150 rounded-lg flex items-center justify-between">
-                            <span className="font-bold text-slate-800">{cand.name.split(' ')[0]} (⭐{cand.rating})</span>
+                          <div key={cand.id} className="p-2 bg-slate-800 border border-slate-600 rounded-lg flex items-center justify-between">
+                            <span className="font-bold text-slate-200">{cand.name.split(' ')[0]} (⭐{cand.rating})</span>
                             <button
                               onClick={() => {
                                 onApproveCandidate(job.id, cand.id);
@@ -1352,10 +1352,10 @@ export default function AndroidSimulator({
                   </div>
 
                   {/* Footer buttons */}
-                  <div className="p-3 bg-slate-50 border-t border-slate-150 flex gap-2">
+                  <div className="p-3 bg-slate-800 border-t border-slate-600 flex gap-2">
                     <button 
                       onClick={() => setMobSelectedJobId(null)}
-                      className="flex-1 bg-white hover:bg-slate-100 text-slate-700 font-bold text-[10px] py-2 rounded-xl border border-slate-200 cursor-pointer"
+                      className="flex-1 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-[10px] py-2 rounded-xl border border-slate-600 cursor-pointer"
                     >
                       Sair
                     </button>

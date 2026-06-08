@@ -171,9 +171,9 @@ export default function App() {
   };
 
   return (
-    <div id="main-application-view" className="min-h-screen bg-slate-50 flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+    <div id="main-application-view" className="min-h-screen bg-slate-800 flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
       
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
+      <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-slate-700 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 py-2.5">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -181,25 +181,25 @@ export default function App() {
                 <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
               </div>
               <div className="hidden xs:block">
-                <span className="text-sm md:text-lg font-black text-slate-900 tracking-tight block leading-tight">{t('app.title')}</span>
-                <span className="text-[8px] md:text-[10px] text-slate-400 font-medium tracking-wide leading-none">{t('app.subtitle')}</span>
+                <span className="text-sm md:text-lg font-black text-slate-100 tracking-tight block leading-tight">{t('app.title')}</span>
+                <span className="text-[8px] md:text-[10px] text-slate-500 font-medium tracking-wide leading-none">{t('app.subtitle')}</span>
               </div>
             </div>
 
             <div className="relative">
                 <button onClick={() => setLangMenuOpen(m => !m)}
-                className="text-xl leading-none px-1.5 py-1 rounded-md hover:bg-slate-100 transition cursor-pointer select-none">
+                className="text-xl leading-none px-1.5 py-1 rounded-md hover:bg-slate-800 transition cursor-pointer select-none">
                 {lang === 'pt' ? '🇧🇷' : lang === 'en' ? '🇺🇸' : '🇪🇸'}
               </button>
               {langMenuOpen && (
-                <div className="absolute top-full right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 py-1 min-w-[140px] animate-fade-in">
+                <div className="absolute top-full right-0 mt-1 bg-slate-900 border border-slate-600 rounded-xl shadow-xl z-50 py-1 min-w-[140px] animate-fade-in">
                   {[
                     { lang: 'pt', flag: '🇧🇷', label: 'Português' },
                     { lang: 'en', flag: '🇺🇸', label: 'English' },
                     { lang: 'es', flag: '🇪🇸', label: 'Español' },
                   ].map(({ lang: l, flag, label }) => (
                     <button key={l} onClick={() => { setLang(l as any); setLangMenuOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium hover:bg-slate-50 transition cursor-pointer ${lang === l ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-slate-700'}`}>
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium hover:bg-slate-700 transition cursor-pointer ${lang === l ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-slate-300'}`}>
                       <span className="text-base">{flag}</span> {label}
                     </button>
                   ))}
@@ -208,13 +208,13 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-1.5 md:gap-3">
-              <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+              <div className="flex bg-slate-800 p-0.5 rounded-lg border border-slate-600">
                 <button onClick={() => setActiveRole('client')}
-                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'client' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>
+                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'client' ? 'bg-slate-700 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.client')}
                 </button>
                 <button onClick={() => setActiveRole('cleaner')}
-                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'cleaner' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>
+                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'cleaner' ? 'bg-slate-700 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.cleaner')}
                 </button>
               </div>
@@ -256,7 +256,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="bg-slate-950 text-slate-400 text-[10px] md:text-xs py-4 md:py-6 border-t border-slate-900">
+      <footer className="bg-slate-950 text-slate-500 text-[10px] md:text-xs py-4 md:py-6 border-t border-slate-900">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <p>{t('app.footer', { year: new Date().getFullYear() })}</p>
           <div className="flex gap-4">

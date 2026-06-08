@@ -19,33 +19,33 @@ export function getCleaningTypeColor(type: CleaningType): { bg: string; text: st
   switch (type) {
     case 'residencial':
       return {
-        bg: 'bg-emerald-50',
-        text: 'text-emerald-700',
-        border: 'border-emerald-200'
+        bg: 'bg-emerald-900/30',
+        text: 'text-emerald-300',
+        border: 'border-emerald-700/50'
       };
     case 'comercial':
       return {
-        bg: 'bg-indigo-50',
-        text: 'text-indigo-700',
-        border: 'border-indigo-200'
+        bg: 'bg-indigo-950',
+        text: 'text-indigo-300',
+        border: 'border-indigo-800'
       };
     case 'pos-obra':
       return {
-        bg: 'bg-amber-50',
-        text: 'text-amber-700',
-        border: 'border-amber-200'
+        bg: 'bg-amber-950',
+        text: 'text-amber-300',
+        border: 'border-amber-800'
       };
     case 'pesada':
       return {
-        bg: 'bg-cyan-50',
-        text: 'text-cyan-700',
-        border: 'border-cyan-200'
+        bg: 'bg-cyan-950',
+        text: 'text-cyan-300',
+        border: 'border-cyan-800'
       };
     default:
       return {
-        bg: 'bg-slate-50',
-        text: 'text-slate-700',
-        border: 'border-slate-200'
+        bg: 'bg-slate-800',
+        text: 'text-slate-300',
+        border: 'border-slate-600'
       };
   }
 }

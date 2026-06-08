@@ -15,11 +15,11 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
   return (
     <div 
       id={`cleaner-card-${professional.id}`}
-      className="bg-white rounded-2xl border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
+      className="bg-slate-900 rounded-2xl border border-slate-700 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
     >
       {/* Background ambient pattern */}
       <div className="h-16 bg-gradient-to-r from-emerald-400/20 to-teal-400/10 relative">
-        <span className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full shadow-xs flex items-center gap-1 border border-emerald-100">
+        <span className="absolute top-3 right-3 bg-black/95 backdrop-blur-xs text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full shadow-xs flex items-center gap-1 border border-emerald-100">
           <Star className="w-3 px-0 h-3 fill-amber-400 text-amber-400" />
           {professional.rating.toFixed(1)}
         </span>
@@ -33,7 +33,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
               src={professional.avatar} 
               alt={professional.name} 
               referrerPolicy="no-referrer"
-              className="w-16 h-16 rounded-full object-cover border-4 border-white bg-slate-50 shadow-sm"
+              className="w-16 h-16 rounded-full object-cover border-4 border-white bg-slate-800 shadow-sm"
             />
             {professional.isVerified && (
               <span className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-1 border-2 border-white shadow-xs" title="Profissional Verificado">
@@ -42,8 +42,8 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
             )}
           </div>
           <div className="text-right">
-            <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold">{t('cleaner.card.rate')}</p>
-            <p className="text-lg font-extrabold text-slate-800 font-sans">
+            <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">{t('cleaner.card.rate')}</p>
+            <p className="text-lg font-extrabold text-slate-200 font-sans">
               {formatCurrency(professional.hourlyRate, lang)}
               <span className="text-xs font-normal text-slate-500">/h</span>
             </p>
@@ -52,7 +52,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
 
         {/* Info */}
         <div className="mb-4">
-          <h3 className="font-sans font-bold text-slate-800 text-base flex items-center gap-1.5 hover:text-emerald-700 transition-colors">
+          <h3 className="font-sans font-bold text-slate-200 text-base flex items-center gap-1.5 hover:text-emerald-700 transition-colors">
             {professional.name}
           </h3>
           <p className="text-xs text-slate-500 flex items-center gap-1 mt-1">
@@ -62,13 +62,13 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
         </div>
 
         {/* Bio snippet */}
-        <p className="text-slate-600 text-xs line-clamp-2 mb-4 leading-relaxed flex-1">
+        <p className="text-slate-500 text-xs line-clamp-2 mb-4 leading-relaxed flex-1">
           {professional.bio}
         </p>
 
         {/* Cleaning Specialties */}
         <div className="mb-4">
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1">
+          <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-emerald-500" /> {t('cleaner.card.specialties')}
           </p>
           <div className="flex flex-wrap gap-1">
@@ -87,10 +87,10 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
         </div>
 
         {/* Divider and Footer */}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
+        <div className="pt-4 border-t border-slate-700 flex items-center justify-between gap-2 mt-auto">
           <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 uppercase tracking-wider">{t('cleaner.card.experience')}</span>
-            <span className="text-xs font-bold text-slate-700">{professional.experienceYears} {professional.experienceYears === 1 ? t('cleaner.card.year') : t('cleaner.card.years')}</span>
+            <span className="text-[10px] text-slate-500 uppercase tracking-wider">{t('cleaner.card.experience')}</span>
+            <span className="text-xs font-bold text-slate-300">{professional.experienceYears} {professional.experienceYears === 1 ? t('cleaner.card.year') : t('cleaner.card.years')}</span>
           </div>
 
           <button

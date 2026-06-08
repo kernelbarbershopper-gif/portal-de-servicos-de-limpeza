@@ -109,10 +109,10 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
   };
 
   return (
-    <div id="job-post-form-container" className="bg-white rounded-2xl border border-slate-100 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-5 mb-6">
+    <div id="job-post-form-container" className="bg-slate-900 rounded-2xl border border-slate-700 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
+      <div className="flex items-center justify-between border-b border-slate-700 pb-5 mb-6">
         <div>
-          <h2 className="text-xl font-bold font-sans text-slate-800 flex items-center gap-2">
+          <h2 className="text-xl font-bold font-sans text-slate-200 flex items-center gap-2">
             <Building className="text-emerald-600 w-5 h-5" /> {t('form.job.title')}
           </h2>
           {prefilled ? (
@@ -125,7 +125,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         </div>
         <button
           onClick={onCancel}
-          className="text-xs text-slate-500 hover:text-slate-800 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+          className="text-xs text-slate-500 hover:text-slate-200 bg-slate-800 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
         >
           {t('form.job.back')}
         </button>
@@ -149,7 +149,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                 clientType === 'empresa'
                   ? 'border-slate-900 bg-slate-900 text-white shadow-sm'
-                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                  : 'border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-300'
               }`}
             >
               <Building className="w-4 h-4" />
@@ -162,7 +162,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                 clientType === 'residencial'
                   ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
-                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                  : 'border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-300'
               }`}
             >
               <Home className="w-4 h-4" />
@@ -182,7 +182,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               placeholder={clientType === 'empresa' ? 'Ex: Escritórios Associados S.A.' : 'Ex: Clara Regina Vilela'}
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
-              className="w-full px-4 py-2.5 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full px-4 py-2.5 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             />
           </div>
 
@@ -193,7 +193,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               placeholder="Ex: Faxina quinzenal escritório recepção / Faxina de natal"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2.5 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full px-4 py-2.5 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             />
           </div>
         </div>
@@ -203,13 +203,13 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.phone.label')}</label>
             <div className="relative">
-              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 type="text"
                 placeholder="(11) 98888-7777"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+                className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
               />
             </div>
           </div>
@@ -217,13 +217,13 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.email.label')}</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 type="email"
                 placeholder="adm@negocio.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+                className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
               />
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             <select
               value={cleaningType}
               onChange={(e) => setCleaningType(e.target.value as CleaningType)}
-              className="w-full py-2.5 px-3 text-xs text-slate-800 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full py-2.5 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-900 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             >
               <option value="residencial">{t('form.job.type.residential')}</option>
               <option value="comercial">{t('form.job.type.commercial')}</option>
@@ -253,7 +253,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               max="5000"
               value={sizeSqm}
               onChange={(e) => setSizeSqm(parseInt(e.target.value) || 0)}
-              className="w-full px-4 py-2 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full px-4 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             />
           </div>
         </div>
@@ -272,11 +272,11 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
                   className={`flex flex-col items-start p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                     checked
                       ? 'border-emerald-500 bg-emerald-50/50 text-emerald-950 font-bold ring-2 ring-emerald-500/25'
-                      : 'border-slate-100 bg-slate-50/40 hover:bg-slate-50 text-slate-650'
+                      : 'border-slate-700 bg-slate-800/40 hover:bg-slate-700 text-slate-500'
                   }`}
                 >
                   <span className="text-[11px] line-clamp-1">{extra.label}</span>
-                  <span className="text-[10px] text-slate-400 font-normal">+{formatCurrency(extra.price, lang)}</span>
+                  <span className="text-[10px] text-slate-500 font-normal">+{formatCurrency(extra.price, lang)}</span>
                 </button>
               );
             })}
@@ -288,12 +288,12 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.date.label')}</label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none bg-white"
+                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-900"
               />
             </div>
           </div>
@@ -301,12 +301,12 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.time.label')}</label>
             <div className="relative">
-              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none bg-white"
+                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-900"
               />
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             <select
               value={durationHours}
               onChange={(e) => setDurationHours(parseInt(e.target.value) || 4)}
-              className="w-full py-2 px-3 text-xs text-slate-800 border border-slate-200 rounded-xl bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full py-2 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-900 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             >
               <option value="2">{t('form.job.duration.2h')}</option>
               <option value="4">{t('form.job.duration.4h')}</option>
@@ -331,13 +331,13 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">{t('form.job.address.label')}</label>
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
             <input
               type="text"
               placeholder="Rua, Número, Bairro - Cidade, Estado (Ex: Av. Paulista, 1200 - Bela Vista, SP)"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+              className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             />
           </div>
         </div>
@@ -350,7 +350,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 text-xs text-slate-800 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+            className="w-full p-3 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
           />
         </div>
 
@@ -365,18 +365,18 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               max="2000"
               value={price}
               onChange={(e) => setPrice(parseInt(e.target.value) || 0)}
-              className="w-full pl-10 pr-4 py-2.5 text-slate-900 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-base font-extrabold font-mono"
+              className="w-full pl-10 pr-4 py-2.5 text-slate-100 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none text-base font-extrabold font-mono"
             />
           </div>
-          <span className="text-[10px] text-slate-400 mt-1 block">{t('form.job.price.hint')}</span>
+          <span className="text-[10px] text-slate-500 mt-1 block">{t('form.job.price.hint')}</span>
         </div>
 
         {/* Actions Buttons */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
+        <div className="flex justify-end gap-3 pt-4 border-t border-slate-700">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-800 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
           >
             {t('form.job.back')}
           </button>
