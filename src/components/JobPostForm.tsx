@@ -109,7 +109,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
   };
 
   return (
-    <div id="job-post-form-container" className="bg-slate-900 rounded-2xl border border-slate-700 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
+    <div id="job-post-form-container" className="bg-slate-950 rounded-2xl border border-slate-700 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
       <div className="flex items-center justify-between border-b border-slate-700 pb-5 mb-6">
         <div>
           <h2 className="text-xl font-bold font-sans text-slate-200 flex items-center gap-2">
@@ -125,7 +125,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
         </div>
         <button
           onClick={onCancel}
-          className="text-xs text-slate-500 hover:text-slate-200 bg-slate-800 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+          className="text-xs text-slate-500 hover:text-slate-200 bg-slate-900 hover:bg-slate-900 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
         >
           {t('form.job.back')}
         </button>
@@ -148,8 +148,8 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               onClick={() => handleClientTypeChange('empresa')}
               className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                 clientType === 'empresa'
-                  ? 'border-slate-900 bg-slate-900 text-white shadow-sm'
-                  : 'border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-300'
+                  ? 'border-slate-900 bg-slate-950 text-white shadow-sm'
+                  : 'border-slate-600 bg-slate-950 hover:bg-slate-800 text-slate-300'
               }`}
             >
               <Building className="w-4 h-4" />
@@ -162,7 +162,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
               className={`flex items-center justify-center gap-2.5 p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                 clientType === 'residencial'
                   ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
-                  : 'border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-300'
+                  : 'border-slate-600 bg-slate-950 hover:bg-slate-800 text-slate-300'
               }`}
             >
               <Home className="w-4 h-4" />
@@ -236,7 +236,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             <select
               value={cleaningType}
               onChange={(e) => setCleaningType(e.target.value as CleaningType)}
-              className="w-full py-2.5 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-900 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
+              className="w-full py-2.5 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-950 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             >
               <option value="residencial">{t('form.job.type.residential')}</option>
               <option value="comercial">{t('form.job.type.commercial')}</option>
@@ -272,7 +272,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
                   className={`flex flex-col items-start p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                     checked
                       ? 'border-emerald-500 bg-emerald-50/50 text-emerald-950 font-bold ring-2 ring-emerald-500/25'
-                      : 'border-slate-700 bg-slate-800/40 hover:bg-slate-700 text-slate-500'
+                      : 'border-slate-700 bg-slate-900/40 hover:bg-slate-800 text-slate-500'
                   }`}
                 >
                   <span className="text-[11px] line-clamp-1">{extra.label}</span>
@@ -293,7 +293,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-900"
+                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-950"
               />
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-900"
+                className="w-full pl-9 pr-3 py-2 text-xs text-slate-200 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none bg-slate-950"
               />
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
             <select
               value={durationHours}
               onChange={(e) => setDurationHours(parseInt(e.target.value) || 4)}
-              className="w-full py-2 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-900 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
+              className="w-full py-2 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-950 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             >
               <option value="2">{t('form.job.duration.2h')}</option>
               <option value="4">{t('form.job.duration.4h')}</option>
@@ -376,7 +376,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-800 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-900 rounded-xl hover:bg-slate-900 transition-colors cursor-pointer"
           >
             {t('form.job.back')}
           </button>
@@ -384,7 +384,7 @@ export default function JobPostForm({ onPostJob, onCancel, prefilled }: JobPostF
           <button
             id="btn-post-job-submit"
             type="submit"
-            className="px-6 py-2.5 text-xs font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 active:bg-slate-950 transition-all cursor-pointer shadow-md"
+            className="px-6 py-2.5 text-xs font-bold text-white bg-slate-950 rounded-xl hover:bg-slate-900 active:bg-slate-950 transition-all cursor-pointer shadow-md"
           >
             {t('form.job.submit')}
           </button>

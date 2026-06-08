@@ -38,8 +38,8 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
   };
 
   return (
-    <div id="cleaner-detail-modal" className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-slate-900 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-700 flex flex-col my-8">
+    <div id="cleaner-detail-modal" className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div className="bg-slate-950 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-700 flex flex-col my-8">
         {/* Banner with avatar floating */}
         <div className="bg-gradient-to-r from-emerald-500 to-teal-600 h-28 relative flex items-end p-6">
           <button 
@@ -91,7 +91,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
 
           <div className="space-y-4 text-xs text-slate-300 leading-relaxed">
             {/* Bio */}
-            <div className="bg-slate-800 p-3.5 rounded-2xl">
+            <div className="bg-slate-900 p-3.5 rounded-2xl">
               <p className="font-semibold text-slate-200 mb-1 flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> {t('modal.cleaner.bio')}
               </p>
@@ -145,8 +145,8 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                       key={day}
                       className={`text-[9px] px-2 py-0.5 rounded-full ${
                         isAvailable
-                          ? 'bg-slate-900 text-white font-medium'
-                          : 'bg-slate-800 text-slate-405 line-through'
+                          ? 'bg-slate-950 text-white font-medium'
+                          : 'bg-slate-900 text-slate-405 line-through'
                       }`}
                     >
                       {day}
@@ -163,11 +163,11 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
               </p>
               
               {!professional.reviews || professional.reviews.length === 0 ? (
-                <p className="text-slate-500 italic bg-slate-800 p-2.5 rounded-xl text-center">{t('modal.cleaner.reviews.empty')}</p>
+                <p className="text-slate-500 italic bg-slate-900 p-2.5 rounded-xl text-center">{t('modal.cleaner.reviews.empty')}</p>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                   {professional.reviews.map((rev) => (
-                    <div key={rev.id} className="p-2.5 bg-slate-800 rounded-xl border border-slate-700 space-y-1">
+                    <div key={rev.id} className="p-2.5 bg-slate-900 rounded-xl border border-slate-700 space-y-1">
                       <div className="flex justify-between items-center">
                         <span className="font-bold text-slate-200 text-[11px]">{rev.reviewerName}</span>
                         <div className="flex items-center gap-1.5">
@@ -203,11 +203,11 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                   </div>
 
                   {showReviewForm && (
-                    <form onSubmit={handleSubmitReview} className="bg-slate-800 p-3 rounded-2xl border border-slate-600/75 space-y-2.5 text-xs">
+                    <form onSubmit={handleSubmitReview} className="bg-slate-900 p-3 rounded-2xl border border-slate-600/75 space-y-2.5 text-xs">
                       {/* Star selection */}
                       <div className="flex items-center gap-1.5">
                         <span className="text-slate-500 font-semibold font-sans">{t('modal.cleaner.reviews.your.rating')}:</span>
-                        <div className="flex gap-1 bg-slate-900 p-1 rounded-lg border border-slate-600 w-fit">
+                        <div className="flex gap-1 bg-slate-950 p-1 rounded-lg border border-slate-600 w-fit">
                           {[1, 2, 3, 4, 5].map((starValue) => (
                             <button
                               key={starValue}
@@ -230,7 +230,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                           value={newComment}
                           onChange={(e) => setNewComment(e.target.value)}
                           placeholder={t('modal.cleaner.reviews.comment.placeholder')}
-                          className="w-full border border-slate-600 rounded-xl p-2.5 text-xs bg-slate-900 text-slate-200 focus:outline-emerald-500"
+                          className="w-full border border-slate-600 rounded-xl p-2.5 text-xs bg-slate-950 text-slate-200 focus:outline-emerald-500"
                         />
                       </div>
 
@@ -242,7 +242,7 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
                           value={newReviewerName}
                           onChange={(e) => setNewReviewerName(e.target.value)}
                           placeholder="Ex: Carlos Vieira ou Residência Jardins"
-                          className="w-full border border-slate-600 rounded-xl p-2.5 text-xs bg-slate-900 text-slate-200 focus:outline-emerald-500"
+                          className="w-full border border-slate-600 rounded-xl p-2.5 text-xs bg-slate-950 text-slate-200 focus:outline-emerald-500"
                         />
                       </div>
 
@@ -276,10 +276,10 @@ export function CleanerDetailsModal({ professional, onClose, onDirectHire, onAdd
         </div>
 
         {/* Footer actions */}
-        <div className="px-6 py-4 bg-slate-800 border-t border-slate-700 flex items-center justify-end gap-2.5">
+        <div className="px-6 py-4 bg-slate-900 border-t border-slate-700 flex items-center justify-end gap-2.5">
           <button
             onClick={onClose}
-            className="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-600 cursor-pointer"
+            className="bg-slate-950 hover:bg-slate-900 text-slate-300 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-600 cursor-pointer"
           >
             {t('modal.cleaner.close')}
           </button>
@@ -368,11 +368,11 @@ export function JobDetailsModal({
   };
 
   return (
-    <div id="job-detail-modal" className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-slate-900 rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-700 flex flex-col my-8">
+    <div id="job-detail-modal" className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div className="bg-slate-950 rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-700 flex flex-col my-8">
         
         {/* Header */}
-        <div className="bg-slate-900 text-white p-6 relative">
+        <div className="bg-slate-950 text-white p-6 relative">
           <button 
             onClick={onClose}
             className="absolute top-4 right-4 text-slate-500 hover:text-white rounded-full p-1.5 transition-colors cursor-pointer"
@@ -384,7 +384,7 @@ export function JobDetailsModal({
             <span className="bg-emerald-500 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded">
               {job.clientType === 'empresa' ? t('modal.job.corporate') : t('modal.job.residential')}
             </span>
-            <span className="bg-slate-800 text-slate-300 text-[9px] font-bold px-2 py-0.5 rounded">
+            <span className="bg-slate-900 text-slate-300 text-[9px] font-bold px-2 py-0.5 rounded">
               {getCleaningTypeLabel(job.cleaningType)}
             </span>
           </div>
@@ -399,7 +399,7 @@ export function JobDetailsModal({
         <div className="p-6 space-y-4 overflow-y-auto max-h-[55vh] text-slate-300 text-xs">
           
           {/* Main indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 bg-slate-800 p-3.5 rounded-2xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 bg-slate-900 p-3.5 rounded-2xl">
             <div>
               <p className="text-[9px] text-slate-500 uppercase font-semibold">{t('modal.job.budget')}</p>
               <p className="text-sm font-extrabold text-emerald-700 mt-0.5 font-sans">
@@ -427,7 +427,7 @@ export function JobDetailsModal({
           {/* Description */}
           <div className="space-y-1">
             <p className="font-bold text-slate-200 uppercase tracking-widest text-[9px]">{t('modal.job.instructions')}</p>
-            <p className="text-slate-500 bg-slate-800 border border-slate-700 p-3.5 rounded-2xl leading-relaxed text-xs">
+            <p className="text-slate-500 bg-slate-900 border border-slate-700 p-3.5 rounded-2xl leading-relaxed text-xs">
               {job.description}
             </p>
           </div>
@@ -475,7 +475,7 @@ export function JobDetailsModal({
                   src={assignedProfessional.avatar} 
                   alt={assignedProfessional.name} 
                   referrerPolicy="no-referrer"
-                  className="w-8 h-8 rounded-full object-cover border border-emerald-500 bg-slate-800"
+                  className="w-8 h-8 rounded-full object-cover border border-emerald-500 bg-slate-900"
                 />
                 <div>
                   <h4 className="font-bold text-slate-200 text-xs">{assignedProfessional.name}</h4>
@@ -507,7 +507,7 @@ export function JobDetailsModal({
               ) : (
                 <div className="space-y-1.5 max-h-32 overflow-y-auto pr-1">
                   {clientReviews.filter(r => r.clientName === job.clientName).map((r) => (
-                    <div key={r.id} className="p-2.5 bg-slate-900 rounded-xl border border-amber-100/40 space-y-1 text-[11px]">
+                    <div key={r.id} className="p-2.5 bg-slate-950 rounded-xl border border-amber-100/40 space-y-1 text-[11px]">
                       <div className="flex justify-between items-center text-[10px]">
                         <span className="font-bold text-slate-300">{r.reviewerName} (Diarista)</span>
                         <div className="flex items-center gap-1">
@@ -536,7 +536,7 @@ export function JobDetailsModal({
                   </div>
 
                   {showClientForm && (
-                     <div className="bg-slate-900 p-3 rounded-xl border border-amber-200/40 space-y-2.5">
+                     <div className="bg-slate-950 p-3 rounded-xl border border-amber-200/40 space-y-2.5">
                       {/* Star select buttons */}
                       <div className="flex items-center gap-1.5">
                         <span className="text-slate-500 font-semibold font-sans text-[11px]">{t('modal.job.reputation.your.rating')}:</span>
@@ -563,7 +563,7 @@ export function JobDetailsModal({
                           value={newClientComment}
                           onChange={(e) => setNewClientComment(e.target.value)}
                           placeholder={t('modal.job.reputation.comment.placeholder')}
-                          className="w-full border border-slate-600 rounded-lg p-2 text-xs bg-slate-800 text-slate-200 focus:outline-emerald-500"
+                          className="w-full border border-slate-600 rounded-lg p-2 text-xs bg-slate-900 text-slate-200 focus:outline-emerald-500"
                         />
                       </div>
 
@@ -575,14 +575,14 @@ export function JobDetailsModal({
                           value={newClientReviewerName}
                           onChange={(e) => setNewClientReviewerName(e.target.value)}
                           placeholder={activeProProfile?.name || "Nome da Diarista"}
-                          className="w-full border border-slate-600 rounded-lg p-2 text-xs bg-slate-800 text-slate-200 focus:outline-emerald-500"
+                          className="w-full border border-slate-600 rounded-lg p-2 text-xs bg-slate-900 text-slate-200 focus:outline-emerald-500"
                         />
                       </div>
 
                       <button
                         type="button"
                         onClick={handleSubmitClientReview}
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded-lg text-xs transition cursor-pointer"
+                        className="w-full bg-slate-950 hover:bg-slate-900 text-white font-bold py-2 rounded-lg text-xs transition cursor-pointer"
                       >
                         {t('modal.job.reputation.submit')}
                       </button>
@@ -603,7 +603,7 @@ export function JobDetailsModal({
             </div>
 
             {/* Chat Box panel */}
-            <div className="border border-slate-700 rounded-2xl bg-slate-800/50 p-3 space-y-3">
+            <div className="border border-slate-700 rounded-2xl bg-slate-900/50 p-3 space-y-3">
               <div className="max-h-36 overflow-y-auto space-y-2 pr-1 font-sans">
                 {(!job.chatMessages || job.chatMessages.length === 0) ? (
                   <p className="text-slate-500 italic text-center py-2 text-[11px]">{t('modal.job.chat.empty')}</p>
@@ -621,8 +621,8 @@ export function JobDetailsModal({
                         <div 
                           className={`p-2.5 rounded-2xl text-[11px] leading-snug font-medium shadow-2xs ${
                             isMe 
-                              ? 'bg-slate-900 text-white rounded-tr-none' 
-                              : 'bg-slate-900 text-slate-200 border border-slate-700 rounded-tl-none'
+                              ? 'bg-slate-950 text-white rounded-tr-none' 
+                              : 'bg-slate-950 text-slate-200 border border-slate-700 rounded-tl-none'
                           }`}
                         >
                           {msg.text}
@@ -635,7 +635,7 @@ export function JobDetailsModal({
 
               {/* Chat Input form triggers */}
               {onSendChatMessage && (
-                <form onSubmit={handleSend} className="flex gap-2 border-t border-slate-600 pt-2 bg-slate-900 rounded-xl p-1 shadow-sm">
+                <form onSubmit={handleSend} className="flex gap-2 border-t border-slate-600 pt-2 bg-slate-950 rounded-xl p-1 shadow-sm">
                   <input
                     type="text"
                     placeholder={
@@ -665,20 +665,20 @@ export function JobDetailsModal({
                 {t('modal.job.candidates', { n: applicantsList.length })}
               </p>
               {applicantsList.length === 0 ? (
-                <p className="text-slate-500 italic bg-slate-800 p-2 text-center text-[11px] rounded-lg">{t('modal.job.candidates.empty')}</p>
+                <p className="text-slate-500 italic bg-slate-900 p-2 text-center text-[11px] rounded-lg">{t('modal.job.candidates.empty')}</p>
               ) : (
                 <div className="space-y-1.5">
                   {applicantsList.map((cand) => (
                     <div 
                       key={cand.id} 
-                      className="flex flex-wrap items-center justify-between gap-2 p-2 bg-slate-800 border border-slate-600 rounded-xl transition hover:border-slate-350"
+                      className="flex flex-wrap items-center justify-between gap-2 p-2 bg-slate-900 border border-slate-600 rounded-xl transition hover:border-slate-350"
                     >
                       <div className="flex items-center gap-2">
                         <img 
                           src={cand.avatar} 
                           alt={cand.name} 
                           referrerPolicy="no-referrer"
-                          className="w-7 h-7 rounded-full object-cover border border-emerald-500 bg-slate-900"
+                          className="w-7 h-7 rounded-full object-cover border border-emerald-500 bg-slate-950"
                         />
                         <div>
                           <p className="font-bold text-slate-200 text-[11px]">{cand.name}</p>
@@ -708,10 +708,10 @@ export function JobDetailsModal({
         </div>
 
         {/* Action triggers */}
-        <div className="px-6 py-4 bg-slate-800 border-t border-slate-700 flex items-center justify-end gap-2.5">
+        <div className="px-6 py-4 bg-slate-900 border-t border-slate-700 flex items-center justify-end gap-2.5">
           <button
             onClick={onClose}
-            className="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-600 cursor-pointer"
+            className="bg-slate-950 hover:bg-slate-900 text-slate-300 text-xs font-bold py-2.5 px-5 rounded-xl border border-slate-600 cursor-pointer"
           >
             {t('modal.job.close')}
           </button>

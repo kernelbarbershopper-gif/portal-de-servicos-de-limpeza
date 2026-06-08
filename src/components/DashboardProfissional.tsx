@@ -89,7 +89,7 @@ export default function DashboardProfissional({
                 id="active-professional-simulator-select"
                 value={activeProfessionalId || ''}
                 onChange={(e) => onSelectActiveProfessional(e.target.value || null)}
-                className="text-xs font-bold py-2 px-3 rounded-lg bg-slate-900 text-slate-200 border border-slate-600 focus:outline-none"
+                className="text-xs font-bold py-2 px-3 rounded-lg bg-slate-950 text-slate-200 border border-slate-600 focus:outline-none"
               >
                 <option value="">{t('dashboard.cleaner.hero.choose')}</option>
                 {professionals.map(p => (
@@ -111,13 +111,13 @@ export default function DashboardProfissional({
       </div>
 
       {activePro && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-900 border border-slate-700 rounded-3xl p-5 shadow-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-950 border border-slate-700 rounded-3xl p-5 shadow-xs">
           <div className="flex items-center gap-3">
             <img 
               src={activePro.avatar} 
               alt={activePro.name} 
               referrerPolicy="no-referrer"
-              className="w-12 h-12 rounded-full object-cover border-2 border-emerald-500 bg-slate-800"
+              className="w-12 h-12 rounded-full object-cover border-2 border-emerald-500 bg-slate-900"
             />
             <div>
               <p className="text-[10px] text-slate-500 uppercase font-semibold">{t('dashboard.cleaner.logged')}</p>
@@ -159,16 +159,16 @@ export default function DashboardProfissional({
           <h3 className="text-base font-extrabold text-slate-200 font-sans mb-3.5 flex items-center gap-2">
             {t('dashboard.cleaner.myapps.title', { n: myApplications.length })}
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-slate-800 p-4 rounded-3xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-slate-900 p-4 rounded-3xl">
             {myApplications.map((job) => {
               const isAssignedToMe = job.assignedTo === activeProfessionalId;
               const isAssignedToSomeoneElse = job.assignedTo !== null && job.assignedTo !== activeProfessionalId;
               
               return (
-                <div key={job.id} className="bg-slate-900 p-4 rounded-2xl border border-slate-600 flex flex-col justify-between shadow-xs">
+                <div key={job.id} className="bg-slate-950 p-4 rounded-2xl border border-slate-600 flex flex-col justify-between shadow-xs">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md font-semibold">
+                      <span className="text-[10px] bg-slate-900 text-slate-300 px-2 py-0.5 rounded-md font-semibold">
                         {getCleaningTypeLabel(job.cleaningType)}
                       </span>
                       
@@ -192,7 +192,7 @@ export default function DashboardProfissional({
                     <p className="text-xs font-bold text-emerald-700">{formatCurrency(job.price, lang)}</p>
                     <button
                       onClick={() => onViewJobDetails(job.id)}
-                      className="text-[10.5px] font-bold bg-slate-900 text-white rounded-lg px-2.5 py-1.5 hover:bg-emerald-600 transition-colors cursor-pointer"
+                      className="text-[10.5px] font-bold bg-slate-950 text-white rounded-lg px-2.5 py-1.5 hover:bg-emerald-600 transition-colors cursor-pointer"
                     >
                       {t('dashboard.cleaner.myapps.details')}
                     </button>
@@ -215,7 +215,7 @@ export default function DashboardProfissional({
           </div>
 
           {/* Filter bars */}
-          <div className="bg-slate-800 rounded-2xl p-4 mb-6 space-y-4">
+          <div className="bg-slate-900 rounded-2xl p-4 mb-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Search text input */}
               <div className="relative">
@@ -225,12 +225,12 @@ export default function DashboardProfissional({
                   placeholder={t('dashboard.cleaner.gigs.search')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 bg-slate-900 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
+                  className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 bg-slate-950 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
                 />
               </div>
 
               {/* Slider / Budget selector */}
-              <div className="flex items-center gap-3 bg-slate-900 border border-slate-600 rounded-xl px-4 py-1">
+              <div className="flex items-center gap-3 bg-slate-950 border border-slate-600 rounded-xl px-4 py-1">
                 <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                 <span className="text-xs text-slate-500 min-w-[130px]">{t('dashboard.cleaner.gigs.min')}</span>
                 <div className="flex gap-1">
@@ -242,7 +242,7 @@ export default function DashboardProfissional({
                       className={`text-[10px] px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
                         minPrice === val
                           ? 'bg-emerald-600 text-white'
-                          : 'bg-slate-800 hover:bg-slate-600 text-slate-500'
+                          : 'bg-slate-900 hover:bg-slate-600 text-slate-500'
                       }`}
                     >
                       {val === 0 ? t('dashboard.company.dir.any') : `R$ ${val}+`}
@@ -269,8 +269,8 @@ export default function DashboardProfissional({
                   onClick={() => setSelectedType(item.type as any)}
                   className={`text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                     selectedType === item.type
-                      ? 'bg-slate-900 border-slate-900 text-white font-medium'
-                      : 'bg-slate-900 border-slate-600 text-slate-500 hover:bg-slate-700'
+                      ? 'bg-slate-950 border-slate-900 text-white font-medium'
+                      : 'bg-slate-950 border-slate-600 text-slate-500 hover:bg-slate-800'
                   }`}
                 >
                   {item.label}
@@ -281,7 +281,7 @@ export default function DashboardProfissional({
 
           {/* Gigs lists */}
           {openJobs.length === 0 ? (
-            <div className="bg-slate-900 rounded-2xl border border-slate-700 p-12 text-center shadow-xs">
+            <div className="bg-slate-950 rounded-2xl border border-slate-700 p-12 text-center shadow-xs">
               <p className="text-slate-450 font-sans italic text-sm">{t('dashboard.cleaner.gigs.empty')}</p>
               <button
                 onClick={() => {

@@ -87,7 +87,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
   };
 
   return (
-    <div id="cleaner-register-form-container" className="bg-slate-900 rounded-2xl border border-slate-700 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
+    <div id="cleaner-register-form-container" className="bg-slate-950 rounded-2xl border border-slate-700 shadow-xl p-6 md:p-8 max-w-2xl mx-auto">
       <div className="flex items-center justify-between border-b border-slate-700 pb-5 mb-6">
         <div>
           <h2 className="text-xl font-bold font-sans text-slate-805 flex items-center gap-2">
@@ -97,7 +97,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
         </div>
         <button
           onClick={onCancel}
-          className="text-xs text-slate-500 hover:text-slate-200 bg-slate-800 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+          className="text-xs text-slate-500 hover:text-slate-200 bg-slate-900 hover:bg-slate-900 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
         >
           {t('register.back')}
         </button>
@@ -120,7 +120,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
                 src={customAvatar.trim() ? customAvatar : avatar} 
                 alt="Avatar draft" 
                 referrerPolicy="no-referrer"
-                className="w-16 h-16 rounded-full object-cover border-2 border-emerald-500 bg-slate-800"
+                className="w-16 h-16 rounded-full object-cover border-2 border-emerald-500 bg-slate-900"
               />
               <span className="absolute bottom-0 right-0 bg-emerald-500 text-white rounded-full p-0.5 text-[8.5px] font-bold">OK</span>
             </div>
@@ -180,7 +180,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value as any)}
-              className="w-full py-2.5 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-900 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
+              className="w-full py-2.5 px-3 text-xs text-slate-200 border border-slate-600 rounded-xl bg-slate-950 focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
             >
               <option value="F">{t('register.gender.female')}</option>
               <option value="M">{t('register.gender.male')}</option>
@@ -298,7 +298,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
                   className={`flex items-center gap-2 p-2.5 text-xs rounded-xl border text-left cursor-pointer transition-all ${
                     isSelected 
                       ? 'border-emerald-500 bg-emerald-50/50 text-emerald-800 font-semibold' 
-                      : 'border-slate-600 bg-slate-900 hover:bg-slate-700 text-slate-500'
+                      : 'border-slate-600 bg-slate-950 hover:bg-slate-800 text-slate-500'
                   }`}
                 >
                   {isSelected ? (
@@ -326,8 +326,8 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
                   onClick={() => handleDayToggle(day)}
                   className={`text-xs px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-900 border-slate-900 text-white font-medium'
-                      : 'bg-slate-800 border-slate-600 text-slate-500 hover:bg-slate-800'
+                      ? 'bg-slate-950 border-slate-900 text-white font-medium'
+                      : 'bg-slate-900 border-slate-600 text-slate-500 hover:bg-slate-900'
                   }`}
                 >
                   {day}
@@ -342,7 +342,7 @@ export default function CleanerRegisterForm({ onRegister, onCancel }: CleanerReg
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-800 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-slate-500 bg-slate-900 rounded-xl hover:bg-slate-900 transition-colors cursor-pointer"
           >
             {t('register.back')}
           </button>

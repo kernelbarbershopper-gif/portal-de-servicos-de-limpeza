@@ -23,7 +23,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
   return (
     <div 
       id={`job-card-${job.id}`}
-      className={`bg-slate-900 rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col h-full ${
+      className={`bg-slate-950 rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col h-full ${
         isAssignedToMe 
           ? 'border-emerald-500 shadow-md ring-2 ring-emerald-500/10' 
           : isAppliedByMe 
@@ -35,7 +35,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
       <div className="px-5 pt-5 pb-3 flex items-center justify-between gap-2">
         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
           job.clientType === 'empresa' 
-            ? 'bg-slate-800 text-slate-200' 
+            ? 'bg-slate-900 text-slate-200' 
             : 'bg-emerald-50 text-emerald-800 border border-emerald-100'
         }`}>
           {job.clientType === 'empresa' ? (
@@ -78,7 +78,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
         </div>
 
         {/* Quick parameters */}
-        <div className="grid grid-cols-2 gap-y-2.5 gap-x-2 text-xs text-slate-500 mb-4 bg-slate-800 p-3 rounded-xl">
+        <div className="grid grid-cols-2 gap-y-2.5 gap-x-2 text-xs text-slate-500 mb-4 bg-slate-900 p-3 rounded-xl">
           <div className="flex items-center gap-2">
             <Calendar className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
             <span className="truncate">{formatDate(job.date)}</span>
@@ -104,14 +104,14 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
             <span className={`text-[11px] font-medium px-2 py-0.5 rounded-md border ${colors.bg} ${colors.text} ${colors.border}`}>
               {getCleaningTypeLabel(job.cleaningType)}
             </span>
-            <span className="text-[11px] font-medium px-2 py-0.5 rounded-md border border-slate-600 text-slate-500 bg-slate-800">
+            <span className="text-[11px] font-medium px-2 py-0.5 rounded-md border border-slate-600 text-slate-500 bg-slate-900">
               {job.sizeSqm} m²
             </span>
           </div>
 
           <div className="text-[10px] text-slate-500 font-medium">
             {job.applicants.length > 0 ? (
-              <span className="text-slate-500 font-semibold bg-slate-800 px-2 py-0.5 rounded-sm">
+              <span className="text-slate-500 font-semibold bg-slate-900 px-2 py-0.5 rounded-sm">
                 {t('job.card.candidates.n', { n: job.applicants.length })}
               </span>
             ) : (
@@ -135,7 +135,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
               </span>
             )}
             {!isAssignedToMe && !isAppliedByMe && job.status === 'em_andamento' && (
-              <span className="text-slate-500 bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1.5 text-xs">
+              <span className="text-slate-500 bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-1.5 text-xs">
                 {t('job.card.filled')}
               </span>
             )}
@@ -145,7 +145,7 @@ export default function JobCard({ job, currentProfessionalId, onViewDetails, onA
             <button
               id={`btn-view-job-${job.id}`}
               onClick={() => onViewDetails(job.id)}
-              className="bg-slate-800 hover:bg-slate-600 active:bg-slate-350 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className="bg-slate-900 hover:bg-slate-600 active:bg-slate-350 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               {t('job.card.details')}
             </button>

@@ -111,7 +111,7 @@ export default function DashboardEmpresa({
   return (
     <div id="company-contractor-dashboard" className="space-y-8 animate-fade-in">
       {/* Banner / Hero Section */}
-      <div className="bg-slate-900 rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-xl border border-slate-800">
+      <div className="bg-slate-950 rounded-3xl p-6 md:p-10 text-white relative overflow-hidden shadow-xl border border-slate-800">
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -130,16 +130,16 @@ export default function DashboardEmpresa({
             <button
               id="btn-post-cleaning-banner"
               onClick={() => onOpenRegisterJob()}
-              className="bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-slate-950 font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+              className="bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-black font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer"
             >
-              <Plus className="w-4 h-4 text-slate-950" /> {t('dashboard.company.hero.btn')}
+              <Plus className="w-4 h-4 text-black" /> {t('dashboard.company.hero.btn')}
             </button>
           </div>
         </div>
       </div>
 
       {/* --- PRESTIGE GLOBAL FEATURE: ESTIMATOR CALCULATOR CARD --- */}
-      <div id="smart-calculator-widget" className="bg-slate-900 rounded-3xl border border-slate-700 p-6 shadow-sm relative overflow-hidden">
+      <div id="smart-calculator-widget" className="bg-slate-950 rounded-3xl border border-slate-700 p-6 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 right-0 p-3 bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider rounded-bl-2xl flex items-center gap-1">
           <Sparkles className="w-3 h-3 text-emerald-600 animate-spin" /> Tecnologia Recomendada
         </div>
@@ -154,7 +154,7 @@ export default function DashboardEmpresa({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-slate-900/50 p-4 rounded-2xl border border-slate-700">
           
           {/* Controls Column */}
           <div className="lg:col-span-8 space-y-4">
@@ -166,16 +166,16 @@ export default function DashboardEmpresa({
                 <div className="flex items-center group">
                   <button 
                     onClick={() => setCalcRooms(Math.max(1, calcRooms - 1))}
-                    className="p-2 border border-slate-600 bg-slate-900 hover:bg-slate-800 rounded-l-xl text-slate-500 cursor-pointer text-xs"
+                    className="p-2 border border-slate-600 bg-slate-950 hover:bg-slate-900 rounded-l-xl text-slate-500 cursor-pointer text-xs"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <div className="w-full text-center border-y border-slate-600 bg-slate-900 py-1.5 font-mono text-xs font-bold text-slate-200">
+                  <div className="w-full text-center border-y border-slate-600 bg-slate-950 py-1.5 font-mono text-xs font-bold text-slate-200">
                     {t('dashboard.company.calc.rooms.n', { n: calcRooms })}
                   </div>
                   <button 
                     onClick={() => setCalcRooms(Math.min(10, calcRooms + 1))}
-                    className="p-2 border border-slate-600 bg-slate-900 hover:bg-slate-800 rounded-r-xl text-slate-500 cursor-pointer text-xs"
+                    className="p-2 border border-slate-600 bg-slate-950 hover:bg-slate-900 rounded-r-xl text-slate-500 cursor-pointer text-xs"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
@@ -187,16 +187,16 @@ export default function DashboardEmpresa({
                 <div className="flex items-center group">
                   <button 
                     onClick={() => setCalcBaths(Math.max(1, calcBaths - 1))}
-                    className="p-2 border border-slate-600 bg-slate-900 hover:bg-slate-800 rounded-l-xl text-slate-500 cursor-pointer text-xs"
+                    className="p-2 border border-slate-600 bg-slate-950 hover:bg-slate-900 rounded-l-xl text-slate-500 cursor-pointer text-xs"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <div className="w-full text-center border-y border-slate-600 bg-slate-900 py-1.5 font-mono text-xs font-bold text-slate-200">
+                  <div className="w-full text-center border-y border-slate-600 bg-slate-950 py-1.5 font-mono text-xs font-bold text-slate-200">
                     {t('dashboard.company.calc.baths.n', { n: calcBaths })}
                   </div>
                   <button 
                     onClick={() => setCalcBaths(Math.min(5, calcBaths + 1))}
-                    className="p-2 border border-slate-600 bg-slate-900 hover:bg-slate-800 rounded-r-xl text-slate-500 cursor-pointer text-xs"
+                    className="p-2 border border-slate-600 bg-slate-950 hover:bg-slate-900 rounded-r-xl text-slate-500 cursor-pointer text-xs"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
@@ -208,7 +208,7 @@ export default function DashboardEmpresa({
                 <select
                   value={calcType}
                   onChange={(e: any) => setCalcType(e.target.value)}
-                  className="w-full py-1.5 px-3 border border-slate-600 rounded-xl bg-slate-900 text-xs text-slate-300 outline-none focus:ring-1 focus:ring-emerald-400"
+                  className="w-full py-1.5 px-3 border border-slate-600 rounded-xl bg-slate-950 text-xs text-slate-300 outline-none focus:ring-1 focus:ring-emerald-400"
                 >
                   <option value="residencial">{t('calc.type.residential')}</option>
                   <option value="comercial">{t('calc.type.commercial')}</option>
@@ -231,7 +231,7 @@ export default function DashboardEmpresa({
                       className={`p-2.5 rounded-xl border text-left transition-all ${
                         isChecked 
                           ? 'bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold ring-1 ring-emerald-400/20' 
-                          : 'bg-slate-900 border-slate-600 text-slate-500 hover:bg-slate-800/50'
+                          : 'bg-slate-950 border-slate-600 text-slate-500 hover:bg-slate-900/50'
                       }`}
                     >
                       <div className="text-[11px] line-clamp-1">{extra.label}</div>
@@ -244,7 +244,7 @@ export default function DashboardEmpresa({
           </div>
 
           {/* Results Summary Column */}
-          <div className="lg:col-span-4 bg-slate-900 rounded-2xl border border-slate-600 p-4.5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-4 bg-slate-950 rounded-2xl border border-slate-600 p-4.5 flex flex-col justify-between space-y-4">
             <div>
               <span className="text-[9px] uppercase tracking-widest text-slate-420 font-black block mb-1">{t('dashboard.company.calc.result')}</span>
               <div className="space-y-2">
@@ -295,11 +295,11 @@ export default function DashboardEmpresa({
         </div>
 
         {jobs.length === 0 ? (
-          <div className="bg-slate-900 rounded-2xl border border-dashed border-slate-600 p-8 text-center bg-slate-800/50">
+          <div className="bg-slate-950 rounded-2xl border border-dashed border-slate-600 p-8 text-center bg-slate-900/50">
             <p className="text-slate-450 italic text-xs">{t('dashboard.company.jobs.empty')}</p>
             <button
               onClick={() => onOpenRegisterJob()}
-              className="mt-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
+              className="mt-3 bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
             >
               {t('dashboard.company.jobs.first')}
             </button>
@@ -312,14 +312,14 @@ export default function DashboardEmpresa({
               return (
                 <div 
                   key={job.id}
-                  className={`bg-slate-900 rounded-2xl border p-4 flex flex-col justify-between transition-all hover:bg-slate-700/50 ${
-                    isAssigned ? 'border-emerald-250 bg-emerald-50/5 shadow-2xs' : 'border-slate-700 bg-slate-900'
+                  className={`bg-slate-950 rounded-2xl border p-4 flex flex-col justify-between transition-all hover:bg-slate-800/50 ${
+                    isAssigned ? 'border-emerald-250 bg-emerald-50/5 shadow-2xs' : 'border-slate-700 bg-slate-950'
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
-                        job.clientType === 'empresa' ? 'bg-slate-800 text-slate-200' : 'bg-emerald-50 text-emerald-800'
+                        job.clientType === 'empresa' ? 'bg-slate-900 text-slate-200' : 'bg-emerald-50 text-emerald-800'
                       }`}>
                         {job.clientType === 'empresa' ? t('dashboard.company.jobs.corporate') : t('dashboard.company.jobs.residential')}
                       </span>
@@ -329,7 +329,7 @@ export default function DashboardEmpresa({
                           ? 'bg-emerald-100 text-emerald-800' 
                           : hasApplicants 
                             ? 'bg-amber-100 text-amber-800 animate-pulse' 
-                            : 'bg-slate-800 text-slate-500'
+                            : 'bg-slate-900 text-slate-500'
                       }`}>
                         {isAssigned ? t('dashboard.company.jobs.filled') : hasApplicants ? t('dashboard.company.jobs.interested', { n: job.applicants.length }) : t('dashboard.company.jobs.none')}
                       </span>
@@ -343,7 +343,7 @@ export default function DashboardEmpresa({
                     {job.extras && job.extras.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-2">
                         {job.extras.map(e => (
-                          <span key={e} className="text-[9px] bg-slate-800 text-slate-500 px-1.5 py-0.5 rounded">
+                          <span key={e} className="text-[9px] bg-slate-900 text-slate-500 px-1.5 py-0.5 rounded">
                             +{e}
                           </span>
                         ))}
@@ -357,7 +357,7 @@ export default function DashboardEmpresa({
                     </span>
                     <button
                       onClick={() => onViewJobDetails(job.id)}
-                      className="bg-slate-900 text-white font-semibold hover:bg-emerald-600 active:bg-emerald-700 text-[11px] px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                      className="bg-slate-950 text-white font-semibold hover:bg-emerald-600 active:bg-emerald-700 text-[11px] px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
                     >
                       {hasApplicants && !isAssigned ? t('dashboard.company.jobs.review') : t('dashboard.company.jobs.details')}
                     </button>
@@ -384,7 +384,7 @@ export default function DashboardEmpresa({
               <select
                 value={sortBy}
                 onChange={(e: any) => setSortBy(e.target.value)}
-                className="text-xs py-2 px-3 border border-slate-600 rounded-xl bg-slate-900 text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"
+                className="text-xs py-2 px-3 border border-slate-600 rounded-xl bg-slate-950 text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-400"
               >
                 <option value="rating">{t('dashboard.company.dir.sort.rating')}</option>
                 <option value="rate-low">{t('dashboard.company.dir.sort.low')}</option>
@@ -395,7 +395,7 @@ export default function DashboardEmpresa({
           </div>
 
           {/* Search + categories filtering header */}
-          <div className="bg-slate-800 rounded-2xl p-4 mb-6 space-y-4">
+          <div className="bg-slate-900 rounded-2xl p-4 mb-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {/* Search text input */}
               <div className="relative">
@@ -405,12 +405,12 @@ export default function DashboardEmpresa({
                   placeholder={t('dashboard.company.dir.search')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 bg-slate-900 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
+                  className="w-full pl-9 pr-4 py-2.5 text-xs text-slate-200 bg-slate-950 border border-slate-600 rounded-xl focus:ring-2 focus:ring-emerald-400/20 focus:border-emerald-400 outline-none"
                 />
               </div>
 
               {/* Min rating filter */}
-              <div className="flex items-center gap-2 bg-slate-900 border border-slate-600 rounded-xl px-3 py-1.5">
+              <div className="flex items-center gap-2 bg-slate-950 border border-slate-600 rounded-xl px-3 py-1.5">
                 <Star className="w-4 h-4 text-amber-500 fill-amber-500 flex-shrink-0" />
                 <span className="text-xs text-slate-500 min-w-[130px]">{t('dashboard.company.dir.min.rating')}</span>
                 <div className="flex gap-1">
@@ -449,8 +449,8 @@ export default function DashboardEmpresa({
                   onClick={() => setSelectedType(item.type as any)}
                   className={`text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                     selectedType === item.type
-                      ? 'bg-slate-900 border-slate-900 text-white font-medium'
-                      : 'bg-slate-900 border-slate-600 text-slate-500 hover:bg-slate-700'
+                      ? 'bg-slate-950 border-slate-900 text-white font-medium'
+                      : 'bg-slate-950 border-slate-600 text-slate-500 hover:bg-slate-800'
                   }`}
                 >
                   {item.label}
@@ -461,7 +461,7 @@ export default function DashboardEmpresa({
 
           {/* Directory Grid output */}
           {filteredProfessionals.length === 0 ? (
-            <div className="bg-slate-900 rounded-2xl border border-slate-700 p-12 text-center shadow-xs">
+            <div className="bg-slate-950 rounded-2xl border border-slate-700 p-12 text-center shadow-xs">
               <Info className="w-8 h-8 text-slate-450 mx-auto mb-2" />
               <p className="text-slate-500 font-sans italic text-sm">{t('dashboard.company.dir.empty')}</p>
               <button

@@ -171,7 +171,7 @@ export default function App() {
   };
 
   return (
-    <div id="main-application-view" className="min-h-screen bg-slate-800 flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
+    <div id="main-application-view" className="min-h-screen bg-slate-950 flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
       
       <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-slate-700 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 py-2.5">
@@ -188,18 +188,18 @@ export default function App() {
 
             <div className="relative">
                 <button onClick={() => setLangMenuOpen(m => !m)}
-                className="text-xl leading-none px-1.5 py-1 rounded-md hover:bg-slate-800 transition cursor-pointer select-none">
+                className="text-xl leading-none px-1.5 py-1 rounded-md hover:bg-slate-900 transition cursor-pointer select-none">
                 {lang === 'pt' ? '🇧🇷' : lang === 'en' ? '🇺🇸' : '🇪🇸'}
               </button>
               {langMenuOpen && (
-                <div className="absolute top-full right-0 mt-1 bg-slate-900 border border-slate-600 rounded-xl shadow-xl z-50 py-1 min-w-[140px] animate-fade-in">
+                <div className="absolute top-full right-0 mt-1 bg-slate-950 border border-slate-600 rounded-xl shadow-xl z-50 py-1 min-w-[140px] animate-fade-in">
                   {[
                     { lang: 'pt', flag: '🇧🇷', label: 'Português' },
                     { lang: 'en', flag: '🇺🇸', label: 'English' },
                     { lang: 'es', flag: '🇪🇸', label: 'Español' },
                   ].map(({ lang: l, flag, label }) => (
                     <button key={l} onClick={() => { setLang(l as any); setLangMenuOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium hover:bg-slate-700 transition cursor-pointer ${lang === l ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-slate-300'}`}>
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium hover:bg-slate-800 transition cursor-pointer ${lang === l ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-slate-300'}`}>
                       <span className="text-base">{flag}</span> {label}
                     </button>
                   ))}
@@ -208,20 +208,20 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-1.5 md:gap-3">
-              <div className="flex bg-slate-800 p-0.5 rounded-lg border border-slate-600">
+              <div className="flex bg-slate-900 p-0.5 rounded-lg border border-slate-600">
                 <button onClick={() => setActiveRole('client')}
-                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'client' ? 'bg-slate-700 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
+                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'client' ? 'bg-slate-800 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.client')}
                 </button>
                 <button onClick={() => setActiveRole('cleaner')}
-                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'cleaner' ? 'bg-slate-700 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
+                  className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'cleaner' ? 'bg-slate-800 text-slate-100 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.cleaner')}
                 </button>
               </div>
 
               {activeRole === 'client' ? (
                 <button onClick={() => { setViewingForm('post-job'); setPrefilledJobData(null); }}
-                  className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[10px] md:text-xs px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg transition-all shadow-xs cursor-pointer whitespace-nowrap">
+                  className="bg-slate-950 hover:bg-slate-900 text-white font-bold text-[10px] md:text-xs px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg transition-all shadow-xs cursor-pointer whitespace-nowrap">
                   {t('header.btn.post.job')}
                 </button>
               ) : (
@@ -268,9 +268,9 @@ export default function App() {
 
       {toastMessage && (
         <div id="visual-toast-banner"
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 animate-fade-in flex items-center gap-2.5 bg-slate-900 border border-slate-800 text-white rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-4 shadow-2xl max-w-xs md:max-w-sm">
-          <div className="bg-emerald-500 text-slate-950 rounded-full p-1 flex-shrink-0">
-            <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-950" />
+          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 animate-fade-in flex items-center gap-2.5 bg-slate-950 border border-slate-800 text-white rounded-xl md:rounded-2xl px-4 py-3 md:px-5 md:py-4 shadow-2xl max-w-xs md:max-w-sm">
+          <div className="bg-emerald-500 text-black rounded-full p-1 flex-shrink-0">
+            <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-black" />
           </div>
           <div>
             <p className="text-[11px] md:text-xs font-bold">{t('system.alert')}</p>

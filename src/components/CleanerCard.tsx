@@ -15,7 +15,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
   return (
     <div 
       id={`cleaner-card-${professional.id}`}
-      className="bg-slate-900 rounded-2xl border border-slate-700 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
+      className="bg-slate-950 rounded-2xl border border-slate-700 shadow-xs hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
     >
       {/* Background ambient pattern */}
       <div className="h-16 bg-gradient-to-r from-emerald-400/20 to-teal-400/10 relative">
@@ -33,7 +33,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
               src={professional.avatar} 
               alt={professional.name} 
               referrerPolicy="no-referrer"
-              className="w-16 h-16 rounded-full object-cover border-4 border-white bg-slate-800 shadow-sm"
+              className="w-16 h-16 rounded-full object-cover border-4 border-white bg-slate-900 shadow-sm"
             />
             {professional.isVerified && (
               <span className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-1 border-2 border-white shadow-xs" title="Profissional Verificado">
@@ -96,7 +96,7 @@ export default function CleanerCard({ professional, onViewDetails }: CleanerCard
           <button
             id={`btn-view-profile-${professional.id}`}
             onClick={() => onViewDetails(professional.id)}
-            className="bg-slate-900 text-white hover:bg-emerald-600 active:bg-emerald-700 text-xs font-medium px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer shadow-xs hover:shadow-sm"
+            className="bg-slate-950 text-white hover:bg-emerald-600 active:bg-emerald-700 text-xs font-medium px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer shadow-xs hover:shadow-sm"
           >
             {t('cleaner.card.view.profile')}
           </button>
