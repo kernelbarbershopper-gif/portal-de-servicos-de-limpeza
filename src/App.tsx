@@ -20,7 +20,7 @@ export default function App() {
   const [selectedCleanerId, setSelectedCleanerId] = useState<string | null>(null);
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
   const [activeProfessionalId, setActiveProfessionalId] = useState<string | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const [prefilledJobData, setPrefilledJobData] = useState<any>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -186,25 +186,34 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              {[
-                { lang: 'pt', flag: '🇧🇷', title: 'Português' },
-                { lang: 'en', flag: '🇺🇸', title: 'English' },
-                { lang: 'es', flag: '🇪🇸', title: 'Español' },
-              ].map(({ lang: l, flag, title }) => (
-                <button key={l} onClick={() => setLang(l as any)}
-                  className={`text-lg md:text-xl leading-none px-1 py-1 rounded-md transition-all cursor-pointer ${lang === l ? 'ring-2 ring-emerald-500 scale-110' : 'opacity-40 hover:opacity-80'}`}
-                  title={title}>{flag}</button>
-              ))}
+            <div className="relative">
+                <button onClick={() => setLangMenuOpen(m => !m)}
+                className="text-xl leading-none px-1.5 py-1 rounded-md hover:bg-slate-100 transition cursor-pointer select-none">
+                {lang === 'pt' ? '🇧🇷' : lang === 'en' ? '🇺🇸' : '🇪🇸'}
+              </button>
+              {langMenuOpen && (
+                <div className="absolute top-full right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 py-1 min-w-[140px] animate-fade-in">
+                  {[
+                    { lang: 'pt', flag: '🇧🇷', label: 'Português' },
+                    { lang: 'en', flag: '🇺🇸', label: 'English' },
+                    { lang: 'es', flag: '🇪🇸', label: 'Español' },
+                  ].map(({ lang: l, flag, label }) => (
+                    <button key={l} onClick={() => { setLang(l as any); setLangMenuOpen(false); }}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium hover:bg-slate-50 transition cursor-pointer ${lang === l ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-slate-700'}`}>
+                      <span className="text-base">{flag}</span> {label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-1.5 md:gap-3">
               <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
-                <button onClick={() => { setActiveRole('client'); setMobileMenuOpen(false); }}
+                <button onClick={() => setActiveRole('client')}
                   className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'client' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.client')}
                 </button>
-                <button onClick={() => { setActiveRole('cleaner'); setMobileMenuOpen(false); }}
+                <button onClick={() => setActiveRole('cleaner')}
                   className={`py-1 px-2 md:py-1.5 md:px-3 rounded-md text-[10px] md:text-xs font-bold transition cursor-pointer ${activeRole === 'cleaner' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500'}`}>
                   {t('header.role.cleaner')}
                 </button>
