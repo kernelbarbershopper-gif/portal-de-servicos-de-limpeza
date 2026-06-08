@@ -235,7 +235,7 @@ export default function DashboardEmpresa({
                       }`}
                     >
                       <div className="text-[11px] line-clamp-1">{extra.label}</div>
-                      <div className="text-[10px] text-slate-400 font-normal">+{formatCurrency(extra.price)}</div>
+                      <div className="text-[10px] text-slate-400 font-normal">+{formatCurrency(extra.price, lang)}</div>
                     </button>
                   );
                 })}
@@ -265,7 +265,7 @@ export default function DashboardEmpresa({
 
             <div className="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100 text-center">
               <span className="text-[10px] text-slate-500 uppercase tracking-wider block">{t('dashboard.company.calc.price')}</span>
-              <span className="text-2xl font-black font-mono text-emerald-700 tracking-tight block mt-0.5">{formatCurrency(calculated.cost)}</span>
+              <span className="text-2xl font-black font-mono text-emerald-700 tracking-tight block mt-0.5">{formatCurrency(calculated.cost, lang)}</span>
             </div>
 
             <button
@@ -336,7 +336,7 @@ export default function DashboardEmpresa({
                     </div>
 
                     <h3 className="font-sans font-bold text-slate-800 text-sm line-clamp-1 mb-1">{job.title}</h3>
-                    <p className="text-[10px] font-mono text-slate-400 mb-2">{t('dashboard.company.jobs.price')} <span className="font-bold text-emerald-700">{formatCurrency(job.price)}</span> | {t('dashboard.company.jobs.date')} {job.date}</p>
+                    <p className="text-[10px] font-mono text-slate-400 mb-2">{t('dashboard.company.jobs.price')} <span className="font-bold text-emerald-700">{formatCurrency(job.price, lang)}</span> | {t('dashboard.company.jobs.date')} {job.date}</p>
                     <p className="text-slate-600 text-xs text-slate-500 line-clamp-2 leading-relaxed">{job.description}</p>
                     
                     {/* Show simple list of extras if any */}
