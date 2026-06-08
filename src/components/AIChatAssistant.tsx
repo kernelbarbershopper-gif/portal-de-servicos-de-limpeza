@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
-import { Sparkles, X, Send, Bot, User, ChevronDown } from 'lucide-react';
+import { Sparkles, X, Send, Bot, User } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -8,81 +8,63 @@ interface Message {
   text: string;
 }
 
-const FAQ: Record<string, { pt: string; en: string; es: string }> = {
-  'como publicar': {
-    pt: 'Para publicar uma diária, clique em "Anunciar Diária" no cabeçalho e preencha os detalhes do serviço (tipo de limpeza, data, endereço).',
-    en: 'To post a job, click "Post Job" in the header and fill in the service details (cleaning type, date, address).',
-    es: 'Para publicar un trabajo, haga clic en "Publicar Trabajo" en el encabezado y complete los detalles del servicio.'
-  },
-  'como encontrar': {
-    pt: 'No perfil de empresa, use a busca e filtros para encontrar diaristas por tipo de limpeza, avaliação ou preço.',
-    en: 'In the company dashboard, use search and filters to find cleaners by cleaning type, rating, or price.',
-    es: 'En el panel de empresa, use la búsqueda y filtros para encontrar limpiadores por tipo, calificación o precio.'
-  },
-  'como candidatar': {
-    pt: 'No perfil de diarista, navegue pelos serviços disponíveis e clique em "Candidatar-se" para enviar sua proposta.',
-    en: 'In the cleaner profile, browse available jobs and click "Apply" to send your proposal.',
-    es: 'En el perfil de limpiador, explore los trabajos disponibles y haga clic en "Aplicar" para enviar su propuesta.'
-  },
-  'preço': {
-    pt: 'Os preços variam conforme o tipo de limpeza e extras selecionados. Use a calculadora no painel para estimar o valor.',
-    en: 'Prices vary by cleaning type and selected extras. Use the calculator in the dashboard to estimate the cost.',
-    es: 'Los precios varían según el tipo de limpieza y los extras seleccionados. Use la calculadora en el panel para estimar el costo.'
-  },
-  'avaliação': {
-    pt: 'Clientes podem avaliar diaristas após a conclusão do serviço. As avaliações aparecem no perfil do profissional.',
-    en: 'Clients can rate cleaners after service completion. Reviews appear on the professional profile.',
-    es: 'Los clientes pueden calificar a los limpiadores después de completar el servicio. Las reseñas aparecen en el perfil.'
-  },
-  'chat': {
-    pt: 'Use o chat em tempo real para negociar detalhes com a diarista ou cliente após a candidatura.',
-    en: 'Use the real-time chat to negotiate details with the cleaner or client after applying.',
-    es: 'Use el chat en tiempo real para negociar detalles con el limpiador o cliente después de aplicar.'
-  },
-  'default': {
-    pt: 'Sou assistente virtual da plataforma de serviços de limpeza. Posso ajudar com: publicação de diárias, busca por profissionais, candidatura a serviços, preços, avaliações e chat. Como posso ajudar?',
-    en: "I'm the virtual assistant for the cleaning services platform. I can help with: posting jobs, finding professionals, applying for jobs, prices, reviews, and chat. How can I help?",
-    es: 'Soy el asistente virtual de la plataforma de servicios de limpieza. Puedo ayudar con: publicación de trabajos, búsqueda de profesionales, solicitud de servicios, precios, reseñas y chat. ¿Cómo puedo ayudar?'
-  }
-};
-
-function findAnswer(text: string, lang: 'pt' | 'en' | 'es'): string {
-  const lower = text.toLowerCase();
-  for (const [key, msgs] of Object.entries(FAQ)) {
-    if (key === 'default') continue;
-    if (lower.includes(key)) {
-      return msgs[lang];
-    }
-  }
-  return FAQ['default'][lang];
-}
-
 export default function AIChatAssistant() {
   const { t, lang } = useLanguage();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: '0', role: 'assistant', text: t('ai.greeting') || FAQ['default'][lang] }
+    { id: '0', role: 'assistant', text: t('ai.greeting') }
   ]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
+  const [error, setError] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, typing]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim() || typing) return;
-    const userMsg: Message = { id: Date.now().toString(), role: 'user', text: input.trim() };
+    const text = input.trim();
+    const userMsg: Message = { id: Date.now().toString(), role: 'user', text };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setTyping(true);
-    setTimeout(() => {
-      const answer = findAnswer(userMsg.text, lang);
-      const botMsg: Message = { id: (Date.now() + 1).toString(), role: 'assistant', text: answer };
+    setError(false);
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages.slice(-6), userMsg].map(m => ({
+            role: m.role,
+            content: m.text,
+          })),
+          lang,
+        }),
+      });
+
+      if (!res.ok) throw new Error('API error');
+
+      const data = await res.json();
+      const botMsg: Message = { id: (Date.now() + 1).toString(), role: 'assistant', text: data.text };
       setMessages(prev => [...prev, botMsg]);
+    } catch {
+      setError(true);
+      const fallback: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        text: lang === 'pt'
+          ? 'Desculpe, não consegui me conectar ao servidor. Tente novamente em alguns instantes.'
+          : lang === 'es'
+          ? 'Lo siento, no pude conectarme al servidor. Intente de nuevo en unos momentos.'
+          : 'Sorry, I couldn\'t connect to the server. Please try again in a moment.',
+      };
+      setMessages(prev => [...prev, fallback]);
+    } finally {
       setTyping(false);
-    }, 800 + Math.random() * 600);
+    }
   };
 
   return (
@@ -95,8 +77,8 @@ export default function AIChatAssistant() {
                 <Bot className="w-4 h-4 text-black" />
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-100">{t('ai.title') || 'Assistente IA'}</p>
-                <p className="text-[9px] text-emerald-400 font-medium">{t('ai.online') || 'Online'}</p>
+                <p className="text-xs font-bold text-slate-100">{t('ai.title')}</p>
+                <p className="text-[9px] text-emerald-400 font-medium">{t('ai.online')}</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-200 transition cursor-pointer p-1">
@@ -140,6 +122,11 @@ export default function AIChatAssistant() {
                 </div>
               </div>
             )}
+            {error && (
+              <p className="text-[10px] text-red-400 text-center">
+                {lang === 'pt' ? 'Erro de conexão. Usando respostas offline.' : lang === 'es' ? 'Error de conexión. Usando respuestas offline.' : 'Connection error. Using offline responses.'}
+              </p>
+            )}
             <div ref={endRef} />
           </div>
 
@@ -149,7 +136,7 @@ export default function AIChatAssistant() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
-                placeholder={t('ai.placeholder') || 'Digite sua pergunta...'}
+                placeholder={t('ai.placeholder')}
                 className="flex-1 bg-slate-900 border border-slate-600 rounded-xl px-3 py-2 text-xs text-slate-200 placeholder-slate-500 outline-none focus:border-emerald-500 transition"
               />
               <button
@@ -160,7 +147,7 @@ export default function AIChatAssistant() {
                 <Send className="w-4 h-4" />
               </button>
             </div>
-            <p className="text-[8px] text-slate-500 text-center mt-1.5">{t('ai.disclaimer') || 'Respostas automáticas para ajudar na navegação'}</p>
+            <p className="text-[8px] text-slate-500 text-center mt-1.5">{t('ai.disclaimer')}</p>
           </div>
         </div>
       )}

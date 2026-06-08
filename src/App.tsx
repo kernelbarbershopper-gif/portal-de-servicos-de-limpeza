@@ -1,6 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Professional, Job, ChatMessage, ClientReview } from './types';
 import { INITIAL_PROFESSIONALS, INITIAL_JOBS, INITIAL_CLIENT_REVIEWS } from './data';
+import {
+  fetchProfessionals,
+  fetchJobs,
+  fetchClientReviews,
+  insertProfessional,
+  updateProfessional,
+  insertProfessionalReview,
+  insertJob,
+  updateJob,
+  insertChatMessage,
+  insertClientReview,
+  seedInitialData,
+} from './lib/api';
 import DashboardEmpresa from './components/DashboardEmpresa';
 import DashboardProfissional from './components/DashboardProfissional';
 import CleanerRegisterForm from './components/CleanerRegisterForm';
@@ -22,50 +35,66 @@ export default function App() {
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
   const [activeProfessionalId, setActiveProfessionalId] = useState<string | null>(null);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [prefilledJobData, setPrefilledJobData] = useState<any>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'success' | 'info'>('success');
 
+  const seededRef = useRef(false);
+
   useEffect(() => {
-    const savedPros = localStorage.getItem('limpeza_professionals');
-    const savedJobs = localStorage.getItem('limpeza_jobs');
-    const savedClientReviews = localStorage.getItem('limpeza_client_reviews');
+    if (seededRef.current) return;
+    seededRef.current = true;
 
-    let parsedPros = INITIAL_PROFESSIONALS;
-    let parsedJobs = INITIAL_JOBS;
-    let parsedClientReviews = INITIAL_CLIENT_REVIEWS;
+    const loadData = async () => {
+      try {
+        const [fetchedPros, fetchedJobs, fetchedReviews] = await Promise.all([
+          fetchProfessionals(),
+          fetchJobs(),
+          fetchClientReviews(),
+        ]);
 
-    if (savedPros) {
-      try { parsedPros = JSON.parse(savedPros); } catch (e) { console.error(e); }
-    } else {
-      localStorage.setItem('limpeza_professionals', JSON.stringify(INITIAL_PROFESSIONALS));
-    }
-    if (savedJobs) {
-      try { parsedJobs = JSON.parse(savedJobs); } catch (e) { console.error(e); }
-    } else {
-      localStorage.setItem('limpeza_jobs', JSON.stringify(INITIAL_JOBS));
-    }
-    if (savedClientReviews) {
-      try { parsedClientReviews = JSON.parse(savedClientReviews); } catch (e) { console.error(e); }
-    } else {
-      localStorage.setItem('limpeza_client_reviews', JSON.stringify(INITIAL_CLIENT_REVIEWS));
-    }
+        if (fetchedPros.length === 0 && fetchedJobs.length === 0) {
+          await seedInitialData(INITIAL_PROFESSIONALS, INITIAL_JOBS, INITIAL_CLIENT_REVIEWS);
+          const [seededPros, seededJobs, seededReviews] = await Promise.all([
+            fetchProfessionals(),
+            fetchJobs(),
+            fetchClientReviews(),
+          ]);
+          setProfessionals(seededPros);
+          setJobs(seededJobs);
+          setClientReviews(seededReviews);
+          if (seededPros.length > 0) setActiveProfessionalId(seededPros[0].id);
+        } else {
+          setProfessionals(fetchedPros);
+          setJobs(fetchedJobs);
+          setClientReviews(fetchedReviews);
+          if (fetchedPros.length > 0) setActiveProfessionalId(fetchedPros[0].id);
+        }
+      } catch (e) {
+        console.error('Supabase unavailable, falling back to localStorage:', e);
+        const savedPros = localStorage.getItem('limpeza_professionals');
+        const savedJobs = localStorage.getItem('limpeza_jobs');
+        const savedReviews = localStorage.getItem('limpeza_client_reviews');
+        setProfessionals(savedPros ? JSON.parse(savedPros) : INITIAL_PROFESSIONALS);
+        setJobs(savedJobs ? JSON.parse(savedJobs) : INITIAL_JOBS);
+        setClientReviews(savedReviews ? JSON.parse(savedReviews) : INITIAL_CLIENT_REVIEWS);
+        if (INITIAL_PROFESSIONALS.length > 0) setActiveProfessionalId(INITIAL_PROFESSIONALS[0].id);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setProfessionals(parsedPros);
-    setJobs(parsedJobs);
-    setClientReviews(parsedClientReviews);
-    if (parsedPros.length > 0) setActiveProfessionalId(parsedPros[0].id);
+    loadData();
   }, []);
 
   const updateProfessionalsState = (newPros: Professional[]) => {
     setProfessionals(newPros);
-    localStorage.setItem('limpeza_professionals', JSON.stringify(newPros));
   };
 
   const updateJobsState = (newJobs: Job[]) => {
     setJobs(newJobs);
-    localStorage.setItem('limpeza_jobs', JSON.stringify(newJobs));
   };
 
   const showToast = (msg: string, type: 'success' | 'info' = 'success') => {
@@ -74,7 +103,12 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 4500);
   };
 
-  const handleRegisterCleaner = (newPro: Professional) => {
+  const handleRegisterCleaner = async (newPro: Professional) => {
+    try {
+      await insertProfessional(newPro);
+    } catch (e) {
+      console.error('Failed to insert professional to Supabase:', e);
+    }
     const updatedPros = [newPro, ...professionals];
     updateProfessionalsState(updatedPros);
     setActiveProfessionalId(newPro.id);
@@ -83,7 +117,12 @@ export default function App() {
     showToast(t('toast.registered', { name: newPro.name }), 'success');
   };
 
-  const handlePostJob = (newJob: Job) => {
+  const handlePostJob = async (newJob: Job) => {
+    try {
+      await insertJob(newJob);
+    } catch (e) {
+      console.error('Failed to insert job to Supabase:', e);
+    }
     const updatedJobs = [newJob, ...jobs];
     updateJobsState(updatedJobs);
     setViewingForm('none');
@@ -92,7 +131,7 @@ export default function App() {
     showToast(t('toast.job.posted', { title: newJob.title }), 'success');
   };
 
-  const handleApplyToJob = (jobId: string) => {
+  const handleApplyToJob = async (jobId: string) => {
     if (!activeProfessionalId) {
       showToast(t('toast.select.profile'), 'info');
       setActiveRole('cleaner');
@@ -115,15 +154,33 @@ export default function App() {
            `Hello! I'm interested in the proposed rate for ${targetJob.title}. I guarantee punctuality and total dedication!`,
       timestamp: new Date().toISOString()
     };
-    const updatedJobs = jobs.map(job => job.id === jobId ? { ...job, applicants: [...job.applicants, activeProfessionalId], chatMessages: [...(job.chatMessages || []), autoChatMessage] } : job);
+    const updatedApplicants = [...targetJob.applicants, activeProfessionalId];
+    const updatedChatMessages = [...(targetJob.chatMessages || []), autoChatMessage];
+    try {
+      await Promise.all([
+        updateJob(jobId, { applicants: updatedApplicants }),
+        insertChatMessage(jobId, autoChatMessage),
+      ]);
+    } catch (e) {
+      console.error('Failed to update job on Supabase:', e);
+    }
+    const updatedJobs = jobs.map(job => job.id === jobId ? { ...job, applicants: updatedApplicants, chatMessages: updatedChatMessages } : job);
     updateJobsState(updatedJobs);
     showToast(t('toast.applied', { name: applicantPro.name }), 'success');
   };
 
-  const handleApproveCandidate = (jobId: string, professionalId: string) => {
+  const handleApproveCandidate = async (jobId: string, professionalId: string) => {
     const targetPro = professionals.find(p => p.id === professionalId);
     const targetJob = jobs.find(j => j.id === jobId);
     if (!targetPro || !targetJob) return;
+    try {
+      await Promise.all([
+        updateJob(jobId, { status: 'em_andamento', assignedTo: professionalId }),
+        updateProfessional(professionalId, { completedJobs: targetPro.completedJobs + 1 }),
+      ]);
+    } catch (e) {
+      console.error('Failed to approve candidate on Supabase:', e);
+    }
     const updatedJobs = jobs.map(job => job.id === jobId ? { ...job, status: 'em_andamento' as const, assignedTo: professionalId } : job);
     const updatedPros = professionals.map(pro => pro.id === professionalId ? { ...pro, completedJobs: pro.completedJobs + 1 } : pro);
     updateJobsState(updatedJobs);
@@ -132,7 +189,7 @@ export default function App() {
     showToast(t('toast.approved', { name: targetPro.name }), 'success');
   };
 
-  const handleSendChatMessage = (jobId: string, text: string, sender: 'client' | 'cleaner') => {
+  const handleSendChatMessage = async (jobId: string, text: string, sender: 'client' | 'cleaner') => {
     let senderName = 'Cliente';
     if (sender === 'cleaner') {
       if (activeProfessionalId) {
@@ -144,13 +201,23 @@ export default function App() {
       if (job) senderName = job.clientName;
     }
     const newMessage: ChatMessage = { id: 'chat_msg_user_' + Date.now(), sender, senderName, text, timestamp: new Date().toISOString() };
+    try {
+      await insertChatMessage(jobId, newMessage);
+    } catch (e) {
+      console.error('Failed to insert chat message to Supabase:', e);
+    }
     const updatedJobs = jobs.map(job => job.id === jobId ? { ...job, chatMessages: [...(job.chatMessages || []), newMessage] } : job);
     updateJobsState(updatedJobs);
     showToast(t('toast.msg.sent'), 'success');
   };
 
-  const handleAddProfessionalReview = (professionalId: string, rating: number, comment: string, reviewerName: string) => {
+  const handleAddProfessionalReview = async (professionalId: string, rating: number, comment: string, reviewerName: string) => {
     const newReview = { id: 'r_pro_' + Date.now(), reviewerName: reviewerName || 'Cliente Anônimo', rating, comment, date: new Date().toISOString().split('T')[0] };
+    try {
+      await insertProfessionalReview(professionalId, newReview);
+    } catch (e) {
+      console.error('Failed to insert professional review to Supabase:', e);
+    }
     const updatedPros = professionals.map(pro => {
       if (pro.id === professionalId) {
         const updatedReviews = [...(pro.reviews || []), newReview];
@@ -163,11 +230,15 @@ export default function App() {
     showToast(t('toast.review.registered'), 'success');
   };
 
-  const handleAddClientReview = (clientName: string, rating: number, comment: string, reviewerName: string) => {
+  const handleAddClientReview = async (clientName: string, rating: number, comment: string, reviewerName: string) => {
     const newReview: ClientReview = { id: 'r_client_' + Date.now(), clientName, reviewerName: reviewerName || 'Diarista Anônimo', rating, comment, date: new Date().toISOString().split('T')[0] };
+    try {
+      await insertClientReview(newReview);
+    } catch (e) {
+      console.error('Failed to insert client review to Supabase:', e);
+    }
     const updatedReviews = [...clientReviews, newReview];
     setClientReviews(updatedReviews);
-    localStorage.setItem('limpeza_client_reviews', JSON.stringify(updatedReviews));
     showToast(t('toast.client.review.registered'), 'success');
   };
 
@@ -237,7 +308,14 @@ export default function App() {
       </header>
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-6">
-        {viewingForm === 'post-job' ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="flex flex-col items-center gap-3 text-slate-500">
+              <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+              <p className="text-xs font-medium">{t('app.loading')}</p>
+            </div>
+          </div>
+        ) : viewingForm === 'post-job' ? (
           <JobPostForm onPostJob={handlePostJob} onCancel={() => { setViewingForm('none'); setPrefilledJobData(null); }} prefilled={prefilledJobData} />
         ) : viewingForm === 'register-cleaner' ? (
           <CleanerRegisterForm onRegister={handleRegisterCleaner} onCancel={() => setViewingForm('none')} />

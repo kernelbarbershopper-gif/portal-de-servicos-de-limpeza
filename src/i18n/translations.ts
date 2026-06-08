@@ -7,6 +7,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'app.footer': '© {year} LimpezaJá. Feito pensando em conectar diaristas e empresas com segurança e transparência.',
     'app.terms': 'Termos de uso',
     'app.privacy': 'Privacidade',
+    'app.loading': 'Carregando dados...',
 
     'header.btn.web': '🌐 Versão Web Desktop',
     'header.btn.android': 'Simulador Android M3',
@@ -383,6 +384,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'app.footer': '© {year} LimpezaJá. Built to connect cleaners and companies with security and transparency.',
     'app.terms': 'Terms of Use',
     'app.privacy': 'Privacy',
+    'app.loading': 'Loading data...',
 
     'header.btn.web': '🌐 Desktop Web Version',
     'header.btn.android': 'Android M3 Simulator',
@@ -759,6 +761,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'app.footer': '© {year} LimpezaJá. Creado para conectar limpiadores y empresas con seguridad y transparencia.',
     'app.terms': 'Términos de uso',
     'app.privacy': 'Privacidad',
+    'app.loading': 'Cargando datos...',
 
     'header.btn.web': '🌐 Versión Web Escritorio',
     'header.btn.android': 'Simulador Android M3',
