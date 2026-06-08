@@ -6,6 +6,7 @@ import DashboardProfissional from './components/DashboardProfissional';
 import CleanerRegisterForm from './components/CleanerRegisterForm';
 import JobPostForm from './components/JobPostForm';
 import { CleanerDetailsModal, JobDetailsModal } from './components/DetailModals';
+import AIChatAssistant from './components/AIChatAssistant';
 import { useLanguage } from './i18n/LanguageContext';
 import { Sparkles, Check } from 'lucide-react';
 
@@ -311,6 +312,8 @@ export default function App() {
           onSendChatMessage={handleSendChatMessage} clientReviews={clientReviews}
           onAddClientReview={handleAddClientReview} />
       )}
+
+      <AIChatAssistant />
     </div>
   );
 }

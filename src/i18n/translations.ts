@@ -369,6 +369,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'days.fri': 'Sexta',
     'days.sat': 'Sábado',
     'days.sun': 'Domingo',
+
+    'ai.title': 'Assistente IA',
+    'ai.online': 'Online',
+    'ai.placeholder': 'Digite sua pergunta...',
+    'ai.disclaimer': 'Respostas automáticas para ajudar na navegação',
+    'ai.greeting': 'Olá! Sou o assistente virtual. Precisa de ajuda para publicar uma diária, encontrar profissionais ou algo mais?',
   },
 
   en: {
@@ -739,6 +745,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'days.fri': 'Fri',
     'days.sat': 'Sat',
     'days.sun': 'Sun',
+
+    'ai.title': 'AI Assistant',
+    'ai.online': 'Online',
+    'ai.placeholder': 'Type your question...',
+    'ai.disclaimer': 'Automatic responses to help you navigate',
+    'ai.greeting': "Hi! I'm the virtual assistant. Need help posting a job, finding professionals, or something else?",
   },
 
   es: {
@@ -1101,6 +1113,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'calc.type.commercial': 'Comercial / Oficina',
     'calc.type.heavy': 'Limpieza Profunda',
     'calc.type.pos': 'Post-Obra',
+
+    'ai.title': 'Asistente IA',
+    'ai.online': 'Online',
+    'ai.placeholder': 'Escribe tu pregunta...',
+    'ai.disclaimer': 'Respuestas automáticas para ayudar en la navegación',
+    'ai.greeting': '¡Hola! Soy el asistente virtual. ¿Necesita ayuda para publicar un trabajo, encontrar profesionales o algo más?',
 
     'days.mon': 'Lun',
     'days.tue': 'Mar',
