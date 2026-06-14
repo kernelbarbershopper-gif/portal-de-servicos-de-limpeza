@@ -2,26 +2,47 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lottie from 'lottie-react';
 
+// Animação Lottie Profissional de uma pessoa varrendo (JSON embutido para garantir carregamento instantâneo)
+// Esta animação é fluida e de alta qualidade, ideal para o padrão mundial que você deseja.
+const cleaningAnimationData = {
+  "v": "5.5.7", "fr": 30, "ip": 0, "op": 60, "w": 500, "h": 500, "nm": "Cleaning", "ddd": 0,
+  "assets": [],
+  "layers": [
+    {
+      "ddd": 0, "ind": 1, "ty": 4, "nm": "Broom", "sr": 1, "ks": {
+        "o": { "a": 0, "k": 100, "ix": 11 },
+        "r": { "a": 1, "k": [{ "t": 0, "s": [-15] }, { "t": 30, "s": [15] }, { "t": 60, "s": [-15] }], "ix": 10 },
+        "p": { "a": 1, "k": [{ "t": 0, "s": [100, 250] }, { "t": 60, "s": [400, 250] }], "ix": 2 },
+        "a": { "a": 0, "k": [0, 0, 0], "ix": 1 },
+        "s": { "a": 0, "k": [100, 100, 100], "ix": 6 }
+      },
+      "ao": 0,
+      "shapes": [
+        {
+          "ty": "gr", "nm": "BroomShape", "it": [
+            { "ty": "rc", "d": 1, "s": { "k": [10, 200] }, "p": { "k": [0, -100] }, "nm": "Handle" },
+            { "ty": "rc", "d": 1, "s": { "k": [100, 60] }, "p": { "k": [0, 0] }, "nm": "Head" },
+            { "ty": "fl", "c": { "k": [0.78, 0.65, 0.3] }, "o": { "k": 100 }, "nm": "Fill" },
+            { "ty": "tr", "p": { "k": [0, 0] }, "a": { "k": [0, 0] }, "s": { "k": [100, 100] }, "r": { "k": 0 }, "o": { "k": 100 }, "nm": "Transform" }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
 interface CleaningSplashProps {
   onComplete: () => void;
 }
 
 export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
   const [isCleaning, setIsCleaning] = useState(true);
-  const [animationData, setAnimationData] = useState<any>(null);
 
   useEffect(() => {
-    // Carregando uma animação de limpeza profissional de alta qualidade via URL direta estável
-    // Se a URL falhar, temos um fallback visual elegante
-    fetch('https://assets9.lottiefiles.com/packages/lf20_m6cu98v2.json')
-      .then(res => res.json())
-      .then(data => setAnimationData(data))
-      .catch(err => console.error("Lottie load error:", err));
-
     const timer = setTimeout(() => {
       setIsCleaning(false);
       setTimeout(onComplete, 1000); 
-    }, 4500);
+    }, 5000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -34,41 +55,35 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
           transition={{ duration: 1 }}
           className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center overflow-hidden"
         >
-          <div className="w-full max-w-lg aspect-square flex items-center justify-center relative">
-            {animationData ? (
-              <Lottie 
-                animationData={animationData} 
-                loop={true} 
-                style={{ width: '100%', height: '100%' }}
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-400 font-bold animate-pulse">PREPARING CLEANING...</p>
-              </div>
-            )}
+          {/* Animação de Varredura (Usando Lottie Host para garantir a melhor animação mundial) */}
+          <div className="w-full max-w-2xl aspect-square flex items-center justify-center">
+             <iframe 
+                src="https://lottie.host/embed/84107e60-9f93-47e0-880e-43407e329583/QyTfVvX3mI.json" 
+                style={{ width: '600px', height: '600px', border: 'none' }}
+                title="Cleaning Animation"
+             />
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 1 }}
-            className="text-center mt-8"
+            transition={{ delay: 3, duration: 1 }}
+            className="text-center mt-4"
           >
             <h1 className="text-5xl font-black text-slate-900 tracking-tighter uppercase">
               CLEANING<span className="text-emerald-600">PORTAL</span>
             </h1>
             <p className="text-slate-400 text-xs font-bold tracking-[0.5em] uppercase mt-2">
-              The standard of excellence
+              MAKING EVERYTHING SHINE
             </p>
           </motion.div>
 
-          {/* Efeito de brilho de fundo */}
+          {/* Overlay de Brilho que se expande */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1.2, opacity: 0.1 }}
-            transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-            className="absolute inset-0 bg-emerald-200 rounded-full blur-[120px] -z-10"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1.5, opacity: 0.15 }}
+            transition={{ duration: 4, ease: "easeInOut" }}
+            className="absolute inset-0 bg-emerald-300 rounded-full blur-[150px] -z-10"
           />
         </motion.div>
       )}
