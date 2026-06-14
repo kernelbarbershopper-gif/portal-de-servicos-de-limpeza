@@ -23,8 +23,11 @@ import AIChatAssistant from './components/AIChatAssistant';
 import { useLanguage } from './i18n/LanguageContext';
 import { Sparkles, Check } from 'lucide-react';
 
+import CleaningSplash from './components/CleaningSplash';
+
 export default function App() {
   const { t, lang, setLang } = useLanguage();
+  const [showSplash, setShowSplash] = useState(true);
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [clientReviews, setClientReviews] = useState<ClientReview[]>([]);
@@ -244,6 +247,7 @@ export default function App() {
 
   return (
     <div id="main-application-view" className="min-h-screen bg-slate-950 flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
+      {showSplash && <CleaningSplash onComplete={() => setShowSplash(false)} />}
       
       <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-slate-700 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 py-2.5">
