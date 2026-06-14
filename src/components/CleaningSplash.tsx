@@ -24,14 +24,14 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] bg-slate-950 flex flex-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[9999] bg-slate-950 flex items-center justify-center overflow-hidden"
         >
-          {/* Fundo "Sujo" (Overlay escuro que será limpo) */}
+          {/* Fundo "Sujo" (Overlay que será limpo) */}
           <motion.div 
             initial={{ x: 0 }}
             animate={{ x: '100%' }}
-            transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm z-10"
+            transition={{ duration: 1.8, ease: "easeInOut", delay: 0.2 }}
+            className="absolute inset-0 bg-slate-900 z-10"
           />
 
           <div className="relative z-20 flex flex-col items-center">
