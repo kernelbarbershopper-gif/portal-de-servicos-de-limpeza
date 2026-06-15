@@ -82,7 +82,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                 duration: 3.5, 
                 ease: "easeInOut"
               }}
-              className="relative left-[-30px] top-[-110px] scale-90 md:scale-110"
+              className="relative left-[-30px] top-[-140px] scale-90 md:scale-110" // Subindo mais para as cerdas passarem sobre o nome
             >
               <svg width="220" height="350" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Cabo com Textura de Madeira Realista */}
