@@ -13,18 +13,9 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 1000);
-    }, 8000); 
+    }, 8500); 
     return () => clearTimeout(timer);
   }, [onComplete]);
-
-  // Variantes de animação para a física da vassoura (vai e vem orgânico)
-  const broomVariants = {
-    sweep: {
-      rotate: [-20, 25, -20],
-      x: [-10, 15, -10],
-      transition: { duration: 0.8, repeat: Infinity, ease: "easeInOut" }
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -32,102 +23,106 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          style={{ position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}
+          style={{ position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}
         >
           <div className="absolute inset-0 bg-white" />
 
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full max-w-5xl h-[70vh] flex flex-col items-center justify-center">
             
-            {/* PERSONAGEM COM RIGGING 2D AVANÇADO */}
+            {/* PERSONAGEM: FAXINEIRA NEXACORE ELITE (DESIGN MUNDIAL) */}
             <motion.div
-              initial={{ x: '-120%' }}
-              animate={{ x: '130%' }}
+              initial={{ x: '-130%' }}
+              animate={{ x: '140%' }}
               transition={{ duration: 7, ease: "linear" }}
-              className="absolute z-50 flex items-center"
+              className="absolute top-[15%] z-50" // POSICIONADA ACIMA DO NOME
             >
-              <div className="relative scale-[1.8] md:scale-[2.8]">
-                <svg width="150" height="200" viewBox="0 0 150 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div className="relative scale-[1.2] md:scale-[1.6]"> {/* MENOS ZOOM / MAIS ELEGANTE */}
+                <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                   
-                  {/* CABO DA VASSOURA (O EIXO DA ANIMAÇÃO) */}
-                  <motion.g variants={broomVariants} animate="sweep" style={{ originX: "100px", originY: "60px" }}>
-                    <rect x="98" y="20" width="4" height="140" rx="2" fill="#5D4037" />
-                    <path d="M75 160H125L135 185H65L75 160Z" fill="#D4AF37" />
+                  {/* Braço Traseiro (Sincronizado) */}
+                  <motion.path 
+                    d="M95 85 L125 110" 
+                    stroke="#FDBA74" strokeWidth="6" strokeLinecap="round"
+                    animate={{ d: ["M95 85 L125 110", "M95 85 L145 110", "M95 85 L125 110"] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                  />
+
+                  {/* VASSOURA DE LUXO NEXACORE */}
+                  <motion.g
+                    animate={{ rotate: [-18, 18, -18], x: [-5, 5, -5] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ originX: "125px", originY: "50px" }}
+                  >
+                    <rect x="122" y="10" width="5" height="150" rx="2.5" fill="#5D4037" /> {/* Cabo */}
+                    <path d="M90 160H155L165 190H80L90 160Z" fill="#D4AF37" /> {/* Cabeça Ouro */}
+                    <rect x="90" y="160" width="65" height="5" fill="#B8860B" />
                     
-                    {/* Cerdas com física individual */}
-                    {[...Array(10)].map((_, i) => (
+                    {/* Cerdas com Física */}
+                    {[...Array(12)].map((_, i) => (
                       <motion.path 
                         key={i}
-                        d={`M${70 + (i * 6)} 185 L${70 + (i * 6)} 195`}
-                        stroke="#F3E5AB"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        animate={{ skewX: [-15, 15, -15] }}
-                        transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                        d={`M${85 + (i * 7)} 190 L${85 + (i * 7)} 205`}
+                        stroke="#F3E5AB" strokeWidth="2.5" strokeLinecap="round"
+                        animate={{ skewX: [-20, 20, -20] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
                       />
                     ))}
                   </motion.g>
 
-                  {/* CORPO DA FAXINEIRA COM MOVIMENTO SINCRONIZADO */}
-                  <motion.g
-                    animate={{ x: [-2, 2, -2], rotate: [-1, 1, -1] }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    {/* Cabeça e Cabelo */}
-                    <circle cx="60" cy="40" r="14" fill="#FDBA74" />
-                    <path d="M46 40C46 25 74 25 74 40C74 30 46 30 46 40Z" fill="#3E2723" />
-                    <circle cx="70" cy="32" r="6" fill="#3E2723" />
-
-                    {/* Uniforme de Luxo */}
-                    <path d="M45 55C45 50 75 50 75 55V110H45V55Z" fill="#065F46" />
-                    <path d="M45 70H75V110C75 115 45 115 45 110V70Z" fill="white" /> {/* Avental */}
+                  {/* CORPO DA FAXINEIRA (UNIFORME NEXACORE: PRETO E OURO) */}
+                  <motion.g animate={{ y: [-2, 2, -2] }} transition={{ duration: 0.8, repeat: Infinity }}>
+                    {/* Uniforme Preto */}
+                    <path d="M60 70C60 60 110 60 110 70V140H60V70Z" fill="#1A1A1A" />
                     
-                    {/* BRAÇO 1 (SINCRONIZADO COM A VASSOURA) */}
-                    <motion.path
-                      d="M45 60 L80 85"
-                      stroke="#FDBA74"
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                      animate={{ d: ["M45 60 L80 85", "M45 60 L110 85", "M45 60 L80 85"] }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                    {/* Detalhes em Ouro (NexaCore Brand) */}
+                    <path d="M60 70L85 95L110 70V75L85 100L60 75V70Z" fill="#D4AF37" />
+                    <rect x="82" y="105" width="6" height="35" fill="#D4AF37" fillOpacity="0.8" />
+
+                    {/* ROSTO DETALHADO (ELITE DESIGN) */}
+                    <circle cx="85" cy="45" r="18" fill="#FDBA74" /> {/* Pele */}
+                    <path d="M67 45C67 28 103 28 103 45C103 35 67 35 67 45Z" fill="#2D1B1B" /> {/* Cabelo */}
+                    <circle cx="100" cy="38" r="6" fill="#2D1B1B" /> {/* Coque */}
+                    
+                    {/* Olhos e Expressão */}
+                    <circle cx="78" cy="48" r="1.5" fill="#1A1A1A" />
+                    <circle cx="92" cy="48" r="1.5" fill="#1A1A1A" />
+                    <path d="M80 55Q85 58 90 55" stroke="#1A1A1A" strokeWidth="1" strokeLinecap="round" /> {/* Sorriso Leve */}
+
+                    {/* Braço Frontal (Sincronizado) */}
+                    <motion.path 
+                      d="M65 85 L105 115" 
+                      stroke="#FDBA74" strokeWidth="7" strokeLinecap="round"
+                      animate={{ d: ["M65 85 L105 115", "M65 85 L125 115", "M65 85 L105 115"] }}
+                      transition={{ duration: 0.8, repeat: Infinity }}
                     />
 
-                    {/* BRAÇO 2 (SINCRONIZADO COM A VASSOURA) */}
-                    <motion.path
-                      d="M75 60 L95 90"
-                      stroke="#FDBA74"
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                      animate={{ d: ["M75 60 L95 90", "M75 60 L115 90", "M75 60 L95 90"] }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    {/* Pernas em movimento de caminhada */}
-                    <motion.rect x="48" y="110" width="8" height="25" fill="#FDBA74" 
-                      animate={{ height: [25, 20, 25] }} transition={{ duration: 0.4, repeat: Infinity }} />
-                    <motion.rect x="64" y="110" width="8" height="25" fill="#FDBA74" 
-                      animate={{ height: [20, 25, 20] }} transition={{ duration: 0.4, repeat: Infinity }} />
+                    {/* Pernas (Caminhada) */}
+                    <motion.rect x="65" y="140" width="10" height="30" fill="#FDBA74" 
+                      animate={{ height: [30, 22, 30] }} transition={{ duration: 0.4, repeat: Infinity }} />
+                    <motion.rect x="95" y="140" width="10" height="30" fill="#FDBA74" 
+                      animate={{ height: [22, 30, 22] }} transition={{ duration: 0.4, repeat: Infinity }} />
                   </motion.g>
                 </svg>
               </div>
             </motion.div>
 
-            {/* REVELAÇÃO DO LOGO (DESIGN MUNDIAL) */}
-            <div className="relative z-10 text-center">
+            {/* LOGO NEXACORE / PORTAL (POSICIONADO ABAIXO DA ANIMAÇÃO) */}
+            <div className="relative z-10 text-center mt-32">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 2, duration: 1.5 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5, duration: 1.2 }}
                 className="flex flex-col items-center"
               >
-                <div className="flex items-center gap-6 mb-8">
-                  <Sparkles className="text-emerald-600 w-16 h-16 md:w-24 md:h-24 animate-pulse" />
-                  <h1 className="text-7xl md:text-[10rem] font-black text-slate-900 tracking-tighter uppercase leading-none">
+                <div className="flex items-center gap-4 mb-6">
+                  <Sparkles className="text-emerald-600 w-12 h-12 md:w-20 md:h-20" />
+                  <h1 className="text-6xl md:text-9xl font-black text-slate-900 tracking-tighter uppercase leading-none">
                     CLEANING<span className="text-emerald-600">PORTAL</span>
                   </h1>
                 </div>
-                <div className="h-3 w-64 bg-emerald-600 rounded-full mb-10 shadow-[0_0_30px_rgba(5,150,105,0.3)]" />
-                <p className="text-slate-400 font-bold tracking-[1.5em] uppercase text-xs md:text-lg pl-[1.5em]">
-                  The World Standard
+                <div className="h-2 w-48 bg-emerald-600 rounded-full mb-8" />
+                <p className="text-slate-400 font-bold tracking-[1.2em] uppercase text-[10px] md:text-sm pl-[1.2em]">
+                  NexaCore LLC • Global Excellence
                 </p>
               </motion.div>
             </div>
@@ -135,12 +130,10 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             {/* Máscara de Limpeza (Reveal Mask) */}
             <motion.div
               initial={{ x: 0 }}
-              animate={{ x: '130%' }}
+              animate={{ x: '140%' }}
               transition={{ duration: 7, ease: "linear" }}
               className="absolute inset-0 z-40 bg-white pointer-events-none"
-              style={{
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 100%)'
-              }}
+              style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 10%, rgba(255,255,255,1) 100%)' }}
             />
           </div>
         </motion.div>
