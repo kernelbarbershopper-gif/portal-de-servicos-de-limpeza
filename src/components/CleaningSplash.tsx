@@ -68,7 +68,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             </motion.div>
           </motion.div>
 
-          {/* Camada 3: A Vassoura Premium (Design Melhorado) */}
+          {/* Camada 3: A Vassoura Premium e Poeira */}
           <motion.div
             style={{ x: maskX }}
             className="absolute inset-0 z-30 flex items-center justify-start pointer-events-none"
@@ -82,21 +82,35 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                 duration: 3.5, 
                 ease: "easeInOut"
               }}
-              className="relative left-[-30px] top-[-250px] scale-90 md:scale-110" // Subindo drasticamente para passar ACIMA do nome
+              className="relative left-[-30px] top-[-250px] scale-90 md:scale-110"
             >
+              {/* Poeira em baixo da vassoura (Dust Particles) */}
+              {[...Array(12)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: [0, 0.6, 0],
+                    scale: [0.5, 1.5, 0.5],
+                    x: [0, 40 + Math.random() * 40],
+                    y: [180, 190 + (Math.random() - 0.5) * 40]
+                  }}
+                  transition={{ 
+                    duration: 0.6, 
+                    repeat: Infinity, 
+                    delay: i * 0.05 
+                  }}
+                  className="absolute w-3 h-3 bg-slate-400/40 rounded-full blur-[4px]"
+                />
+              ))}
+
               <svg width="220" height="350" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Cabo com Textura de Madeira Realista */}
                 <rect x="54" y="0" width="12" height="150" rx="6" fill="url(#wood_gradient)" />
                 <rect x="54" y="0" width="12" height="150" rx="6" fill="url(#wood_texture)" opacity="0.3" />
-                
-                {/* Cabeça da Vassoura com Efeito 3D */}
                 <path d="M10 150H110L120 190H0L10 150Z" fill="url(#broom_head_gradient)" />
-                <path d="M10 150H110L112 158H8L10 150Z" fill="white" opacity="0.2" /> {/* Reflexo Superior */}
-                
-                {/* Detalhe Metálico Dourado */}
+                <path d="M10 150H110L112 158H8L10 150Z" fill="white" opacity="0.2" />
                 <rect x="10" y="150" width="100" height="6" fill="url(#gold_metal)" />
                 
-                {/* Cerdas Dinâmicas com Gradiente e Movimento Realista */}
                 {[...Array(12)].map((_, i) => (
                   <motion.path 
                     key={i}
@@ -115,7 +129,6 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                   />
                 ))}
 
-                {/* Definições de Gradientes para Realismo */}
                 <defs>
                   <linearGradient id="wood_gradient" x1="54" y1="0" x2="66" y2="0" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#4E342E" />
@@ -140,19 +153,9 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                   </linearGradient>
                 </defs>
               </svg>
-
-              {/* Partículas de Brilho que saem da vassoura */}
-              <motion.div
-                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
-                className="absolute bottom-0 right-0"
-              >
-                <Sparkles className="text-yellow-200 w-6 h-6 blur-[1px]" />
-              </motion.div>
             </motion.div>
           </motion.div>
 
-          {/* Flash Final de Limpeza */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0.4, 0] }}
