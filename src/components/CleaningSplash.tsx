@@ -13,9 +13,18 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 1000);
-    }, 7000); 
+    }, 8000); 
     return () => clearTimeout(timer);
   }, [onComplete]);
+
+  // Variantes de animação para a física da vassoura (vai e vem orgânico)
+  const broomVariants = {
+    sweep: {
+      rotate: [-20, 25, -20],
+      x: [-10, 15, -10],
+      transition: { duration: 0.8, repeat: Infinity, ease: "easeInOut" }
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -23,167 +32,116 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          style={{ 
-            position: 'fixed', 
-            inset: 0, 
-            zIndex: 99999, 
-            backgroundColor: 'white', 
-            display: 'flex', 
-            flexDirection: 'column',
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            overflow: 'hidden' 
-          }}
+          style={{ position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}
         >
-          {/* Fundo Premium com Textura de Limpeza */}
-          <div className="absolute inset-0 bg-white">
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#065f46 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/50 via-transparent to-transparent" />
-          </div>
+          <div className="absolute inset-0 bg-white" />
 
-          <div className="relative w-full max-w-4xl h-[60vh] flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
             
-            {/* PERSONAGEM: FAXINEIRA DE ELITE (SVG DETALHADO) */}
+            {/* PERSONAGEM COM RIGGING 2D AVANÇADO */}
             <motion.div
-              initial={{ x: '-120%', y: 0 }}
-              animate={{ x: '150%' }}
-              transition={{ duration: 6, ease: "easeInOut" }}
-              className="absolute left-0 z-50"
+              initial={{ x: '-120%' }}
+              animate={{ x: '130%' }}
+              transition={{ duration: 7, ease: "linear" }}
+              className="absolute z-50 flex items-center"
             >
-              <div className="relative scale-[1.5] md:scale-[2.5]">
-                <svg width="120" height="160" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Sombra no chão */}
-                  <ellipse cx="60" cy="150" rx="30" ry="8" fill="black" fillOpacity="0.05" />
+              <div className="relative scale-[1.8] md:scale-[2.8]">
+                <svg width="150" height="200" viewBox="0 0 150 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                   
-                  {/* Braço de trás */}
-                  <path d="M75 65L90 85" stroke="#FDBA74" strokeWidth="6" strokeLinecap="round" />
-
-                  {/* Vassoura de Luxo */}
-                  <motion.g
-                    animate={{ rotate: [-15, 15, -15] }}
-                    transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ originX: "85px", originY: "40px" }}
-                  >
-                    {/* Cabo */}
-                    <rect x="82" y="10" width="5" height="120" rx="2.5" fill="#5D4037" />
-                    <rect x="82" y="10" width="2" height="120" rx="1" fill="white" fillOpacity="0.1" />
+                  {/* CABO DA VASSOURA (O EIXO DA ANIMAÇÃO) */}
+                  <motion.g variants={broomVariants} animate="sweep" style={{ originX: "100px", originY: "60px" }}>
+                    <rect x="98" y="20" width="4" height="140" rx="2" fill="#5D4037" />
+                    <path d="M75 160H125L135 185H65L75 160Z" fill="#D4AF37" />
                     
-                    {/* Cabeça da Vassoura */}
-                    <path d="M60 130H105L115 155H50L60 130Z" fill="#D4AF37" />
-                    <rect x="60" y="130" width="45" height="4" fill="#B8860B" />
-                    
-                    {/* Cerdas com Movimento */}
-                    {[...Array(12)].map((_, i) => (
+                    {/* Cerdas com física individual */}
+                    {[...Array(10)].map((_, i) => (
                       <motion.path 
                         key={i}
-                        d={`M${55 + (i * 5)} 155 L${55 + (i * 5)} 165`}
+                        d={`M${70 + (i * 6)} 185 L${70 + (i * 6)} 195`}
                         stroke="#F3E5AB"
                         strokeWidth="2.5"
                         strokeLinecap="round"
-                        animate={{ 
-                          y: [0, 2, 0],
-                          rotate: [-5, 5, -5]
-                        }}
-                        transition={{ duration: 0.3, repeat: Infinity, delay: i * 0.05 }}
+                        animate={{ skewX: [-15, 15, -15] }}
+                        transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
                       />
                     ))}
                   </motion.g>
 
-                  {/* Corpo da Faxineira */}
-                  {/* Vestido/Uniforme */}
-                  <path d="M40 60C40 50 80 50 80 60V120H40V60Z" fill="#065F46" />
-                  <path d="M45 60C45 55 75 55 75 60V110H45V60Z" fill="white" fillOpacity="0.1" />
-                  
-                  {/* Avental */}
-                  <path d="M45 75H75V110C75 115 45 115 45 110V75Z" fill="white" />
-                  <rect x="58" y="75" width="4" height="35" fill="#E2E8F0" />
+                  {/* CORPO DA FAXINEIRA COM MOVIMENTO SINCRONIZADO */}
+                  <motion.g
+                    animate={{ x: [-2, 2, -2], rotate: [-1, 1, -1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {/* Cabeça e Cabelo */}
+                    <circle cx="60" cy="40" r="14" fill="#FDBA74" />
+                    <path d="M46 40C46 25 74 25 74 40C74 30 46 30 46 40Z" fill="#3E2723" />
+                    <circle cx="70" cy="32" r="6" fill="#3E2723" />
 
-                  {/* Cabeça e Cabelo */}
-                  <circle cx="60" cy="40" r="15" fill="#FDBA74" />
-                  <path d="M45 40C45 25 75 25 75 40C75 30 45 30 45 40Z" fill="#3E2723" />
-                  <circle cx="72" cy="35" r="5" fill="#3E2723" /> {/* Coque */}
+                    {/* Uniforme de Luxo */}
+                    <path d="M45 55C45 50 75 50 75 55V110H45V55Z" fill="#065F46" />
+                    <path d="M45 70H75V110C75 115 45 115 45 110V70Z" fill="white" /> {/* Avental */}
+                    
+                    {/* BRAÇO 1 (SINCRONIZADO COM A VASSOURA) */}
+                    <motion.path
+                      d="M45 60 L80 85"
+                      stroke="#FDBA74"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      animate={{ d: ["M45 60 L80 85", "M45 60 L110 85", "M45 60 L80 85"] }}
+                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                    />
 
-                  {/* Braço da frente */}
-                  <path d="M45 65L75 90" stroke="#FDBA74" strokeWidth="7" strokeLinecap="round" />
-                  
-                  {/* Pernas */}
-                  <rect x="45" y="120" width="8" height="25" fill="#FDBA74" />
-                  <rect x="67" y="120" width="8" height="25" fill="#FDBA74" />
-                  <path d="M42 145H55V152H42V145Z" fill="#1F2937" /> {/* Sapato 1 */}
-                  <path d="M65 145H78V152H65V145Z" fill="#1F2937" /> {/* Sapato 2 */}
+                    {/* BRAÇO 2 (SINCRONIZADO COM A VASSOURA) */}
+                    <motion.path
+                      d="M75 60 L95 90"
+                      stroke="#FDBA74"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      animate={{ d: ["M75 60 L95 90", "M75 60 L115 90", "M75 60 L95 90"] }}
+                      transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
+                    />
+
+                    {/* Pernas em movimento de caminhada */}
+                    <motion.rect x="48" y="110" width="8" height="25" fill="#FDBA74" 
+                      animate={{ height: [25, 20, 25] }} transition={{ duration: 0.4, repeat: Infinity }} />
+                    <motion.rect x="64" y="110" width="8" height="25" fill="#FDBA74" 
+                      animate={{ height: [20, 25, 20] }} transition={{ duration: 0.4, repeat: Infinity }} />
+                  </motion.g>
                 </svg>
-
-                {/* Efeito de Brilho saindo da vassoura */}
-                <motion.div
-                  animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="absolute bottom-0 left-10"
-                >
-                  <Sparkles className="text-yellow-400 w-6 h-6" />
-                </motion.div>
               </div>
             </motion.div>
 
-            {/* LOGO SENDO REVELADO (MÁSCARA DE ELITE) */}
+            {/* REVELAÇÃO DO LOGO (DESIGN MUNDIAL) */}
             <div className="relative z-10 text-center">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 1 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2, duration: 1.5 }}
                 className="flex flex-col items-center"
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="text-emerald-600 w-12 h-12 md:w-16 md:h-16" />
-                  </motion.div>
-                  <h1 className="text-6xl md:text-9xl font-black text-slate-900 tracking-tighter uppercase leading-none select-none">
+                <div className="flex items-center gap-6 mb-8">
+                  <Sparkles className="text-emerald-600 w-16 h-16 md:w-24 md:h-24 animate-pulse" />
+                  <h1 className="text-7xl md:text-[10rem] font-black text-slate-900 tracking-tighter uppercase leading-none">
                     CLEANING<span className="text-emerald-600">PORTAL</span>
                   </h1>
                 </div>
-                
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ delay: 2, duration: 1.5 }}
-                  className="h-2 bg-emerald-600 rounded-full mb-8 shadow-[0_0_15px_rgba(5,150,105,0.5)]" 
-                />
-
-                <p className="text-slate-400 font-bold tracking-[1.2em] uppercase text-[10px] md:text-sm pl-[1.2em]">
-                  The Gold Standard in Cleaning
+                <div className="h-3 w-64 bg-emerald-600 rounded-full mb-10 shadow-[0_0_30px_rgba(5,150,105,0.3)]" />
+                <p className="text-slate-400 font-bold tracking-[1.5em] uppercase text-xs md:text-lg pl-[1.5em]">
+                  The World Standard
                 </p>
               </motion.div>
             </div>
 
-            {/* Camada de "Sujeira" que é limpa */}
+            {/* Máscara de Limpeza (Reveal Mask) */}
             <motion.div
               initial={{ x: 0 }}
-              animate={{ x: '100%' }}
-              transition={{ duration: 6, ease: "easeInOut" }}
-              className="absolute inset-0 z-40 bg-white/10 backdrop-blur-[2px] pointer-events-none"
+              animate={{ x: '130%' }}
+              transition={{ duration: 7, ease: "linear" }}
+              className="absolute inset-0 z-40 bg-white pointer-events-none"
               style={{
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 5%, rgba(255,255,255,1) 100%)',
-                left: '0'
+                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 100%)'
               }}
             />
-          </div>
-
-          {/* Rodapé de Carregamento Elegante */}
-          <div className="absolute bottom-12 w-full max-w-xs px-8">
-            <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-              <span>Initializing</span>
-              <span>100%</span>
-            </div>
-            <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ x: '-100%' }}
-                animate={{ x: '0%' }}
-                transition={{ duration: 6 }}
-                className="h-full w-full bg-emerald-600"
-              />
-            </div>
           </div>
         </motion.div>
       )}
