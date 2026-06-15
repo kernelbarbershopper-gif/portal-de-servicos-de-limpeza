@@ -13,7 +13,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 1200);
-    }, 12000); // Tempo estendido para apreciação da obra de arte inspirada no Pinterest
+    }, 15000); // 15 segundos para apreciação da obra de arte definitiva
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -35,231 +35,233 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             overflow: 'hidden' 
           }}
         >
-          {/* Fundo com Iluminação Global e Textura de Luxo */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.08)_0%,rgba(255,255,255,1)_75%)]" />
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/clean-gray-paper.png")' }} />
-          </div>
+          {/* Fundo Premium com Iluminação Global */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05)_0%,rgba(255,255,255,1)_80%)]" />
 
           <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center">
             
-            {/* PERSONAGEM: INSPIRADO NO PINTEREST (DESIGN V17) */}
+            {/* PERSONAGEM: FIDELIDADE ABSOLUTA AO PINTEREST (DESIGN V18) */}
             <motion.div
-              initial={{ x: '-160%' }}
-              animate={{ x: '170%' }}
-              transition={{ duration: 10, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute top-[10%] z-50"
+              initial={{ x: '-150%', opacity: 0 }}
+              animate={{ x: '160%', opacity: 1 }}
+              transition={{ duration: 12, ease: [0.45, 0.05, 0.55, 0.95] }}
+              className="absolute top-[5%] z-50"
             >
-              <div className="relative scale-[1.5] md:scale-[2.4]">
-                <svg width="260" height="320" viewBox="0 0 260 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div className="relative scale-[1.8] md:scale-[2.8]">
+                <svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
                   
-                  {/* Sombra Projetada Suave */}
-                  <ellipse cx="120" cy="285" rx="70" ry="18" fill="black" fillOpacity="0.05" />
+                  {/* Sombra Dinâmica do Personagem */}
+                  <ellipse cx="150" cy="370" rx="80" ry="15" fill="black" fillOpacity="0.04" />
 
-                  {/* RIGGING DE BRAÇO TRASEIRO (ELÁSTICO) */}
+                  {/* BRAÇO TRASEIRO (Sincronizado com a Vassoura) */}
                   <motion.g
-                    animate={{ rotate: [-8, 8, -8], scaleY: [1, 1.05, 1] }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ rotate: [-5, 5, -5] }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ originX: "180px", originY: "150px" }}
                   >
-                    <path d="M135 120 L180 170" stroke="#FFCC99" strokeWidth="12" strokeLinecap="round" />
-                    <circle cx="180" cy="170" r="7" fill="#FFCC99" />
+                    <path d="M180 150 L230 220" stroke="#FFD1B3" strokeWidth="14" strokeLinecap="round" />
+                    <circle cx="230" cy="220" r="8" fill="#FFD1B3" />
                   </motion.g>
 
-                  {/* VASSOURA PREMIUM (INSPIRADA NO PINTEREST) */}
+                  {/* VASSOURA: DESIGN FIDELIDADE PINTEREST */}
                   <motion.g
                     animate={{ 
-                      rotate: [-30, 30, -30],
-                      x: [-15, 15, -15],
-                      y: [0, 6, 0]
+                      rotate: [-25, 25, -25],
+                      x: [-10, 10, -10],
+                      y: [0, 4, 0]
                     }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ originX: "180px", originY: "80px" }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ originX: "230px", originY: "100px" }}
                   >
-                    {/* Cabo de Madeira Escura */}
-                    <rect x="176" y="25" width="8" height="230" rx="4" fill="#5D4037" />
-                    <rect x="176" y="25" width="2" height="230" rx="1" fill="white" fillOpacity="0.2" />
+                    {/* Cabo com Textura de Madeira */}
+                    <rect x="226" y="40" width="10" height="300" rx="5" fill="#4E342E" />
+                    <rect x="226" y="40" width="3" height="300" rx="1.5" fill="white" fillOpacity="0.15" />
                     
-                    {/* Cabeça de Vassoura (Design Pinterest) */}
-                    <path d="M110 255H250L265 300H95L110 255Z" fill="url(#goldGradientPinterest)" />
-                    <rect x="110" y="255" width="140" height="10" fill="#996515" />
+                    {/* Cabeça da Vassoura (Design Pinterest - Curvado) */}
+                    <path d="M140 340C140 340 180 320 230 320C280 320 320 340 320 340L335 385H125L140 340Z" fill="url(#goldPinterestV18)" />
+                    <path d="M140 340C140 340 180 325 230 325C280 325 320 340 320 340" stroke="#996515" strokeWidth="6" fill="none" />
                     
-                    {/* Cerdas com Curvatura Realista */}
-                    {[...Array(20)].map((_, i) => (
+                    {/* Cerdas com Física Orgânica */}
+                    {[...Array(24)].map((_, i) => (
                       <motion.path 
                         key={i}
-                        d={`M${100 + (i * 8)} 300 L${100 + (i * 8)} 330`}
-                        stroke="#FFFACD" strokeWidth="4" strokeLinecap="round"
+                        d={`M${130 + (i * 8.5)} 385 L${130 + (i * 8.5)} 415`}
+                        stroke="#FFFDE7" strokeWidth="4.5" strokeLinecap="round"
                         animate={{ 
-                          skewX: [-35, 35, -35],
-                          y: [0, 5, 0]
+                          skewX: [-40, 40, -40],
+                          y: [0, 6, 0]
                         }}
-                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.02 }}
+                        transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.015 }}
                       />
                     ))}
                   </motion.g>
 
-                  {/* CORPO DO PERSONAGEM (ESTILO PINTEREST) */}
+                  {/* CORPO DO PERSONAGEM: ANATOMIA PINTEREST (V18) */}
                   <motion.g 
                     animate={{ 
-                      y: [-5, 5, -5], 
-                      rotate: [-2, 2, -2],
-                      scaleY: [1, 1.02, 1] 
+                      y: [-4, 4, -4], 
+                      rotate: [-1.5, 1.5, -1.5]
                     }} 
-                    transition={{ duration: 1, repeat: Infinity }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
                   >
-                    {/* Uniforme NexaCore de Luxo (Estilo Macacão/Avental) */}
-                    <path d="M90 100C90 75 150 75 150 100V210H90V100Z" fill="#1A1A1A" />
+                    {/* Uniforme NexaCore de Luxo (Design Avental) */}
+                    <path d="M100 130C100 100 200 100 200 130V280C200 300 100 300 100 280V130Z" fill="#121212" />
                     
-                    {/* Detalhes Ouro NexaCore */}
-                    <path d="M90 100L120 140L150 100V110L120 150L90 110V100Z" fill="#D4AF37" />
-                    <circle cx="120" cy="125" r="5" fill="#D4AF37" />
-                    <rect x="118" y="155" width="4" height="45" fill="#D4AF37" fillOpacity="0.8" />
+                    {/* Detalhes de Costura e Branding NexaCore */}
+                    <path d="M100 130L150 180L200 130V145L150 195L100 145V130Z" fill="#C5A028" />
+                    <circle cx="150" cy="160" r="6" fill="#C5A028" />
+                    <rect x="147" y="200" width="6" height="60" rx="3" fill="#C5A028" fillOpacity="0.7" />
 
-                    {/* ROSTO CARTOON PREMIUM (FIEL AO PINTEREST) */}
-                    <circle cx="120" cy="60" r="30" fill="#FFCC99" />
-                    {/* Cabelo e Boné NexaCore */}
-                    <path d="M90 60C90 30 150 30 150 60H90Z" fill="#1A1A1A" />
-                    <rect x="90" y="45" width="70" height="15" rx="5" fill="#D4AF37" /> {/* Aba do Boné */}
+                    {/* ROSTO: EXPRESSÃO CARTOON ELITE (FIDELIDADE PINTEREST) */}
+                    <circle cx="150" cy="80" r="45" fill="#FFD1B3" />
                     
-                    {/* Olhos Grandes e Expressivos */}
-                    <circle cx="108" cy="65" r="5" fill="white" />
-                    <circle cx="132" cy="65" r="5" fill="white" />
-                    <circle cx="109" cy="65" r="2.5" fill="#000" />
-                    <circle cx="133" cy="65" r="2.5" fill="#000" />
+                    {/* Cabelo e Boné Profissional */}
+                    <path d="M105 80C105 40 195 40 195 80H105Z" fill="#121212" />
+                    <path d="M105 65C105 65 150 50 195 65V75H105V65Z" fill="#C5A028" /> {/* Aba do Boné */}
                     
-                    {/* Sorriso Largo e Amigável */}
-                    <path d="M105 80Q120 90 135 80" stroke="#000" strokeWidth="2.5" strokeLinecap="round" />
+                    {/* Olhos Grandes (Inspirado no Pinterest) */}
+                    <circle cx="132" cy="85" r="8" fill="white" />
+                    <circle cx="168" cy="85" r="8" fill="white" />
+                    <circle cx="133" cy="85" r="4" fill="#000" />
+                    <circle cx="169" cy="85" r="4" fill="#000" />
+                    <circle cx="131" cy="83" r="1.5" fill="white" /> {/* Brilho no Olho */}
+                    <circle cx="167" cy="83" r="1.5" fill="white" />
+                    
+                    {/* Sorriso Largo e Carismático */}
+                    <path d="M125 105Q150 120 175 105" stroke="#000" strokeWidth="3" strokeLinecap="round" fill="none" />
+                    <path d="M145 108Q150 112 155 108" stroke="#000" strokeWidth="1.5" strokeLinecap="round" fill="none" />
 
-                    {/* BRAÇO FRONTAL (MOVIMENTO ELÁSTICO) */}
-                    <motion.path 
-                      d="M95 120 L155 180" 
-                      stroke="#FFCC99" strokeWidth="14" strokeLinecap="round"
-                      animate={{ d: ["M95 120 L155 180", "M95 120 L195 180", "M95 120 L155 180"] }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <circle cx="155" cy="180" r="8" fill="#FFCC99" />
+                    {/* BRAÇO FRONTAL: RIGGING ANATÔMICO Sincronizado */}
+                    <motion.g
+                      animate={{ rotate: [5, -5, 5] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ originX: "120px", originY: "150px" }}
+                    >
+                      <path d="M120 150 L190 230" stroke="#FFD1B3" strokeWidth="16" strokeLinecap="round" />
+                      <circle cx="190" cy="230" r="10" fill="#FFD1B3" />
+                    </motion.g>
 
-                    {/* Pernas Estilizadas */}
-                    <motion.rect x="95" y="210" width="18" height="55" fill="#FFCC99" 
-                      animate={{ height: [55, 35, 55], y: [0, 10, 0] }} transition={{ duration: 0.5, repeat: Infinity }} />
-                    <motion.rect x="127" y="210" width="18" height="55" fill="#FFCC99" 
-                      animate={{ height: [35, 55, 35], y: [10, 0, 10] }} transition={{ duration: 0.5, repeat: Infinity }} />
+                    {/* Pernas com Movimento de Caminhada */}
+                    <motion.rect x="115" y="280" width="24" height="70" rx="12" fill="#FFD1B3" 
+                      animate={{ height: [70, 40, 70], y: [0, 15, 0] }} transition={{ duration: 0.6, repeat: Infinity }} />
+                    <motion.rect x="161" y="280" width="24" height="70" rx="12" fill="#FFD1B3" 
+                      animate={{ height: [40, 70, 40], y: [15, 0, 15] }} transition={{ duration: 0.6, repeat: Infinity }} />
                   </motion.g>
 
-                  {/* DEFINIÇÕES DE GRADIENTES */}
+                  {/* DEFINIÇÕES DE CORES PINTEREST V18 */}
                   <defs>
-                    <linearGradient id="goldGradientPinterest" x1="110" y1="255" x2="265" y2="300" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="goldPinterestV18" x1="125" y1="340" x2="335" y2="385" gradientUnits="userSpaceOnUse">
                       <stop offset="0" stopColor="#996515" />
-                      <stop offset="0.5" stopColor="#D4AF37" />
-                      <stop offset="1" stopColor="#FFD700" />
+                      <stop offset="0.5" stopColor="#C5A028" />
+                      <stop offset="1" stopColor="#F9D423" />
                     </linearGradient>
                   </defs>
                 </svg>
 
-                {/* NUVENS DE POEIRA CARTOON */}
-                <div className="absolute bottom-0 left-24">
-                  {[...Array(6)].map((_, i) => (
+                {/* EFEITO DE POEIRA ORGÂNICA (VFX ELITE) */}
+                <div className="absolute bottom-[-20px] left-32">
+                  {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, scale: 0, x: 0 }}
                       animate={{ 
-                        opacity: [0, 0.5, 0], 
-                        scale: [0.5, 3, 3.5], 
-                        x: [0, 80, 120], 
-                        y: [0, -30, -50] 
+                        opacity: [0, 0.4, 0], 
+                        scale: [0.4, 3.5, 4], 
+                        x: [0, 100, 150], 
+                        y: [0, -40, -60] 
                       }}
                       transition={{ 
-                        duration: 1.4, 
+                        duration: 1.6, 
                         repeat: Infinity, 
-                        delay: i * 0.25,
+                        delay: i * 0.2,
                         ease: "easeOut" 
                       }}
-                      className="absolute w-10 h-10 bg-slate-300/50 rounded-full blur-2xl"
+                      className="absolute w-12 h-12 bg-gray-200/40 rounded-full blur-3xl"
                     />
                   ))}
                 </div>
               </div>
             </motion.div>
 
-            {/* LOGO NEXACORE / PORTAL (ESTILO MUNDIAL) */}
-            <div className="relative z-10 text-center mt-56">
+            {/* LOGO NEXACORE: LUXO MUNDIAL */}
+            <div className="relative z-10 text-center mt-64">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 3, duration: 1.8, ease: "easeOut" }}
+                transition={{ delay: 3.5, duration: 2, ease: "easeOut" }}
                 className="flex flex-col items-center"
               >
-                <div className="flex items-center gap-10 mb-12">
+                <div className="flex items-center gap-12 mb-16">
                   <motion.div
                     animate={{ 
                       rotate: [0, 360],
-                      scale: [1, 1.15, 1],
-                      filter: ["drop-shadow(0 0 0px #059669)", "drop-shadow(0 0 30px #059669)", "drop-shadow(0 0 0px #059669)"]
+                      scale: [1, 1.2, 1],
+                      filter: ["drop-shadow(0 0 0px #059669)", "drop-shadow(0 0 40px #059669)", "drop-shadow(0 0 0px #059669)"]
                     }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                   >
-                    <Star className="text-emerald-600 w-24 h-24 md:w-36 md:h-36 fill-emerald-600" />
+                    <Star className="text-emerald-600 w-28 h-28 md:w-44 md:h-44 fill-emerald-600" />
                   </motion.div>
-                  <h1 className="text-9xl md:text-[14rem] font-black text-slate-900 tracking-tighter uppercase leading-none select-none italic">
+                  <h1 className="text-[10rem] md:text-[16rem] font-black text-slate-900 tracking-tighter uppercase leading-none select-none italic">
                     CLEANING<span className="text-emerald-600">PORTAL</span>
                   </h1>
                 </div>
                 
-                {/* Barra de Progresso NexaCore */}
-                <div className="relative w-[32rem] h-5 bg-slate-100 rounded-full mb-14 shadow-inner overflow-hidden">
+                {/* Barra de Carregamento NexaCore Elite */}
+                <div className="relative w-[40rem] h-6 bg-slate-50 rounded-full mb-16 shadow-inner border border-slate-100 overflow-hidden">
                   <motion.div 
                     initial={{ x: '-100%' }}
                     animate={{ x: '0%' }}
-                    transition={{ delay: 3.5, duration: 7, ease: "easeInOut" }}
-                    className="absolute inset-0 bg-gradient-to-r from-emerald-800 via-emerald-500 to-emerald-300" 
+                    transition={{ delay: 4, duration: 8, ease: "easeInOut" }}
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-emerald-500 to-emerald-200" 
                   />
                   <motion.div
                     animate={{ x: ['-100%', '100%'] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 w-1/2 bg-white/30 skew-x-12"
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 w-1/3 bg-white/20 skew-x-12"
                   />
                 </div>
 
-                <p className="text-slate-500 font-black tracking-[3em] uppercase text-sm md:text-3xl pl-[3em] drop-shadow-md">
+                <p className="text-slate-400 font-black tracking-[3.5em] uppercase text-sm md:text-4xl pl-[3.5em] drop-shadow-sm">
                   NexaCore LLC • Global Excellence
                 </p>
               </motion.div>
             </div>
 
-            {/* MÁSCARA DE REVELAÇÃO (LIMPEZA TOTAL V17) */}
+            {/* MÁSCARA DE LIMPEZA TOTAL (REVEAL V18) */}
             <motion.div
               initial={{ x: 0 }}
-              animate={{ x: '170%' }}
-              transition={{ duration: 10, ease: [0.4, 0, 0.2, 1] }}
+              animate={{ x: '160%' }}
+              transition={{ duration: 12, ease: [0.45, 0.05, 0.55, 0.95] }}
               className="absolute inset-0 z-40 bg-white pointer-events-none"
               style={{ 
-                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,1) 100%)',
-                boxShadow: '-60px 0 120px rgba(255,255,255,1)'
+                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 100%)',
+                boxShadow: '-80px 0 160px rgba(255,255,255,1)'
               }}
             />
           </div>
 
-          {/* Sparkles de Finalização de Elite */}
+          {/* Partículas de Brilho de Elite (Sparkles) */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(20)].map((_, i) => (
+            {[...Array(25)].map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 
                   opacity: [0, 1, 0], 
-                  scale: [0, 1.5, 0],
-                  x: [Math.random() * 1200 - 600, Math.random() * 1200 - 600],
-                  y: [Math.random() * 1200 - 600, Math.random() * 1200 - 600]
+                  scale: [0, 2, 0],
+                  x: [Math.random() * 1400 - 700, Math.random() * 1400 - 700],
+                  y: [Math.random() * 1400 - 700, Math.random() * 1400 - 700]
                 }}
                 transition={{ 
-                  duration: 2.5, 
+                  duration: 3, 
                   repeat: Infinity, 
-                  delay: Math.random() * 6,
+                  delay: Math.random() * 8,
                   ease: "easeInOut" 
                 }}
                 className="absolute left-1/2 top-1/2"
               >
-                <Sparkles className="text-emerald-400 w-6 h-6" />
+                <Sparkles className="text-emerald-300 w-8 h-8" />
               </motion.div>
             ))}
           </div>
