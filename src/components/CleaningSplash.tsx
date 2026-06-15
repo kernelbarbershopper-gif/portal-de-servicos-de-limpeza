@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Star } from 'lucide-react';
 
 interface CleaningSplashProps {
   onComplete: () => void;
@@ -12,8 +12,8 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-      setTimeout(onComplete, 1000);
-    }, 10000); // Mais tempo para apreciar a obra de arte
+      setTimeout(onComplete, 1200);
+    }, 11000); // Tempo estendido para apreciação total da arte
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -23,150 +23,254 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          style={{ position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}
+          style={{ 
+            position: 'fixed', 
+            inset: 0, 
+            zIndex: 99999, 
+            backgroundColor: '#ffffff', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            overflow: 'hidden' 
+          }}
         >
-          {/* Fundo com Gradiente de Profundidade */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-emerald-50/20" />
+          {/* Fundo com Iluminação Global e Textura de Luxo */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05)_0%,rgba(255,255,255,1)_70%)]" />
+            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/clean-gray-paper.png")' }} />
+          </div>
 
-          <div className="relative w-full max-w-6xl h-[75vh] flex flex-col items-center justify-center">
+          <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center">
             
-            {/* PERSONAGEM: NEXACORE ELITE CLEANER (OBRA DE ARTE) */}
+            {/* PERSONAGEM: NEXACORE ELITE SPECIALIST (DESIGN MUNDIAL V16) */}
             <motion.div
-              initial={{ x: '-140%' }}
-              animate={{ x: '150%' }}
-              transition={{ duration: 8.5, ease: "easeInOut" }}
-              className="absolute top-[10%] z-50"
+              initial={{ x: '-150%' }}
+              animate={{ x: '160%' }}
+              transition={{ duration: 9.5, ease: [0.45, 0, 0.55, 1] }}
+              className="absolute top-[12%] z-50"
             >
-              <div className="relative scale-[1.3] md:scale-[1.8]">
-                <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div className="relative scale-[1.4] md:scale-[2.2]">
+                <svg width="240" height="300" viewBox="0 0 240 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                   
-                  {/* Sombreamento no Chão */}
-                  <ellipse cx="100" cy="230" rx="50" ry="12" fill="black" fillOpacity="0.04" />
+                  {/* Sombra Projetada Dinâmica */}
+                  <ellipse cx="110" cy="270" rx="60" ry="15" fill="url(#shadowGradient)" />
 
-                  {/* BRAÇO TRASEIRO COM RIGGING REALISTA */}
-                  <motion.path 
-                    d="M110 95 L150 135" 
-                    stroke="#FDBA74" strokeWidth="8" strokeLinecap="round"
-                    animate={{ d: ["M110 95 L150 135", "M110 95 L175 135", "M110 95 L150 135"] }}
-                    transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
-                  />
-
-                  {/* VASSOURA DE LUXO NEXACORE (FÍSICA AVANÇADA) */}
+                  {/* RIGGING DE BRAÇO TRASEIRO (ANATOMIA AVANÇADA) */}
                   <motion.g
-                    animate={{ rotate: [-22, 22, -22], x: [-8, 8, -8] }}
+                    animate={{ rotate: [-5, 5, -5] }}
                     transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ originX: "150px", originY: "60px" }}
                   >
-                    {/* Cabo com Textura e Brilho */}
-                    <rect x="147" y="10" width="6" height="180" rx="3" fill="#4E342E" />
-                    <rect x="147" y="10" width="2" height="180" rx="1" fill="white" fillOpacity="0.15" />
+                    <path d="M125 110 L160 160" stroke="#FDBA74" strokeWidth="10" strokeLinecap="round" />
+                    <circle cx="160" cy="160" r="6" fill="#FDBA74" /> {/* Pulso */}
+                  </motion.g>
+
+                  {/* VASSOURA DE ALTA COSTURA (FÍSICA DE INÉRCIA) */}
+                  <motion.g
+                    animate={{ 
+                      rotate: [-25, 25, -25],
+                      x: [-12, 12, -12],
+                      y: [0, 5, 0]
+                    }}
+                    transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ originX: "160px", originY: "70px" }}
+                  >
+                    {/* Cabo com Gradiente de Madeira Nobre */}
+                    <rect x="157" y="20" width="7" height="210" rx="3.5" fill="url(#woodGradient)" />
+                    <rect x="157" y="20" width="2" height="210" rx="1" fill="white" fillOpacity="0.2" />
                     
-                    {/* Cabeça Ouro Polido */}
-                    <path d="M100 190H200L215 230H85L100 190Z" fill="url(#goldGradient)" />
-                    <rect x="100" y="190" width="100" height="6" fill="#B8860B" />
+                    {/* Cabeça de Ouro 24k NexaCore */}
+                    <path d="M100 230H220L235 270H85L100 230Z" fill="url(#goldGradientPremium)" />
+                    <rect x="100" y="230" width="120" height="8" fill="#8B6914" />
                     
-                    {/* Cerdas com Deformação Individual */}
-                    {[...Array(15)].map((_, i) => (
+                    {/* Cerdas com Simulação de Resistência */}
+                    {[...Array(18)].map((_, i) => (
                       <motion.path 
                         key={i}
-                        d={`M${92 + (i * 8)} 230 L${92 + (i * 8)} 250`}
-                        stroke="#F3E5AB" strokeWidth="3" strokeLinecap="round"
-                        animate={{ skewX: [-25, 25, -25], y: [0, 3, 0] }}
-                        transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.03 }}
+                        d={`M${90 + (i * 8)} 270 L${90 + (i * 8)} 295`}
+                        stroke="#FFF8DC" strokeWidth="3.5" strokeLinecap="round"
+                        animate={{ 
+                          skewX: [-30, 30, -30],
+                          y: [0, 4, 0],
+                          opacity: [0.8, 1, 0.8]
+                        }}
+                        transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.02 }}
                       />
                     ))}
                   </motion.g>
 
-                  {/* CORPO DO FAXINEIRO (DESIGN DE ALTA COSTURA NEXACORE) */}
-                  <motion.g animate={{ y: [-3, 3, -3], rotate: [-1, 1, -1] }} transition={{ duration: 0.9, repeat: Infinity }}>
-                    {/* Uniforme de Luxo Preto Carbono */}
-                    <path d="M70 80C70 65 130 65 130 80V170H70V80Z" fill="#121212" />
+                  {/* CORPO DO ESPECIALISTA (ALTA COSTURA NEXACORE) */}
+                  <motion.g animate={{ y: [-4, 4, -4], rotate: [-1.5, 1.5, -1.5] }} transition={{ duration: 0.9, repeat: Infinity }}>
+                    {/* Terno/Uniforme de Luxo */}
+                    <path d="M80 90C80 70 140 70 140 90V190H80V90Z" fill="#0A0A0A" />
                     
-                    {/* Detalhes em Ouro NexaCore (V-Neck & Stripes) */}
-                    <path d="M70 80L100 110L130 80V88L100 118L70 88V80Z" fill="#D4AF37" />
-                    <rect x="97" y="125" width="6" height="45" fill="#D4AF37" fillOpacity="0.9" />
-                    <circle cx="100" cy="100" r="3" fill="#D4AF37" /> {/* Botão de Ouro */}
+                    {/* Lapela e Detalhes NexaCore Ouro */}
+                    <path d="M80 90L110 125L140 90V100L110 135L80 100V90Z" fill="#D4AF37" />
+                    <path d="M108 140H112V185H108V140Z" fill="#D4AF37" fillOpacity="0.9" />
+                    <circle cx="110" cy="115" r="4" fill="#D4AF37" /> {/* Pin de Ouro */}
 
-                    {/* ROSTO DETALHADO (ANATOMIA DE ELITE) */}
-                    <circle cx="100" cy="50" r="22" fill="#FDBA74" /> {/* Pele */}
-                    <path d="M78 50C78 28 122 28 122 50C122 35 78 35 78 50Z" fill="#2D1B1B" /> {/* Cabelo Moderno */}
+                    {/* ROSTO DE ELITE (DETALHAMENTO MUNDIAL) */}
+                    <circle cx="110" cy="55" r="26" fill="#FDBA74" />
+                    {/* Cabelo Estilizado */}
+                    <path d="M84 55C84 30 136 30 136 55C136 40 84 40 84 55Z" fill="#1A0F0F" />
+                    <circle cx="132" cy="45" r="8" fill="#1A0F0F" />
                     
-                    {/* Olhos Realistas com Brilho */}
-                    <circle cx="92" cy="52" r="2" fill="#1A1A1A" />
-                    <circle cx="108" cy="52" r="2" fill="#1A1A1A" />
-                    <circle cx="92.5" cy="51.5" r="0.5" fill="white" />
-                    <circle cx="108.5" cy="51.5" r="0.5" fill="white" />
+                    {/* Olhos com Profundidade e Reflexo */}
+                    <g opacity="0.9">
+                      <circle cx="100" cy="58" r="3" fill="#000" />
+                      <circle cx="120" cy="58" r="3" fill="#000" />
+                      <circle cx="101" cy="57" r="1" fill="#FFF" />
+                      <circle cx="121" cy="57" r="1" fill="#FFF" />
+                    </g>
                     
-                    {/* Expressão de Excelência */}
-                    <path d="M94 62Q100 66 106 62" stroke="#1A1A1A" strokeWidth="1.5" strokeLinecap="round" />
+                    {/* Expressão Facial Premium */}
+                    <path d="M102 70Q110 75 118 70" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M95 50Q100 48 105 50" stroke="#000" strokeWidth="1" opacity="0.3" /> {/* Sobrancelha 1 */}
+                    <path d="M115 50Q120 48 125 50" stroke="#000" strokeWidth="1" opacity="0.3" /> {/* Sobrancelha 2 */}
 
-                    {/* BRAÇO FRONTAL COM ANATOMIA DETALHADA */}
+                    {/* BRAÇO FRONTAL (RIGGING DE PRECISÃO) */}
                     <motion.path 
-                      d="M75 100 L125 140" 
-                      stroke="#FDBA74" strokeWidth="9" strokeLinecap="round"
-                      animate={{ d: ["M75 100 L125 140", "M75 100 L155 140", "M75 100 L125 140"] }}
+                      d="M85 110 L140 165" 
+                      stroke="#FDBA74" strokeWidth="11" strokeLinecap="round"
+                      animate={{ d: ["M85 110 L140 165", "M85 110 L175 165", "M85 110 L140 165"] }}
                       transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
                     />
+                    <circle cx="140" cy="165" r="7" fill="#FDBA74" />
 
-                    {/* Pernas com Movimento de Caminhada Fluida */}
-                    <motion.rect x="75" y="170" width="12" height="40" fill="#FDBA74" 
-                      animate={{ height: [40, 28, 40], y: [0, 2, 0] }} transition={{ duration: 0.45, repeat: Infinity }} />
-                    <motion.rect x="113" y="170" width="12" height="40" fill="#FDBA74" 
-                      animate={{ height: [28, 40, 28], y: [2, 0, 2] }} transition={{ duration: 0.45, repeat: Infinity }} />
+                    {/* Pernas com Física de Caminhada */}
+                    <motion.rect x="85" y="190" width="15" height="45" fill="#FDBA74" 
+                      animate={{ height: [45, 30, 45], y: [0, 5, 0] }} transition={{ duration: 0.45, repeat: Infinity }} />
+                    <motion.rect x="120" y="190" width="15" height="45" fill="#FDBA74" 
+                      animate={{ height: [30, 45, 30], y: [5, 0, 5] }} transition={{ duration: 0.45, repeat: Infinity }} />
                   </motion.g>
 
-                  {/* Definições de Gradiente para o Ouro */}
+                  {/* DEFINIÇÕES DE GRADIENTES DE LUXO */}
                   <defs>
-                    <linearGradient id="goldGradient" x1="100" y1="190" x2="215" y2="230" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#B8860B" />
-                      <stop offset="0.5" stopColor="#D4AF37" />
-                      <stop offset="1" stopColor="#AA8A2E" />
+                    <linearGradient id="goldGradientPremium" x1="100" y1="230" x2="235" y2="270" gradientUnits="userSpaceOnUse">
+                      <stop offset="0" stopColor="#8B6914" />
+                      <stop offset="0.2" stopColor="#D4AF37" />
+                      <stop offset="0.5" stopColor="#FFD700" />
+                      <stop offset="0.8" stopColor="#D4AF37" />
+                      <stop offset="1" stopColor="#8B6914" />
                     </linearGradient>
+                    <linearGradient id="woodGradient" x1="157" y1="20" x2="164" y2="230" gradientUnits="userSpaceOnUse">
+                      <stop offset="0" stopColor="#3E2723" />
+                      <stop offset="0.5" stopColor="#5D4037" />
+                      <stop offset="1" stopColor="#3E2723" />
+                    </linearGradient>
+                    <radialGradient id="shadowGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 270) rotate(90) scale(15 60)">
+                      <stop offset="0" stopColor="black" stopOpacity="0.08" />
+                      <stop offset="1" stopColor="black" stopOpacity="0" />
+                    </radialGradient>
                   </defs>
                 </svg>
+
+                {/* EFEITOS DE POEIRA ORGÂNICA (CLOUD FX) */}
+                <div className="absolute bottom-0 left-20">
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                      animate={{ 
+                        opacity: [0, 0.4, 0], 
+                        scale: [0.5, 2.5, 3], 
+                        x: [0, 60, 100], 
+                        y: [0, -20, -40] 
+                      }}
+                      transition={{ 
+                        duration: 1.2, 
+                        repeat: Infinity, 
+                        delay: i * 0.2,
+                        ease: "easeOut" 
+                      }}
+                      className="absolute w-8 h-8 bg-slate-200/40 rounded-full blur-xl"
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
 
-            {/* LOGO NEXACORE / PORTAL (ESTÉTICA DE LUXO) */}
-            <div className="relative z-10 text-center mt-40">
+            {/* LOGO NEXACORE / PORTAL (ESTÉTICA CINEMATOGRÁFICA) */}
+            <div className="relative z-10 text-center mt-48">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 2, duration: 1.5, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                transition={{ delay: 2.5, duration: 2, ease: "easeOut" }}
                 className="flex flex-col items-center"
               >
-                <div className="flex items-center gap-6 mb-8">
-                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }}>
-                    <Sparkles className="text-emerald-600 w-16 h-16 md:w-24 md:h-24 opacity-80" />
+                <div className="flex items-center gap-8 mb-10">
+                  <motion.div
+                    animate={{ 
+                      rotate: 360,
+                      scale: [1, 1.1, 1],
+                      filter: ["drop-shadow(0 0 0px #059669)", "drop-shadow(0 0 20px #059669)", "drop-shadow(0 0 0px #059669)"]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Star className="text-emerald-600 w-20 h-20 md:w-32 md:h-32 fill-emerald-600" />
                   </motion.div>
-                  <h1 className="text-7xl md:text-[11rem] font-black text-slate-900 tracking-tighter uppercase leading-none select-none">
+                  <h1 className="text-8xl md:text-[13rem] font-black text-slate-900 tracking-tighter uppercase leading-none select-none italic">
                     CLEANING<span className="text-emerald-600">PORTAL</span>
                   </h1>
                 </div>
                 
-                <div className="relative w-72 h-3 bg-slate-100 rounded-full mb-10 overflow-hidden">
+                {/* Barra de Progresso de Luxo */}
+                <div className="relative w-96 h-4 bg-slate-100 rounded-full mb-12 shadow-inner overflow-hidden">
                   <motion.div 
                     initial={{ x: '-100%' }}
                     animate={{ x: '0%' }}
-                    transition={{ delay: 2.5, duration: 5 }}
-                    className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-400" 
+                    transition={{ delay: 3, duration: 6, ease: "easeInOut" }}
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-700 via-emerald-500 to-emerald-400" 
+                  />
+                  <motion.div
+                    animate={{ x: ['0%', '100%'] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 w-1/2 bg-white/20 skew-x-12"
                   />
                 </div>
 
-                <p className="text-slate-400 font-black tracking-[1.8em] uppercase text-[10px] md:text-lg pl-[1.8em]">
-                  NexaCore LLC • Global Standard
+                <p className="text-slate-500 font-black tracking-[2.5em] uppercase text-xs md:text-2xl pl-[2.5em] drop-shadow-sm">
+                  NexaCore LLC • Global Excellence
                 </p>
               </motion.div>
             </div>
 
-            {/* MÁSCARA DE REVELAÇÃO (LIMPEZA TOTAL) */}
+            {/* MÁSCARA DE REVELAÇÃO (LIMPEZA TOTAL DE ELITE) */}
             <motion.div
               initial={{ x: 0 }}
-              animate={{ x: '150%' }}
-              transition={{ duration: 8.5, ease: "easeInOut" }}
+              animate={{ x: '160%' }}
+              transition={{ duration: 9.5, ease: [0.45, 0, 0.55, 1] }}
               className="absolute inset-0 z-40 bg-white pointer-events-none"
-              style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%)' }}
+              style={{ 
+                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 100%)',
+                boxShadow: '-50px 0 100px rgba(255,255,255,1)'
+              }}
             />
+          </div>
+
+          {/* Sparkles de Finalização */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 0], 
+                  scale: [0, 1, 0],
+                  x: [Math.random() * 1000 - 500, Math.random() * 1000 - 500],
+                  y: [Math.random() * 1000 - 500, Math.random() * 1000 - 500]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  delay: Math.random() * 5,
+                  ease: "easeInOut" 
+                }}
+                className="absolute left-1/2 top-1/2"
+              >
+                <Sparkles className="text-emerald-400 w-4 h-4" />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       )}
