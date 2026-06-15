@@ -10,12 +10,12 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
   const [isCleaning, setIsCleaning] = useState(true);
   const sweepProgress = useMotionValue(0);
   
-  // Efeito de máscara dinâmica: a vassoura revela o conteúdo
+  // Efeito de máscara dinâmica: a vassoura revela o conteúdo com suavidade
   const maskX = useTransform(sweepProgress, [0, 100], ['0%', '100%']);
 
   useEffect(() => {
     const controls = animate(sweepProgress, 100, {
-      duration: 4.5,
+      duration: 5,
       ease: [0.45, 0, 0.55, 1],
       onComplete: () => {
         setTimeout(() => {
@@ -36,39 +36,41 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[9999] bg-slate-950 flex items-center justify-center overflow-hidden"
         >
-          {/* Camada 1: O Fundo "Sujo" */}
+          {/* Camada 1: O Fundo "Sujo" (Texturizado) */}
           <div className="absolute inset-0 bg-slate-900 z-10 flex items-center justify-center">
-            <div className="text-slate-800 text-[10vw] font-black opacity-10 select-none tracking-tighter">
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+            <div className="text-slate-800 text-[12vw] font-black opacity-10 select-none tracking-tighter">
               DIRTY
             </div>
           </div>
 
-          {/* Camada 2: O Conteúdo "Limpo" */}
+          {/* Camada 2: O Conteúdo "Limpo" (Padrão Mundial) */}
           <motion.div 
             style={{ clipPath: `inset(0 0 0 ${maskX.get()})` }}
             className="absolute inset-0 bg-white z-20 flex flex-col items-center justify-center"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-white" />
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/30" />
             
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              transition={{ delay: 0.5, duration: 1 }}
               className="relative z-30 text-center"
             >
-              <div className="flex items-center justify-center gap-3 mb-3">
-                <Sparkles className="text-emerald-500 w-8 h-8 animate-pulse" />
-                <h1 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Sparkles className="text-emerald-500 w-10 h-10 animate-pulse" />
+                <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter uppercase leading-none">
                   CLEANING<span className="text-emerald-600">PORTAL</span>
                 </h1>
               </div>
-              <p className="text-emerald-700 font-bold tracking-[0.6em] uppercase text-[10px] md:text-xs">
+              <div className="h-1 w-32 bg-emerald-500 mx-auto mb-6 rounded-full" />
+              <p className="text-emerald-800 font-bold tracking-[0.8em] uppercase text-[10px] md:text-sm opacity-70">
                 The Gold Standard of Clean
               </p>
             </motion.div>
           </motion.div>
 
-          {/* Camada 3: A Faxineira Segurando a Vassoura */}
+          {/* Camada 3: A Faxineira de Elite (Flat Design Profissional) */}
           <motion.div
             style={{ x: maskX }}
             className="absolute inset-0 z-30 flex items-center justify-start pointer-events-none"
@@ -76,81 +78,104 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             <motion.div
               animate={{ 
                 rotate: [-5, 5, -5, 5, -5],
-                y: [0, -10, 0, -10, 0]
+                y: [0, -15, 0, -15, 0]
               }}
               transition={{ 
-                duration: 4.5, 
+                duration: 5, 
                 ease: "easeInOut"
               }}
-              className="relative left-[-100px] top-[-200px] scale-90 md:scale-110"
+              className="relative left-[-120px] top-[-280px] scale-100 md:scale-125"
             >
-              {/* Poeira Volumosa */}
-              {[...Array(6)].map((_, i) => (
+              {/* FX de Poeira Volumosa e Brilho */}
+              {[...Array(12)].map((_, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0, x: 0, y: 190 }}
+                  initial={{ opacity: 0, scale: 0 }}
                   animate={{ 
-                    opacity: [0, 0.5, 0],
-                    scale: [1, 3, 1],
-                    x: [0, 100 + i * 10],
-                    y: [190, 180 + (Math.random() - 0.5) * 40]
+                    opacity: [0, 0.6, 0],
+                    scale: [0.5, 2.5, 1],
+                    x: [0, 150 + i * 15],
+                    y: [220, 200 + (Math.random() - 0.5) * 60]
                   }}
-                  transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
-                  className="absolute w-12 h-8 bg-slate-400/20 rounded-full blur-[15px]"
+                  transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
+                  className="absolute w-16 h-10 bg-slate-400/20 rounded-full blur-[25px]"
                 />
               ))}
 
-              <svg width="300" height="400" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Faxineira Completa */}
-                {/* Corpo/Uniforme */}
-                <path d="M140 100C140 100 160 140 160 180V250H120V180C120 140 140 100 140 100Z" fill="#065F46" />
-                <circle cx="140" cy="70" r="25" fill="#FDBA74" /> {/* Cabeça */}
-                <path d="M115 70C115 70 125 45 140 45C155 45 165 70 165 70" fill="#4B2C20" /> {/* Cabelo */}
+              <svg width="400" height="500" viewBox="0 0 250 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Personagem: Faxineira (Design de Elite) */}
+                {/* Tronco/Uniforme */}
+                <path d="M160 120C160 120 190 160 190 220V320H130V220C130 160 160 120 160 120Z" fill="#065F46" />
+                <path d="M160 120L130 220H190L160 120Z" fill="#047857" opacity="0.5" /> {/* Sombra do Tronco */}
                 
-                {/* Braços Segurando a Vassoura */}
-                <path d="M140 110C140 110 100 120 80 150" stroke="#FDBA74" strokeWidth="12" strokeLinecap="round" />
-                <path d="M140 110C140 110 120 130 100 170" stroke="#FDBA74" strokeWidth="12" strokeLinecap="round" />
+                {/* Cabeça e Cabelo */}
+                <circle cx="160" cy="85" r="30" fill="#FDBA74" />
+                <path d="M130 85C130 85 140 50 160 50C180 50 190 85 190 85L195 100H125L130 85Z" fill="#3E2723" />
+                
+                {/* Braços com Articulação (Kinematics) */}
+                <motion.path 
+                  d="M160 140C160 140 110 150 85 190" 
+                  stroke="#FDBA74" 
+                  strokeWidth="16" 
+                  strokeLinecap="round" 
+                  animate={{ d: ["M160 140C160 140 110 150 85 190", "M160 140C160 140 120 170 95 210", "M160 140C160 140 110 150 85 190"] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.path 
+                  d="M160 140C160 140 130 170 105 210" 
+                  stroke="#FDBA74" 
+                  strokeWidth="16" 
+                  strokeLinecap="round"
+                  animate={{ d: ["M160 140C160 140 130 170 105 210", "M160 140C160 140 140 190 115 230", "M160 140C160 140 130 170 105 210"] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.1 }}
+                />
 
-                {/* Vassoura Premium */}
-                <rect x="75" y="40" width="10" height="180" rx="5" fill="url(#wood_gradient)" />
-                <path d="M30 220H130L140 260H20L30 220Z" fill="url(#broom_head_gradient)" />
-                <rect x="30" y="220" width="100" height="6" fill="url(#gold_metal)" />
-                
-                {/* Cerdas Dinâmicas */}
-                {[...Array(12)].map((_, i) => (
-                  <motion.path 
-                    key={i}
-                    d={`M${32 + (i * 8.5)} 260 Q${35 + (i * 8.5)} 275 ${32 + (i * 8.5)} 285`}
-                    stroke="url(#bristle_gradient)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    animate={{ 
-                      d: [
-                        `M${32 + (i * 8.5)} 260 Q${35 + (i * 8.5)} 275 ${32 + (i * 8.5)} 285`,
-                        `M${32 + (i * 8.5)} 260 Q${50 + (i * 8.5)} 275 ${45 + (i * 8.5)} 285`,
-                        `M${32 + (i * 8.5)} 260 Q${35 + (i * 8.5)} 275 ${32 + (i * 8.5)} 285`
-                      ]
-                    }}
-                    transition={{ duration: 0.4, repeat: Infinity, delay: i * 0.02 }}
-                  />
-                ))}
+                {/* Vassoura Premium (Design de Engenharia) */}
+                <motion.g
+                  animate={{ rotate: [-5, 5, -5] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ originX: "80px", originY: "50px" }}
+                >
+                  <rect x="75" y="40" width="12" height="200" rx="6" fill="url(#wood_grad)" />
+                  <path d="M20 240H140L150 290H10L20 240Z" fill="url(#gold_grad)" />
+                  <rect x="20" y="240" width="120" height="8" fill="url(#metal_grad)" />
+                  
+                  {/* Cerdas Dinâmicas Ultra-detalhadas */}
+                  {[...Array(15)].map((_, i) => (
+                    <motion.path 
+                      key={i}
+                      d={`M${22 + (i * 8.5)} 290 Q${25 + (i * 8.5)} 310 ${22 + (i * 8.5)} 325`}
+                      stroke="url(#bristle_grad)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      animate={{ 
+                        d: [
+                          `M${22 + (i * 8.5)} 290 Q${25 + (i * 8.5)} 310 ${22 + (i * 8.5)} 325`,
+                          `M${22 + (i * 8.5)} 290 Q${45 + (i * 8.5)} 310 ${40 + (i * 8.5)} 325`,
+                          `M${22 + (i * 8.5)} 290 Q${25 + (i * 8.5)} 310 ${22 + (i * 8.5)} 325`
+                        ]
+                      }}
+                      transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.03 }}
+                    />
+                  ))}
+                </motion.g>
 
                 <defs>
-                  <linearGradient id="wood_gradient" x1="75" y1="40" x2="85" y2="40" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#4E342E" />
-                    <stop offset="0.5" stopColor="#795548" />
-                    <stop offset="1" stopColor="#4E342E" />
+                  <linearGradient id="wood_grad" x1="75" y1="40" x2="87" y2="40" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#3E2723" />
+                    <stop offset="0.5" stopColor="#5D4037" />
+                    <stop offset="1" stopColor="#3E2723" />
                   </linearGradient>
-                  <linearGradient id="broom_head_gradient" x1="0" y1="220" x2="0" y2="260" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="gold_grad" x1="0" y1="240" x2="0" y2="290" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#D4AF37" />
                     <stop offset="1" stopColor="#996515" />
                   </linearGradient>
-                  <linearGradient id="gold_metal" x1="30" y1="220" x2="130" y2="220" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="metal_grad" x1="20" y1="240" x2="140" y2="240" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#B8860B" />
                     <stop offset="0.5" stopColor="#FFD700" />
                     <stop offset="1" stopColor="#B8860B" />
                   </linearGradient>
-                  <linearGradient id="bristle_gradient" x1="0" y1="260" x2="0" y2="285" gradientUnits="userSpaceOnUse">
+                  <linearGradient id="bristle_grad" x1="0" y1="290" x2="0" y2="325" gradientUnits="userSpaceOnUse">
                     <stop stopColor="#F3E5AB" />
                     <stop offset="1" stopColor="#C9A84C" />
                   </linearGradient>
@@ -159,10 +184,11 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             </motion.div>
           </motion.div>
 
+          {/* Efeito de Flash Final (Limpeza Concluída) */}
           <motion.div 
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.4, 0] }}
-            transition={{ delay: 4.2, duration: 0.4 }}
+            animate={{ opacity: [0, 0.6, 0] }}
+            transition={{ delay: 4.8, duration: 0.5 }}
             className="absolute inset-0 bg-white z-[100] pointer-events-none"
           />
         </motion.div>
