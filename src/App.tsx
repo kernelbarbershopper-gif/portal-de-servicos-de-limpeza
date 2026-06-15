@@ -246,10 +246,12 @@ export default function App() {
   };
 
   return (
-    <div id="main-application-view" className="min-h-screen bg-slate-950 flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
+    <div id="main-application-view" className="min-h-screen bg-white flex flex-col antialiased selection:bg-emerald-400 selection:text-black">
       {showSplash && <CleaningSplash onComplete={() => setShowSplash(false)} />}
       
-      <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-slate-700 shadow-xs">
+      {!showSplash && (
+        <>
+          <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-slate-700 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 py-2.5">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -396,6 +398,8 @@ export default function App() {
       )}
 
       <AIChatAssistant />
+        </>
+      )}
     </div>
   );
 }
