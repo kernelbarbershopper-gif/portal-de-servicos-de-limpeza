@@ -14,19 +14,14 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
   const maskX = useTransform(sweepProgress, [0, 100], ['0%', '100%']);
 
   useEffect(() => {
-    // Sequência de animação mundial:
-    // 1. A vassoura entra e faz 3 passadas realistas
-    // 2. A cada passada, a máscara revela mais do portal
-    // 3. O brilho final consome a tela e transiciona para o login
-    
     const controls = animate(sweepProgress, 100, {
-      duration: 4,
+      duration: 3.5,
       ease: [0.45, 0, 0.55, 1],
       onComplete: () => {
         setTimeout(() => {
           setIsCleaning(false);
-          setTimeout(onComplete, 1000);
-        }, 500);
+          setTimeout(onComplete, 800);
+        }, 300);
       }
     });
 
@@ -43,90 +38,85 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
         >
           {/* Camada 1: O Fundo "Sujo" (Escuro e Opaco) */}
           <div className="absolute inset-0 bg-slate-900 z-10 flex items-center justify-center">
-            <div className="text-slate-800 text-[20vw] font-black opacity-20 select-none tracking-tighter">
+            <div className="text-slate-800 text-[12vw] font-black opacity-10 select-none tracking-tighter">
               DIRTY
             </div>
           </div>
 
-          {/* Camada 2: O Conteúdo "Limpo" (Revelado pela Vassoura) */}
+          {/* Camada 2: O Conteúdo "Limpo" (Revelado pela Vassoura) - Ajustado com menos zoom */}
           <motion.div 
             style={{ clipPath: `inset(0 0 0 ${maskX.get()})` }}
             className="absolute inset-0 bg-white z-20 flex flex-col items-center justify-center"
           >
-            {/* Brilhos de Fundo */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white" />
+            {/* Brilhos de Fundo Suaves */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-white" />
             
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-              className="relative z-30 text-center"
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="relative z-30 text-center scale-90 md:scale-100" // Menos zoom no logo
             >
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <Sparkles className="text-emerald-500 w-12 h-12 animate-pulse" />
-                <h1 className="text-7xl font-black text-slate-900 tracking-tighter uppercase">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <Sparkles className="text-emerald-500 w-8 h-8 animate-pulse" />
+                <h1 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase">
                   CLEANING<span className="text-emerald-600">PORTAL</span>
                 </h1>
               </div>
-              <p className="text-emerald-700 font-bold tracking-[0.8em] uppercase text-sm">
-                Excellence Redefined
+              <p className="text-emerald-700 font-bold tracking-[0.6em] uppercase text-[10px] md:text-xs">
+                The Gold Standard of Clean
               </p>
             </motion.div>
 
-            {/* Partículas de Brilho */}
-            {[...Array(20)].map((_, i) => (
+            {/* Partículas de Brilho Menores */}
+            {[...Array(15)].map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0 }}
                 animate={{ 
-                  opacity: [0, 1, 0],
-                  scale: [0, 1.5, 0],
-                  x: (Math.random() - 0.5) * 1000,
-                  y: (Math.random() - 0.5) * 800
+                  opacity: [0, 0.8, 0],
+                  scale: [0, 1, 0],
+                  x: (Math.random() - 0.5) * 800,
+                  y: (Math.random() - 0.5) * 600
                 }}
                 transition={{ 
                   duration: 2, 
-                  delay: Math.random() * 4,
+                  delay: Math.random() * 3,
                   repeat: Infinity
                 }}
-                className="absolute w-1 h-1 bg-emerald-400 rounded-full"
+                className="absolute w-0.5 h-0.5 bg-emerald-300 rounded-full"
               />
             ))}
           </motion.div>
 
-          {/* Camada 3: A Vassoura (O Ator Principal) */}
+          {/* Camada 3: A Vassoura (Redimensionada para menos zoom) */}
           <motion.div
             style={{ x: maskX }}
             className="absolute inset-0 z-30 flex items-center justify-start pointer-events-none"
           >
             <motion.div
               animate={{ 
-                rotate: [-15, 10, -15, 10, -15],
-                y: [0, -20, 0, -20, 0]
+                rotate: [-10, 8, -10, 8, -10],
+                y: [0, -15, 0, -15, 0]
               }}
               transition={{ 
-                duration: 4, 
+                duration: 3.5, 
                 ease: "easeInOut"
               }}
-              className="relative left-[-50px]"
+              className="relative left-[-30px] scale-75 md:scale-90" // Reduzi o tamanho da vassoura
             >
-              {/* SVG da Vassoura de Luxo */}
-              <svg width="250" height="400" viewBox="0 0 100 200" fill="none">
-                {/* Cabo com Gradiente de Madeira */}
-                <rect x="45" y="0" width="10" height="150" rx="5" fill="url(#wood)" />
-                {/* Cabeça da Vassoura */}
-                <path d="M10 150H90L100 190H0L10 150Z" fill="#C9A84C" />
-                {/* Detalhe Dourado */}
-                <rect x="10" y="150" width="80" height="5" fill="#E8C96A" />
-                {/* Cerdas com Movimento */}
-                {[...Array(10)].map((_, i) => (
+              <svg width="180" height="300" viewBox="0 0 100 200" fill="none">
+                <rect x="46" y="0" width="8" height="140" rx="4" fill="url(#wood)" />
+                <path d="M15 140H85L95 180H5L15 140Z" fill="#C9A84C" />
+                <rect x="15" y="140" width="70" height="4" fill="#E8C96A" />
+                {[...Array(8)].map((_, i) => (
                   <motion.line 
                     key={i}
-                    x1={10 + (i * 9)} y1="190" 
-                    x2={10 + (i * 9)} y2="210" 
+                    x1={15 + (i * 10)} y1="180" 
+                    x2={15 + (i * 10)} y2="195" 
                     stroke="#F3E5AB" strokeWidth="2" strokeLinecap="round"
-                    animate={{ x2: [10 + (i * 9), 20 + (i * 9), 10 + (i * 9)] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
+                    animate={{ x2: [15 + (i * 10), 22 + (i * 10), 15 + (i * 10)] }}
+                    transition={{ duration: 0.4, repeat: Infinity }}
                   />
                 ))}
                 <defs>
@@ -137,21 +127,14 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                   </linearGradient>
                 </defs>
               </svg>
-
-              {/* Efeito de "Vento/Velocidade" */}
-              <motion.div 
-                animate={{ opacity: [0, 0.5, 0], x: [0, -30] }}
-                transition={{ duration: 0.3, repeat: Infinity }}
-                className="absolute top-1/2 right-full w-20 h-1 bg-gradient-to-r from-transparent to-white/30 rounded-full"
-              />
             </motion.div>
           </motion.div>
 
-          {/* Overlay de Flash Final */}
+          {/* Flash Final Suave */}
           <motion.div 
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ delay: 3.8, duration: 0.5 }}
+            animate={{ opacity: [0, 0.5, 0] }}
+            transition={{ delay: 3.3, duration: 0.4 }}
             className="absolute inset-0 bg-white z-[100] pointer-events-none"
           />
         </motion.div>
