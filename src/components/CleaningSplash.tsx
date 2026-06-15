@@ -13,7 +13,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 1200);
-    }, 15000); // 15 segundos para apreciação da obra de arte definitiva
+    }, 10000); // Reduzido para 10 segundos para validação mais rápida
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -40,14 +40,14 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
 
           <div className="relative w-full max-w-7xl h-full flex flex-col items-center justify-center">
             
-            {/* PERSONAGEM: FIDELIDADE ABSOLUTA AO PINTEREST (DESIGN V18) */}
+            {/* PERSONAGEM: FIDELIDADE ABSOLUTA AO PINTEREST (DESIGN V19 - OTIMIZADO) */}
             <motion.div
               initial={{ x: '-150%', opacity: 0 }}
-              animate={{ x: '160%', opacity: 1 }}
-              transition={{ duration: 12, ease: [0.45, 0.05, 0.55, 0.95] }}
-              className="absolute top-[5%] z-50"
+              animate={{ x: '100%', opacity: 1 }}
+              transition={{ duration: 8, ease: [0.45, 0.05, 0.55, 0.95] }} // Duração reduzida
+              className="absolute top-[15%] z-50"
             >
-              <div className="relative scale-[1.8] md:scale-[2.8]">
+              <div className="relative scale-[0.8] md:scale-[1.0]"> {/* Escala ajustada para visibilidade */}
                 <svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
                   
                   {/* Sombra Dinâmica do Personagem */}
@@ -81,22 +81,22 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                     <path d="M140 340C140 340 180 320 230 320C280 320 320 340 320 340L335 385H125L140 340Z" fill="url(#goldPinterestV18)" />
                     <path d="M140 340C140 340 180 325 230 325C280 325 320 340 320 340" stroke="#996515" strokeWidth="6" fill="none" />
                     
-                    {/* Cerdas com Física Orgânica */}
-                    {[...Array(24)].map((_, i) => (
+                    {/* Cerdas com Física Orgânica (Reduzido para performance) */}
+                    {[...Array(12)].map((_, i) => (
                       <motion.path 
                         key={i}
-                        d={`M${130 + (i * 8.5)} 385 L${130 + (i * 8.5)} 415`}
+                        d={`M${130 + (i * 17)} 385 L${130 + (i * 17)} 415`} // Ajuste para 12 cerdas
                         stroke="#FFFDE7" strokeWidth="4.5" strokeLinecap="round"
                         animate={{ 
-                          skewX: [-40, 40, -40],
-                          y: [0, 6, 0]
+                          skewX: [-20, 20, -20], // Skew reduzido
+                          y: [0, 3, 0] // Movimento reduzido
                         }}
-                        transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.015 }}
+                        transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.03 }}
                       />
                     ))}
                   </motion.g>
 
-                  {/* CORPO DO PERSONAGEM: ANATOMIA PINTEREST (V18) */}
+                  {/* CORPO DO PERSONAGEM: ANATOMIA PINTEREST (V19 - OTIMIZADO) */}
                   <motion.g 
                     animate={{ 
                       y: [-4, 4, -4], 
@@ -158,110 +158,110 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                   </defs>
                 </svg>
 
-                {/* EFEITO DE POEIRA ORGÂNICA (VFX ELITE) */}
+                {/* EFEITO DE POEIRA ORGÂNICA (VFX OTIMIZADO) */}
                 <div className="absolute bottom-[-20px] left-32">
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(4)].map((_, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, scale: 0, x: 0 }}
                       animate={{ 
                         opacity: [0, 0.4, 0], 
-                        scale: [0.4, 3.5, 4], 
-                        x: [0, 100, 150], 
-                        y: [0, -40, -60] 
+                        scale: [0.4, 2, 2.5], // Escala reduzida
+                        x: [0, 50, 75], // Movimento reduzido
+                        y: [0, -20, -30] // Movimento reduzido
                       }}
                       transition={{ 
                         duration: 1.6, 
                         repeat: Infinity, 
-                        delay: i * 0.2,
+                        delay: i * 0.4, // Delay aumentado para suavizar
                         ease: "easeOut" 
                       }}
-                      className="absolute w-12 h-12 bg-gray-200/40 rounded-full blur-3xl"
+                      className="absolute w-8 h-8 bg-gray-200/40 rounded-full blur-2xl" // Tamanho e blur reduzidos
                     />
                   ))}
                 </div>
               </div>
             </motion.div>
 
-            {/* LOGO NEXACORE: LUXO MUNDIAL */}
-            <div className="relative z-10 text-center mt-64">
+            {/* LOGO NEXACORE: LUXO MUNDIAL (OTIMIZADO) */}
+            <div className="relative z-10 text-center mt-32"> {/* Margem ajustada */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 3.5, duration: 2, ease: "easeOut" }}
                 className="flex flex-col items-center"
               >
-                <div className="flex items-center gap-12 mb-16">
+                <div className="flex items-center gap-4 mb-8"> {/* Gap e margem ajustados */}
                   <motion.div
                     animate={{ 
                       rotate: [0, 360],
-                      scale: [1, 1.2, 1],
-                      filter: ["drop-shadow(0 0 0px #059669)", "drop-shadow(0 0 40px #059669)", "drop-shadow(0 0 0px #059669)"]
+                      scale: [1, 1.1, 1],
+                      filter: ["drop-shadow(0 0 0px #059669)", "drop-shadow(0 0 20px #059669)", "drop-shadow(0 0 0px #059669)"] // Sombra reduzida
                     }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }} // Duração ajustada
                   >
-                    <Star className="text-emerald-600 w-28 h-28 md:w-44 md:h-44 fill-emerald-600" />
+                    <Star className="text-emerald-600 w-12 h-12 md:w-24 md:h-24 fill-emerald-600" /> {/* Tamanho ajustado */}
                   </motion.div>
-                  <h1 className="text-[10rem] md:text-[16rem] font-black text-slate-900 tracking-tighter uppercase leading-none select-none italic">
+                  <h1 className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter uppercase leading-none select-none italic"> {/* Tamanho ajustado */}
                     CLEANING<span className="text-emerald-600">PORTAL</span>
                   </h1>
                 </div>
                 
-                {/* Barra de Carregamento NexaCore Elite */}
-                <div className="relative w-[40rem] h-6 bg-slate-50 rounded-full mb-16 shadow-inner border border-slate-100 overflow-hidden">
+                {/* Barra de Carregamento NexaCore Elite (OTIMIZADO) */}
+                <div className="relative w-[25rem] h-4 bg-slate-50 rounded-full mb-8 shadow-inner border border-slate-100 overflow-hidden"> {/* Largura e altura ajustadas */}
                   <motion.div 
                     initial={{ x: '-100%' }}
                     animate={{ x: '0%' }}
-                    transition={{ delay: 4, duration: 8, ease: "easeInOut" }}
+                    transition={{ delay: 4, duration: 6, ease: "easeInOut" }} // Duração ajustada
                     className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-emerald-500 to-emerald-200" 
                   />
                   <motion.div
                     animate={{ x: ['-100%', '100%'] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }} // Duração ajustada
                     className="absolute inset-0 w-1/3 bg-white/20 skew-x-12"
                   />
                 </div>
 
-                <p className="text-slate-400 font-black tracking-[3.5em] uppercase text-sm md:text-4xl pl-[3.5em] drop-shadow-sm">
+                <p className="text-xs md:text-xl font-black text-slate-400 tracking-[1.5em] uppercase pl-[1.5em] drop-shadow-sm"> {/* Tamanho e tracking ajustados */}
                   NexaCore LLC • Global Excellence
                 </p>
               </motion.div>
             </div>
 
-            {/* MÁSCARA DE LIMPEZA TOTAL (REVEAL V18) */}
+            {/* MÁSCARA DE LIMPEZA TOTAL (REVEAL V19) */}
             <motion.div
               initial={{ x: 0 }}
-              animate={{ x: '160%' }}
-              transition={{ duration: 12, ease: [0.45, 0.05, 0.55, 0.95] }}
+              animate={{ x: '100%' }}
+              transition={{ duration: 8, ease: [0.45, 0.05, 0.55, 0.95] }} // Duração ajustada
               className="absolute inset-0 z-40 bg-white pointer-events-none"
               style={{ 
                 background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 12%, rgba(255,255,255,1) 100%)',
-                boxShadow: '-80px 0 160px rgba(255,255,255,1)'
+                boxShadow: '-40px 0 80px rgba(255,255,255,1)' // Sombra reduzida
               }}
             />
           </div>
 
-          {/* Partículas de Brilho de Elite (Sparkles) */}
+          {/* Partículas de Brilho de Elite (Sparkles - OTIMIZADO) */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(25)].map((_, i) => (
+            {[...Array(10)].map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 
-                  opacity: [0, 1, 0], 
-                  scale: [0, 2, 0],
-                  x: [Math.random() * 1400 - 700, Math.random() * 1400 - 700],
-                  y: [Math.random() * 1400 - 700, Math.random() * 1400 - 700]
+                  opacity: [0, 0.8, 0], 
+                  scale: [0, 1.5, 0], // Escala reduzida
+                  x: [Math.random() * 800 - 400, Math.random() * 800 - 400], // Movimento reduzido
+                  y: [Math.random() * 800 - 400, Math.random() * 800 - 400]
                 }}
                 transition={{ 
-                  duration: 3, 
+                  duration: 2, // Duração reduzida
                   repeat: Infinity, 
-                  delay: Math.random() * 8,
+                  delay: Math.random() * 5, // Delay ajustado
                   ease: "easeInOut" 
                 }}
                 className="absolute left-1/2 top-1/2"
               >
-                <Sparkles className="text-emerald-300 w-8 h-8" />
+                <Sparkles className="text-emerald-300 w-6 h-6" /> {/* Tamanho reduzido */}
               </motion.div>
             ))}
           </div>
