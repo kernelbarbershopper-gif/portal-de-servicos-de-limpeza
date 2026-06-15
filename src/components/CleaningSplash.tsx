@@ -15,7 +15,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
 
   useEffect(() => {
     const controls = animate(sweepProgress, 100, {
-      duration: 3.5,
+      duration: 3.8,
       ease: [0.45, 0, 0.55, 1],
       onComplete: () => {
         setTimeout(() => {
@@ -68,7 +68,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
             </motion.div>
           </motion.div>
 
-          {/* Camada 3: A Vassoura Premium e Poeira */}
+          {/* Camada 3: A Vassoura Premium e Poeira Orgânica */}
           <motion.div
             style={{ x: maskX }}
             className="absolute inset-0 z-30 flex items-center justify-start pointer-events-none"
@@ -79,29 +79,49 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                 y: [0, -10, 0, -10, 0]
               }}
               transition={{ 
-                duration: 3.5, 
+                duration: 3.8, 
                 ease: "easeInOut"
               }}
               className="relative left-[-30px] top-[-250px] scale-90 md:scale-110"
             >
-              {/* Poeira em baixo da vassoura (Dust Particles) */}
-              {[...Array(12)].map((_, i) => (
+              {/* Poeira Volumosa e Orgânica (Cloud Style) */}
+              {[...Array(8)].map((_, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, scale: 0 }}
+                  initial={{ opacity: 0, scale: 0, x: 0, y: 190 }}
                   animate={{ 
-                    opacity: [0, 0.6, 0],
-                    scale: [0.5, 1.5, 0.5],
-                    x: [0, 40 + Math.random() * 40],
-                    y: [180, 190 + (Math.random() - 0.5) * 40]
+                    opacity: [0, 0.4, 0.2, 0],
+                    scale: [0.5, 2, 3, 2.5],
+                    x: [0, 60 + i * 10, 100 + i * 15],
+                    y: [190, 170 - i * 5, 180],
+                    rotate: [0, 45, 90]
                   }}
                   transition={{ 
-                    duration: 0.6, 
+                    duration: 1.2, 
                     repeat: Infinity, 
-                    delay: i * 0.05 
+                    delay: i * 0.15,
+                    ease: "easeOut"
                   }}
-                  className="absolute w-3 h-3 bg-slate-400/40 rounded-full blur-[4px]"
+                  className="absolute w-12 h-8 bg-gradient-to-r from-slate-400/20 to-slate-300/10 rounded-[40%] blur-[15px]"
                 />
+              ))}
+
+              {/* Partículas de "Faísca" de Limpeza */}
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={`spark-${i}`}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                    x: [-20, -50],
+                    y: [190, 180 + (i * 5)]
+                  }}
+                  transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+                  className="absolute"
+                >
+                  <Sparkles className="text-yellow-200 w-3 h-3" />
+                </motion.div>
               ))}
 
               <svg width="220" height="350" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,7 +179,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0.4, 0] }}
-            transition={{ delay: 3.3, duration: 0.4 }}
+            transition={{ delay: 3.5, duration: 0.4 }}
             className="absolute inset-0 bg-white z-[100] pointer-events-none"
           />
         </motion.div>
