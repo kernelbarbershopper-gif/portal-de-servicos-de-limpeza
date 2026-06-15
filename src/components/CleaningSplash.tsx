@@ -103,7 +103,7 @@ export default function CleaningSplash({ onComplete }: CleaningSplashProps) {
                 duration: 3.5, 
                 ease: "easeInOut"
               }}
-              className="relative left-[-30px] top-[-50px] scale-75 md:scale-90" // Vassoura mais para cima
+              className="relative left-[-30px] top-[0px] scale-75 md:scale-90" // Vassoura alinhada com o nome central
             >
               <svg width="180" height="300" viewBox="0 0 100 200" fill="none">
                 <rect x="46" y="0" width="8" height="140" rx="4" fill="url(#wood)" />
